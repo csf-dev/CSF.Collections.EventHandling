@@ -39,11 +39,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\TestIListExtensions.cs" />
-    <Compile Include="Collections\TestEventBoundListWrapper.cs" />
-    <Compile Include="Collections\TestEventBoundCollectionWrapper.cs" />
-    <Compile Include="Collections\TestReferenceCollection.cs" />
-    <Compile Include="Collections\TestReferenceList.cs" />
+    <Compile Include="TestEventBoundCollectionWrapper.cs" />
+    <Compile Include="TestEventBoundListWrapper.cs" />
+    <Compile Include="TestIListExtensions.cs" />
+    <Compile Include="TestReferenceCollection.cs" />
+    <Compile Include="TestReferenceList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -51,9 +51,6 @@
       <Project>{A89D3196-8E70-496D-9999-AA5B7AF1183D}</Project>
       <Name>CSF.Collections.EventHandling</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Collections\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

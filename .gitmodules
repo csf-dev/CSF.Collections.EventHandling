@@ -1,0 +1,3 @@
+[submodule "CSF.Reflection"]
+	path = CSF.Reflection
+	url = git@github.com:csf-dev/CSF.Reflection.git
