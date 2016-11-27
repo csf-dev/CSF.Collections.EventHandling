@@ -10,6 +10,7 @@
     <RootNamespace>CSF.Collections.EventHandling</RootNamespace>
     <AssemblyName>CSF.Collections.EventHandling</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>4.1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,10 +47,4 @@
     <Compile Include="CollectionExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\CSF.Reflection\CSF.Reflection.csproj">
-      <Project>{275413F6-0651-4AD4-A426-07EDA165C07E}</Project>
-      <Name>CSF.Reflection</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

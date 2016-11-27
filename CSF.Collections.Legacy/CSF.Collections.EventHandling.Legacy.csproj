@@ -39,6 +39,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Iesi.Collections">
       <HintPath>..\Common\Dependencies\Iesi.Collections.dll</HintPath>
+      <Package>iesi.collections-1.0.1</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>

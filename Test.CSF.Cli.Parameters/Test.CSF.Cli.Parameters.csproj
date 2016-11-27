@@ -10,6 +10,7 @@
     <RootNamespace>Test.CSF.Cli.Parameters</RootNamespace>
     <AssemblyName>Test.CSF.Cli.Parameters</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>4.1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Package>nunit</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -45,15 +47,5 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSF.Cli.Parameters\CSF.Cli.Parameters.csproj">
-      <Project>{295C293C-60FB-43F3-B728-C2BA5B7516BC}</Project>
-      <Name>CSF.Cli.Parameters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CSF.Reflection\CSF.Reflection.csproj">
-      <Project>{275413F6-0651-4AD4-A426-07EDA165C07E}</Project>
-      <Name>CSF.Reflection</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>

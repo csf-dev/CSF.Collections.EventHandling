@@ -10,6 +10,7 @@
     <RootNamespace>CSF.Data.Entities</RootNamespace>
     <AssemblyName>CSF.Data.Entities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>4.1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,10 +39,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\CSF.Data\CSF.Data.csproj">
-      <Project>{27BC821D-03D4-42A0-B379-F93D021E56EC}</Project>
-      <Name>CSF.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CSF.Entities\CSF.Entities.csproj">
       <Project>{7D7899E6-5920-4ACC-8F63-62A984DF156B}</Project>
       <Name>CSF.Entities</Name>
