@@ -35,22 +35,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EventBoundCollectionWrapper`1.cs" />
-    <Compile Include="EventBoundCollectionWrapper`2.cs" />
-    <Compile Include="EventBoundListWrapper`1.cs" />
-    <Compile Include="EventBoundSetWrapper.cs" />
-    <Compile Include="IEventBoundCollection`2.cs" />
-    <Compile Include="ReferenceCollection.cs" />
-    <Compile Include="ReferenceList.cs" />
-    <Compile Include="ListExtensions.cs" />
-    <Compile Include="SetExtensions.cs" />
-    <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="IEventHandlingCollectionWrapper.cs" />
+    <Compile Include="EventHandlingCollectionWrapper.cs" />
+    <Compile Include="CollectionItemEventArgs.cs" />
+    <Compile Include="CollectionItemBeforeActionEventArgs.cs" />
+    <Compile Include="ReplaceCollectionEventArgs.cs" />
+    <Compile Include="BeforeReplaceCollectionEventArgs.cs" />
+    <Compile Include="Impl\EventHandlingList.cs" />
+    <Compile Include="Impl\EventHandlingCollectionBase.cs" />
+    <Compile Include="ICancelable.cs" />
+    <Compile Include="Impl\EventHandlingSet.cs" />
+    <Compile Include="IEventHandlingCollection.cs" />
+    <Compile Include="EventHandlingListWrapper.cs" />
+    <Compile Include="EventHandlingSetWrapper.cs" />
+    <Compile Include="Impl\EventHandlingCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\CSF.Reflection\CSF.Reflection\CSF.Reflection.csproj">
-      <Project>{275413F6-0651-4AD4-A426-07EDA165C07E}</Project>
-      <Name>CSF.Reflection</Name>
-    </ProjectReference>
+    <Folder Include="Impl\" />
   </ItemGroup>
 </Project>

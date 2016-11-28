@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{11DCF35A-6E2A-4C62-B536-14B83FF5AE07}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Test.CSF</RootNamespace>
+    <RootNamespace>Test.CSF.Collections.EventHandling</RootNamespace>
     <AssemblyName>Test.CSF</AssemblyName>
     <ReleaseVersion>4.1.1</ReleaseVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -38,13 +38,6 @@
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TestEventBoundCollectionWrapper.cs" />
-    <Compile Include="TestEventBoundListWrapper.cs" />
-    <Compile Include="TestIListExtensions.cs" />
-    <Compile Include="TestReferenceCollection.cs" />
-    <Compile Include="TestReferenceList.cs" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\CSF.Collections.EventHandling\CSF.Collections.EventHandling.csproj">
@@ -54,5 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Impl\" />
+    <Folder Include="Mocks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Impl\TestEventHandlingList.cs" />
+    <Compile Include="Mocks\Person.cs" />
+    <Compile Include="Impl\EventHandlingCollectionTestBase.cs" />
+    <Compile Include="Impl\TestEventHandlingCollection.cs" />
+    <Compile Include="Impl\TestEventHandlingSet.cs" />
   </ItemGroup>
 </Project>
