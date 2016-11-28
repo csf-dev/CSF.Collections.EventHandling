@@ -25,187 +25,24 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace CSF.Collections.EventHandling
 {
-  /// <summary>
-  /// Concrete implementation of <see cref="T:IEventHandlingCollectionWrapper{TCollection,TItem}"/>, which can deal
-  /// with any collection implementation.
-  /// </summary>
-  public abstract class EventHandlingCollectionWrapper<TCollection,TItem> : IEventHandlingCollectionWrapper<TCollection,TItem>
-    where TCollection : class,ICollection<TItem>
+  public class EventHandlingCollectionWrapper<TItem> : EventHandlingCollectionWrapperBase<ICollection<TItem>,TItem>
     where TItem : class
   {
-    #region properties
-
-    private TCollection _wrappedCollection, _unwrappedCollection;
-
-    #endregion
-
-    #region properties
-
-    /// <summary>
-    /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
-    /// </summary>
-    /// <value>The event handling collection.</value>
-    public TCollection Collection
-    {
-      get {
-        return _wrappedCollection;
-      }
-    }
-
-    /// <summary>
-    /// Gets or set the source collection, which is not wrapped with modification events.
-    /// </summary>
-    /// <value>The source collection.</value>
-    public TCollection SourceCollection
-    {
-      get {
-        return _unwrappedCollection;
-      }
-      set {
-        var replacement = value;
-        if(HandleBeforeReplace(replacement))
-        {
-          var source = _unwrappedCollection;
-
-          ReplaceWrappedCollection(replacement);
-          _unwrappedCollection = replacement;
-
-          HandleAfterReplace(source, replacement);
-        }
-      }
-    }
-
-    /// <summary>
-    /// Gets the <see cref="Collection"/> as an event-handling collection instance.
-    /// </summary>
-    /// <value>The event handling collection.</value>
-    protected IEventHandlingCollection<TItem> EventHandlingCollection
-    {
-      get {
-        return (IEventHandlingCollection<TItem>) Collection;
-      }
-    }
-
-    #endregion
-
-    #region events
-
-    /// <summary>
-    /// Occurs before an item is added to the <see cref="Collection"/>.
-    /// </summary>
-    public event EventHandler BeforeAdd;
-
-    /// <summary>
-    /// Occurs after an item is added to the <see cref="Collection"/>.
-    /// </summary>
-    public event EventHandler AfterAdd;
-
-    /// <summary>
-    /// Occurs before an item is removed from the <see cref="Collection"/>.
-    /// </summary>
-    public event EventHandler BeforeRemove;
-
-    /// <summary>
-    /// Occurs after an item is removed from the <see cref="Collection"/>.
-    /// </summary>
-    public event EventHandler AfterRemove;
-
-    /// <summary>
-    /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
-    /// </summary>
-    public event EventHandler BeforeReplace;
-
-    /// <summary>
-    /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
-    /// </summary>
-    public event EventHandler AfterReplace;
-
-    #endregion
-
     #region methods
 
-    protected virtual void OnBeforeAdd(object sender, EventArgs ev)
+    protected override Impl.IEventHandlingCollection<TItem> CreateEventHandlingCollection(ICollection<TItem> newSourceCollection)
     {
-      BeforeAdd?.Invoke(this, ev);
+      return new Impl.EventHandlingCollection<TItem>(newSourceCollection);
     }
-
-    protected virtual void OnAfterAdd(object sender, EventArgs ev)
-    {
-      AfterAdd?.Invoke(this, ev);
-    }
-
-    protected virtual void OnBeforeRemove(object sender, EventArgs ev)
-    {
-      BeforeRemove?.Invoke(this, ev);
-    }
-
-    protected virtual void OnAfterRemove(object sender, EventArgs ev)
-    {
-      AfterRemove?.Invoke(this, ev);
-    }
-
-    protected virtual bool HandleBeforeReplace(TCollection replacement)
-    {
-      var args = new BeforeReplaceCollectionEventArgs<TCollection>(SourceCollection, replacement);
-      BeforeReplace?.Invoke(this, args);
-      return !args.IsCancelled;
-    }
-
-    protected virtual void HandleAfterReplace(TCollection source, TCollection replacement)
-    {
-      var args = new ReplaceCollectionEventArgs<TCollection>(source, replacement);
-      AfterReplace?.Invoke(this, args);
-    }
-
-    protected virtual void ReplaceWrappedCollection(TCollection newSourceCollection)
-    {
-      SetWrappedCollection(newSourceCollection);
-    }
-
-    private void SetWrappedCollection(TCollection sourceCollection)
-    {
-      var originalWrappedCollection = EventHandlingCollection;
-
-      if(originalWrappedCollection != null)
-      {
-        originalWrappedCollection.BeforeAdd     -= OnBeforeAdd;
-        originalWrappedCollection.AfterAdd      -= OnAfterAdd;
-        originalWrappedCollection.BeforeRemove  -= OnBeforeRemove;
-        originalWrappedCollection.AfterRemove   -= OnAfterRemove;
-      }
-
-      if(sourceCollection != null)
-      {
-        var replacement = CreateEventHandlingCollection(sourceCollection);
-
-        replacement.BeforeAdd     += OnBeforeAdd;
-        replacement.AfterAdd      += OnAfterAdd;
-        replacement.BeforeRemove  += OnBeforeRemove;
-        replacement.AfterRemove   += OnAfterRemove;
-
-        _unwrappedCollection = (TCollection) replacement;
-      }
-      else
-      {
-        _wrappedCollection = null;
-      }
-    }
-
-    protected abstract IEventHandlingCollection<TItem> CreateEventHandlingCollection(TCollection newSourceCollection);
 
     #endregion
 
     #region constructor
 
-    public EventHandlingCollectionWrapper(TCollection sourceCollection)
-    {
-      SetWrappedCollection(sourceCollection);
-      _unwrappedCollection = sourceCollection;
-    }
+    public EventHandlingCollectionWrapper(ICollection<TItem> source) : base(source) {}
 
     #endregion
   }

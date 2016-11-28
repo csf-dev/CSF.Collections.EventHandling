@@ -66,10 +66,30 @@ namespace CSF.Collections.EventHandling
     #endregion
   }
 
+  public interface IEventHandlingCollectionWrapper<TItem> : IEventHandlingCollectionWrapper
+    where TItem : class
+  {
+    #region properties
+
+    /// <summary>
+    /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
+    /// </summary>
+    /// <value>The event handling collection.</value>
+    ICollection<TItem> Collection { get; }
+
+    /// <summary>
+    /// Gets or set the source collection, which is not wrapped with modification events.
+    /// </summary>
+    /// <value>The source collection.</value>
+    ICollection<TItem> SourceCollection { get; set; }
+
+    #endregion
+  }
+
   /// <summary>
   /// Interface for a type which wraps a normal collection and triggers events when the collection is modified.
   /// </summary>
-  public interface IEventHandlingCollectionWrapper<TCollection,TItem> : IEventHandlingCollectionWrapper
+  public interface IEventHandlingCollectionWrapper<TCollection,TItem> : IEventHandlingCollectionWrapper<TItem>
     where TCollection : ICollection<TItem>
     where TItem : class
   {
@@ -79,13 +99,13 @@ namespace CSF.Collections.EventHandling
     /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
     /// </summary>
     /// <value>The event handling collection.</value>
-    TCollection Collection { get; }
+    new TCollection Collection { get; }
 
     /// <summary>
     /// Gets or set the source collection, which is not wrapped with modification events.
     /// </summary>
     /// <value>The source collection.</value>
-    TCollection SourceCollection { get; set; }
+    new TCollection SourceCollection { get; set; }
 
     #endregion
   }

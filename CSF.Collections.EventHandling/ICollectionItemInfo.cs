@@ -1,5 +1,5 @@
 ﻿//
-// IEventHandlingCollection.cs
+// ICollectionItemInfo.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,32 +24,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace CSF.Collections.EventHandling
 {
-  public interface IEventHandlingCollection<TItem> : ICollection<TItem>, ICollection
+  public interface ICollectionItemInfo<TItem>
   {
-    /// <summary>
-    /// Occurs before an item is added to the collection.
-    /// </summary>
-    event EventHandler BeforeAdd;
-
-    /// <summary>
-    /// Occurs after an item is added to the collection.
-    /// </summary>
-    event EventHandler AfterAdd;
-
-    /// <summary>
-    /// Occurs before an item is removed the collection.
-    /// </summary>
-    event EventHandler BeforeRemove;
-
-    /// <summary>
-    /// Occurs after an item is removed from the collection.
-    /// </summary>
-    event EventHandler AfterRemove;
+    TItem Item { get; }
   }
 }
 

@@ -28,12 +28,12 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventHandling
 {
-  public class EventHandlingListWrapper<TItem> : EventHandlingCollectionWrapper<IList<TItem>,TItem>
+  public class EventHandlingListWrapper<TItem> : EventHandlingCollectionWrapperBase<IList<TItem>,TItem>
     where TItem : class
   {
     #region methods
 
-    protected override IEventHandlingCollection<TItem> CreateEventHandlingCollection(IList<TItem> newSourceCollection)
+    protected override Impl.IEventHandlingCollection<TItem> CreateEventHandlingCollection(IList<TItem> newSourceCollection)
     {
       return new Impl.EventHandlingList<TItem>(newSourceCollection);
     }

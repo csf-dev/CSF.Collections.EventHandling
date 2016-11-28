@@ -1,5 +1,5 @@
 ﻿//
-// CollectionItemEventArgs.cs
+// IEventHandlingCollection.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -25,58 +25,31 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventHandling.Impl
 {
-  /// <summary>
-  /// Event arguments for the modification of an event-handling collection,
-  /// </summary>
-  public class CollectionItemEventArgs<TCollection,TItem> : EventArgs, ICollectionItemInfo<TItem>
-    where TCollection : ICollection<TItem>
+  public interface IEventHandlingCollection<TItem> : ICollection<TItem>, ICollection
   {
-    #region properties
+    /// <summary>
+    /// Occurs before an item is added to the collection.
+    /// </summary>
+    event EventHandler BeforeAdd;
 
     /// <summary>
-    /// Gets the item.
+    /// Occurs after an item is added to the collection.
     /// </summary>
-    /// <value>The item.</value>
-    public TItem Item
-    {
-      get;
-      protected set;
-    }
+    event EventHandler AfterAdd;
 
     /// <summary>
-    /// Gets the collection.
+    /// Occurs before an item is removed the collection.
     /// </summary>
-    /// <value>The collection.</value>
-    public TCollection Collection
-    {
-      get;
-      private set;
-    }
-
-    #endregion
-
-    #region constructor
+    event EventHandler BeforeRemove;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CSF.Collections.EventHandling.CollectionItemEventArgs`2"/> class.
+    /// Occurs after an item is removed from the collection.
     /// </summary>
-    /// <param name="collection">Collection.</param>
-    /// <param name="item">Item.</param>
-    public CollectionItemEventArgs(TCollection collection, TItem item)
-    {
-      if(collection == null)
-      {
-        throw new ArgumentNullException(nameof(collection));
-      }
-
-      Item = item;
-      Collection = collection;
-    }
-
-    #endregion
+    event EventHandler AfterRemove;
   }
 }
 
