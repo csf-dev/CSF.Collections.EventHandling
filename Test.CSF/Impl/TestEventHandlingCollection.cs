@@ -28,6 +28,8 @@ using Test.CSF.Collections.EventHandling.Mocks;
 using System.Collections.Generic;
 using CSF.Collections.EventHandling.Impl;
 using NUnit.Framework;
+using CSF.Collections.EventHandling;
+using System.Linq;
 
 namespace Test.CSF.Collections.EventHandling.Impl
 {
@@ -61,7 +63,69 @@ namespace Test.CSF.Collections.EventHandling.Impl
       Assert.NotNull(sut);
     }
 
-    // TODO: Add tests for Add, Clear and Remove
+    [Test]
+    public void Add_triggers_both_add_events()
+    {
+      // Arrange
+      var sut = new EventHandlingCollection<Person>(_source);
+
+      sut.BeforeAdd += RecordingCallbackOne;
+      sut.AfterAdd += RecordingCallbackTwo;
+
+      // Act
+      sut.Add(new Person());
+
+      sut.BeforeRemove -= RecordingCallbackOne;
+      sut.AfterRemove -= RecordingCallbackTwo;
+
+      // Assert
+      Assert.IsTrue(CallbackOneCalled, "Callback one");
+      Assert.IsTrue(CallbackTwoCalled, "Callback two");
+    }
+
+    [Test]
+    public void Remove_triggers_both_remove_events()
+    {
+      // Arrange
+      var sut = new EventHandlingCollection<Person>(_source);
+
+      sut.BeforeRemove += RecordingCallbackOne;
+      sut.AfterRemove += RecordingCallbackTwo;
+
+      // Act
+      sut.Remove(SourceCollection.First());
+
+      sut.BeforeRemove -= RecordingCallbackOne;
+      sut.AfterRemove -= RecordingCallbackTwo;
+
+      // Assert
+      Assert.IsTrue(CallbackOneCalled, "Callback one");
+      Assert.IsTrue(CallbackTwoCalled, "Callback two");
+    }
+
+    [Test]
+    public void Clear_triggers_both_remove_events_for_every_item()
+    {
+      // Arrange
+      int beforeRemoveCalls = 0, afterRemoveCalls = 0;
+      var sut = new EventHandlingCollection<Person>(_source);
+
+      EventHandler<BeforeModifyEventArgs<Person>> incrementBefore = (sender, e) => beforeRemoveCalls++;
+      EventHandler<AfterModifyEventArgs<Person>> incrementAfter = (sender, e) => afterRemoveCalls++;
+
+      sut.BeforeRemove += incrementBefore;
+      sut.AfterRemove += incrementAfter;
+
+      // Act
+      sut.Clear();
+
+      sut.BeforeRemove -= incrementBefore;
+      sut.AfterRemove -= incrementAfter;
+
+      // Assert
+      Assert.AreEqual(SourceCollection.Count, beforeRemoveCalls, "Before remove");
+      Assert.AreEqual(SourceCollection.Count, afterRemoveCalls, "After remove");
+    }
 
     #endregion
   }

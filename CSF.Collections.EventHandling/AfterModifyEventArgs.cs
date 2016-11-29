@@ -1,5 +1,5 @@
 ﻿//
-// EventHandlingCollection.cs
+// CollectionItemEventArgs.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,30 +24,58 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CSF.Collections.EventHandling.Impl;
-using CSF.Collections.EventHandling;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventHandling
 {
-  public class EventHandlingCollection<TItem> : EventHandlingCollectionBase<TItem>
+  /// <summary>
+  /// Event arguments for the modification of an event-handling collection,
+  /// </summary>
+  public class AfterModifyEventArgs<TItem> : EventArgs
   {
-    protected ICollection<TItem> GetSourceCollection()
+    #region properties
+
+    /// <summary>
+    /// Gets the item.
+    /// </summary>
+    /// <value>The item.</value>
+    public TItem Item
     {
-      return (ICollection<TItem>) SourceCollection;
+      get;
+      protected set;
     }
 
-    protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
+    /// <summary>
+    /// Gets the collection.
+    /// </summary>
+    /// <value>The collection.</value>
+    public ICollection<TItem> Collection
     {
-      return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
+      get;
+      private set;
     }
 
-    protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
+    #endregion
+
+    #region constructor
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CSF.Collections.EventHandling.AfterModifyEventArgs`1"/> class.
+    /// </summary>
+    /// <param name="collection">Collection.</param>
+    /// <param name="item">Item.</param>
+    public AfterModifyEventArgs(ICollection<TItem> collection, TItem item)
     {
-      return new AfterModifyEventArgs<TItem>(SourceCollection, item);
+      if(collection == null)
+      {
+        throw new ArgumentNullException(nameof(collection));
+      }
+
+      Item = item;
+      Collection = collection;
     }
 
-    public EventHandlingCollection(ICollection<TItem> source) : base(source) {}
+    #endregion
   }
 }
 

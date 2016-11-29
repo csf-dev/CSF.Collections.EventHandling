@@ -53,7 +53,7 @@ namespace Test.CSF.Collections.EventHandling.Impl
       private set;
     }
 
-    protected IEnumerable<Person> SourceCollection
+    protected IList<Person> SourceCollection
     {
       get;
       private set;

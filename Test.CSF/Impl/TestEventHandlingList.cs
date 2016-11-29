@@ -158,7 +158,45 @@ namespace Test.CSF.Collections.EventHandling.Impl
       Assert.IsFalse(CallbackOneCalled);
     }
 
-    // TODO: Add tests for RemoveAt and Insert
+    [Test]
+    public void RemoveAt_triggers_both_remove_events()
+    {
+      // Arrange
+      var sut = new EventHandlingList<Person>(_source);
+
+      sut.BeforeRemove += RecordingCallbackOne;
+      sut.AfterRemove += RecordingCallbackTwo;
+
+      // Act
+      sut.RemoveAt(1);
+
+      sut.BeforeRemove -= RecordingCallbackOne;
+      sut.AfterRemove -= RecordingCallbackTwo;
+
+      // Assert
+      Assert.IsTrue(CallbackOneCalled, "Callback one");
+      Assert.IsTrue(CallbackTwoCalled, "Callback two");
+    }
+
+    [Test]
+    public void Insert_triggers_both_add_events()
+    {
+      // Arrange
+      var sut = new EventHandlingList<Person>(_source);
+
+      sut.BeforeAdd += RecordingCallbackOne;
+      sut.AfterAdd += RecordingCallbackTwo;
+
+      // Act
+      sut.Insert(1, new Person());
+
+      sut.BeforeRemove -= RecordingCallbackOne;
+      sut.AfterRemove -= RecordingCallbackTwo;
+
+      // Assert
+      Assert.IsTrue(CallbackOneCalled, "Callback one");
+      Assert.IsTrue(CallbackTwoCalled, "Callback two");
+    }
 
     #endregion
   }

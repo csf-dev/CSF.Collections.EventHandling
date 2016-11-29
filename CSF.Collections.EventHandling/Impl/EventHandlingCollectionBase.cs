@@ -203,22 +203,22 @@ namespace CSF.Collections.EventHandling.Impl
     /// <summary>
     /// Occurs before an item is added to the collection.
     /// </summary>
-    public event EventHandler BeforeAdd;
+    public event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
 
     /// <summary>
     /// Occurs after an item is added to the collection.
     /// </summary>
-    public event EventHandler AfterAdd;
+    public event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
 
     /// <summary>
     /// Occurs before an item is removed the collection.
     /// </summary>
-    public event EventHandler BeforeRemove;
+    public event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
 
     /// <summary>
     /// Occurs after an item is removed from the collection.
     /// </summary>
-    public event EventHandler AfterRemove;
+    public event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
 
     #endregion
 
@@ -254,9 +254,9 @@ namespace CSF.Collections.EventHandling.Impl
       AfterRemove?.Invoke(this, args);
     }
 
-    protected abstract EventArgs CreateBeforeActionEventArgs(TItem item);
+    protected abstract BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item);
 
-    protected abstract EventArgs CreateAfterActionEventArgs(TItem item);
+    protected abstract AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item);
 
     #endregion
 

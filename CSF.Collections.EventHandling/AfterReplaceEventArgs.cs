@@ -1,5 +1,5 @@
 ﻿//
-// CollectionItemEventArgs.cs
+// ReplaceCollectionEventArgs.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,33 +24,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace CSF.Collections.EventHandling
 {
-  /// <summary>
-  /// Event arguments for the modification of an event-handling collection,
-  /// </summary>
-  public class CollectionItemEventArgs<TCollection,TItem> : EventArgs, ICollectionItemInfo<TItem>
-    where TCollection : ICollection<TItem>
+  public class AfterReplaceEventArgs<TCollection> : EventArgs
   {
     #region properties
 
     /// <summary>
-    /// Gets the item.
+    /// Gets the original collection to be replaced.
     /// </summary>
-    /// <value>The item.</value>
-    public TItem Item
+    /// <value>The original collection.</value>
+    public TCollection Original
     {
       get;
-      protected set;
+      private set;
     }
 
     /// <summary>
-    /// Gets the collection.
+    /// Gets the replacement collection.
     /// </summary>
-    /// <value>The collection.</value>
-    public TCollection Collection
+    /// <value>The replacement collection.</value>
+    public TCollection Replacement
     {
       get;
       private set;
@@ -61,19 +57,15 @@ namespace CSF.Collections.EventHandling
     #region constructor
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CSF.Collections.EventHandling.CollectionItemEventArgs`2"/> class.
+    /// Initializes a new instance of the
+    /// <see cref="T:CSF.Collections.EventHandling.ReplaceCollectionEventArgs{TCollection}"/> class.
     /// </summary>
-    /// <param name="collection">Collection.</param>
-    /// <param name="item">Item.</param>
-    public CollectionItemEventArgs(TCollection collection, TItem item)
+    /// <param name="original">Original collection.</param>
+    /// <param name="replacement">The replacement collection.</param>
+    public AfterReplaceEventArgs(TCollection original, TCollection replacement)
     {
-      if(collection == null)
-      {
-        throw new ArgumentNullException(nameof(collection));
-      }
-
-      Item = item;
-      Collection = collection;
+      Original = original;
+      Replacement = replacement;
     }
 
     #endregion

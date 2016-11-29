@@ -1,5 +1,5 @@
 ﻿//
-// ICollectionItemInfo.cs
+// CollectionItemBeforeActionEventArgs.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,12 +24,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 
 namespace CSF.Collections.EventHandling
 {
-  public interface ICollectionItemInfo<TItem>
+  public class BeforeModifyEventArgs<TItem> : AfterModifyEventArgs<TItem>, ICancelable
   {
-    TItem Item { get; }
+    #region properties
+
+    public bool IsCancelled
+    {
+      get;
+      private set;
+    }
+
+    #endregion
+
+    #region methods
+
+    public void Cancel()
+    {
+      IsCancelled = true;
+    }
+
+    #endregion
+
+    #region constructor
+
+    public BeforeModifyEventArgs(ICollection<TItem> collection, TItem item) : base(collection, item)
+    {
+      IsCancelled = false;
+    }
+
+    #endregion
   }
 }
 

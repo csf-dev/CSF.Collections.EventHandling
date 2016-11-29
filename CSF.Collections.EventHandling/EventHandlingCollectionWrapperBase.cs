@@ -39,7 +39,7 @@ namespace CSF.Collections.EventHandling
     where TCollection : class,ICollection<TItem>
     where TItem : class
   {
-    #region properties
+    #region fields
 
     private TCollection _wrappedCollection, _unwrappedCollection;
 
@@ -99,32 +99,32 @@ namespace CSF.Collections.EventHandling
     /// <summary>
     /// Occurs before an item is added to the <see cref="Collection"/>.
     /// </summary>
-    public event EventHandler BeforeAdd;
+    public event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
 
     /// <summary>
     /// Occurs after an item is added to the <see cref="Collection"/>.
     /// </summary>
-    public event EventHandler AfterAdd;
+    public event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
 
     /// <summary>
     /// Occurs before an item is removed from the <see cref="Collection"/>.
     /// </summary>
-    public event EventHandler BeforeRemove;
+    public event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
 
     /// <summary>
     /// Occurs after an item is removed from the <see cref="Collection"/>.
     /// </summary>
-    public event EventHandler AfterRemove;
+    public event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
 
     /// <summary>
     /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
     /// </summary>
-    public event EventHandler BeforeReplace;
+    public event EventHandler<BeforeReplaceEventArgs<TCollection>> BeforeReplace;
 
     /// <summary>
     /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
     /// </summary>
-    public event EventHandler AfterReplace;
+    public event EventHandler<AfterReplaceEventArgs<TCollection>> AfterReplace;
 
     #endregion
 
@@ -152,36 +152,36 @@ namespace CSF.Collections.EventHandling
 
     #region methods
 
-    protected virtual void OnBeforeAdd(object sender, EventArgs ev)
+    protected virtual void OnBeforeAdd(object sender, BeforeModifyEventArgs<TItem> ev)
     {
       BeforeAdd?.Invoke(this, ev);
     }
 
-    protected virtual void OnAfterAdd(object sender, EventArgs ev)
+    protected virtual void OnAfterAdd(object sender, AfterModifyEventArgs<TItem> ev)
     {
       AfterAdd?.Invoke(this, ev);
     }
 
-    protected virtual void OnBeforeRemove(object sender, EventArgs ev)
+    protected virtual void OnBeforeRemove(object sender, BeforeModifyEventArgs<TItem> ev)
     {
       BeforeRemove?.Invoke(this, ev);
     }
 
-    protected virtual void OnAfterRemove(object sender, EventArgs ev)
+    protected virtual void OnAfterRemove(object sender, AfterModifyEventArgs<TItem> ev)
     {
       AfterRemove?.Invoke(this, ev);
     }
 
     protected virtual bool HandleBeforeReplace(TCollection replacement)
     {
-      var args = new BeforeReplaceCollectionEventArgs<TCollection>(SourceCollection, replacement);
+      var args = new BeforeReplaceEventArgs<TCollection>(SourceCollection, replacement);
       BeforeReplace?.Invoke(this, args);
       return !args.IsCancelled;
     }
 
     protected virtual void HandleAfterReplace(TCollection source, TCollection replacement)
     {
-      var args = new ReplaceCollectionEventArgs<TCollection>(source, replacement);
+      var args = new AfterReplaceEventArgs<TCollection>(source, replacement);
       AfterReplace?.Invoke(this, args);
     }
 
@@ -211,7 +211,7 @@ namespace CSF.Collections.EventHandling
         replacement.BeforeRemove  += OnBeforeRemove;
         replacement.AfterRemove   += OnAfterRemove;
 
-        _unwrappedCollection = (TCollection) replacement;
+        _wrappedCollection = (TCollection) replacement;
       }
       else
       {

@@ -1,5 +1,5 @@
 ﻿//
-// EventHandlingCollectionExtensions.cs
+// EventHandlingCollectionWrapperExtensions.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -29,111 +29,66 @@ namespace CSF.Collections.EventHandling
 {
   public static class EventHandlingCollectionWrapperExtensions
   {
-    #region extension methods
-
-    public static void AfterAddItem<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                           Action<TItem> action)
+    public static void SetupEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
+                                          Func<TItem,bool> beforeAdd = null,
+                                          Func<TItem,bool> beforeRemove = null,
+                                          Action<TItem> afterAdd = null,
+                                          Action<TItem> afterRemove = null)
       where TItem : class
     {
       if(wrapper == null)
       {
         throw new ArgumentNullException(nameof(wrapper));
       }
-      if(action == null)
+
+      if(beforeAdd != null)
       {
-        throw new ArgumentNullException(nameof(action));
+        wrapper.BeforeAdd += (sender, e) => {
+          var ok = beforeAdd(e.Item);
+          if(!ok)
+          {
+            e.Cancel();
+          }
+        };
       }
 
-      wrapper.AfterAdd += (sender, e) => {
-        var args = e as ICollectionItemInfo<TItem>;
-        if(args != null)
-        {
-          action(args.Item);
-        }
-      };
+      if(beforeRemove != null)
+      {
+        wrapper.BeforeRemove += (sender, e) => {
+          var ok = beforeRemove(e.Item);
+          if(!ok)
+          {
+            e.Cancel();
+          }
+        };
+      }
+
+      if(afterAdd != null)
+      {
+        wrapper.AfterAdd += (sender, e) => afterAdd(e.Item);
+      }
+
+      if(afterRemove != null)
+      {
+        wrapper.AfterRemove += (sender, e) => afterRemove(e.Item);
+      }
     }
 
-    public static void AfterRemoveItem<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                              Action<TItem> action)
+    public static void SetupAfterEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
+                                               Action<TItem> add = null,
+                                               Action<TItem> remove = null)
       where TItem : class
     {
-      if(wrapper == null)
-      {
-        throw new ArgumentNullException(nameof(wrapper));
-      }
-      if(action == null)
-      {
-        throw new ArgumentNullException(nameof(action));
-      }
-
-      wrapper.AfterRemove += (sender, e) => {
-        var args = e as ICollectionItemInfo<TItem>;
-        if(args != null)
-        {
-          action(args.Item);
-        }
-      };
+      SetupEvents(wrapper, afterAdd: add, afterRemove: remove);
     }
 
-    public static void BeforeAddItem<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                            Func<TItem,bool> action)
+    public static void SetupBeforeEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
+                                                Func<TItem,bool> add = null,
+                                                Func<TItem,bool> remove = null)
       where TItem : class
     {
-      if(wrapper == null)
-      {
-        throw new ArgumentNullException(nameof(wrapper));
-      }
-      if(action == null)
-      {
-        throw new ArgumentNullException(nameof(action));
-      }
-
-      wrapper.BeforeAdd += (sender, e) => {
-        var args = e as ICollectionItemInfo<TItem>;
-        bool okToContinue = true;
-        if(args != null)
-        {
-          okToContinue = action(args.Item);
-        }
-
-        var cancelable = e as ICancelable;
-        if(cancelable != null && !okToContinue)
-        {
-          cancelable.Cancel();
-        }
-      };
+      SetupEvents(wrapper, beforeAdd: add, beforeRemove: remove);
     }
-
-    public static void BeforeRemoveItem<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                               Func<TItem,bool> action)
-      where TItem : class
-    {
-      if(wrapper == null)
-      {
-        throw new ArgumentNullException(nameof(wrapper));
-      }
-      if(action == null)
-      {
-        throw new ArgumentNullException(nameof(action));
-      }
-
-      wrapper.BeforeRemove += (sender, e) => {
-        var args = e as ICollectionItemInfo<TItem>;
-        bool okToContinue = true;
-        if(args != null)
-        {
-          okToContinue = action(args.Item);
-        }
-
-        var cancelable = e as ICancelable;
-        if(cancelable != null && !okToContinue)
-        {
-          cancelable.Cancel();
-        }
-      };
-    }
-
-    #endregion
   }
 }
 

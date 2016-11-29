@@ -1,5 +1,5 @@
 ﻿//
-// ReplaceCollectionEventArgs.cs
+// Child.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,48 +24,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
 
-namespace CSF.Collections.EventHandling
+namespace Test.CSF.Collections.EventHandling.Mocks
 {
-  public class ReplaceCollectionEventArgs<TCollection> : EventArgs
+  public class Child
   {
     #region properties
 
-    /// <summary>
-    /// Gets the original collection to be replaced.
-    /// </summary>
-    /// <value>The original collection.</value>
-    public TCollection Original
+    public virtual Parent Parent
     {
       get;
-      private set;
-    }
-
-    /// <summary>
-    /// Gets the replacement collection.
-    /// </summary>
-    /// <value>The replacement collection.</value>
-    public TCollection Replacement
-    {
-      get;
-      private set;
-    }
-
-    #endregion
-
-    #region constructor
-
-    /// <summary>
-    /// Initializes a new instance of the
-    /// <see cref="T:CSF.Collections.EventHandling.ReplaceCollectionEventArgs{TCollection}"/> class.
-    /// </summary>
-    /// <param name="original">Original collection.</param>
-    /// <param name="replacement">The replacement collection.</param>
-    public ReplaceCollectionEventArgs(TCollection original, TCollection replacement)
-    {
-      Original = original;
-      Replacement = replacement;
+      set;
     }
 
     #endregion

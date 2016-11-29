@@ -1,5 +1,5 @@
 ﻿//
-// BeforeReplaceCollectionEventArgs.cs
+// EventHandlingCollectionWrapperIntegrationTests.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,36 +24,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
+using NUnit.Framework;
+using CSF.Collections.EventHandling;
+using Test.CSF.Collections.EventHandling.Mocks;
 
-namespace CSF.Collections.EventHandling
+namespace Test.CSF.Collections.EventHandling
 {
-  public class BeforeReplaceCollectionEventArgs<TCollection> : ReplaceCollectionEventArgs<TCollection>, ICancelable
+  [TestFixture]
+  public class EventHandlingCollectionWrapperIntegrationTests
   {
-    #region properties
+    #region tests
 
-    public bool IsCancelled
+    [Test]
+    public void Reference_filling_collection_backfills_parent_on_add()
     {
-      get;
-      private set;
+      // Arrange
+      var parent = new Parent();
+      var child = new Child();
+
+      // Act
+      parent.Children.Add(child);
+
+      // Assert
+      Assert.AreSame(parent, child.Parent);
     }
 
-    #endregion
-
-    #region methods
-
-    public void Cancel()
+    [Test]
+    public void Reference_filling_collection_sets_parent_to_null_on_remove()
     {
-      IsCancelled = true;
-    }
+      // Arrange
+      var parent = new Parent();
+      var child = new Child();
 
-    #endregion
+      // Act
+      parent.Children.Add(child);
+      parent.Children.Remove(child);
 
-    #region constructor
-
-    public BeforeReplaceCollectionEventArgs(TCollection original, TCollection replacement) : base(original, replacement)
-    {
-      IsCancelled = false;
+      // Assert
+      Assert.IsNull(child.Parent);
     }
 
     #endregion

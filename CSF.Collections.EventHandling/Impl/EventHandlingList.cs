@@ -130,14 +130,14 @@ namespace CSF.Collections.EventHandling.Impl
       return (IList<TItem>) SourceCollection;
     }
 
-    protected override EventArgs CreateBeforeActionEventArgs(TItem item)
+    protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
     {
-      return new CollectionItemBeforeActionEventArgs<IList<TItem>,TItem>(GetSourceCollection(), item);
+      return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
     }
 
-    protected override EventArgs CreateAfterActionEventArgs(TItem item)
+    protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
     {
-      return new CollectionItemEventArgs<IList<TItem>,TItem>(GetSourceCollection(), item);
+      return new AfterModifyEventArgs<TItem>(SourceCollection, item);
     }
 
     #endregion

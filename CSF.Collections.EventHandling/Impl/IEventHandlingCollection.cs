@@ -34,22 +34,22 @@ namespace CSF.Collections.EventHandling.Impl
     /// <summary>
     /// Occurs before an item is added to the collection.
     /// </summary>
-    event EventHandler BeforeAdd;
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
 
     /// <summary>
     /// Occurs after an item is added to the collection.
     /// </summary>
-    event EventHandler AfterAdd;
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
 
     /// <summary>
     /// Occurs before an item is removed the collection.
     /// </summary>
-    event EventHandler BeforeRemove;
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
 
     /// <summary>
     /// Occurs after an item is removed from the collection.
     /// </summary>
-    event EventHandler AfterRemove;
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
   }
 }
 

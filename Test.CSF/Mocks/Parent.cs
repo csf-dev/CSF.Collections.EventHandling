@@ -1,5 +1,5 @@
 ﻿//
-// CollectionItemBeforeActionEventArgs.cs
+// Parent.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,37 +24,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using CSF.Collections.EventHandling;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace Test.CSF.Collections.EventHandling.Mocks
 {
-  public class CollectionItemBeforeActionEventArgs<TCollection,TItem> : CollectionItemEventArgs<TCollection,TItem>, ICancelable
-    where TCollection : ICollection<TItem>
+  public class Parent
   {
-    #region properties
+    #region fields
 
-    public bool IsCancelled
-    {
-      get;
-      private set;
-    }
+    private EventHandlingSetWrapper<Child> _children;
 
     #endregion
 
-    #region methods
+    #region properties
 
-    public void Cancel()
-    {
-      IsCancelled = true;
+    public virtual ISet<Child> Children { get { return _children.Collection; } }
+
+    protected virtual ISet<Child> ChildrenSource {
+      get { return _children.SourceCollection; }
+      set { _children.SourceCollection = value; }
     }
 
     #endregion
 
     #region constructor
 
-    public CollectionItemBeforeActionEventArgs(TCollection collection, TItem item) : base(collection, item)
+    public Parent()
     {
-      IsCancelled = false;
+      _children = new EventHandlingSetWrapper<Child>(new HashSet<Child>());
+      _children.SetupAfterEvents(x => x.Parent = this, x => x.Parent = null);
     }
 
     #endregion

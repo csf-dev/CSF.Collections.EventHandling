@@ -58,5 +58,8 @@
     <Compile Include="Impl\EventHandlingCollectionTestBase.cs" />
     <Compile Include="Impl\TestEventHandlingCollection.cs" />
     <Compile Include="Impl\TestEventHandlingSet.cs" />
+    <Compile Include="EventHandlingCollectionWrapperIntegrationTests.cs" />
+    <Compile Include="Mocks\Child.cs" />
+    <Compile Include="Mocks\Parent.cs" />
   </ItemGroup>
 </Project>

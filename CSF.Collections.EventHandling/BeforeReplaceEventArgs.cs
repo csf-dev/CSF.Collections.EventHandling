@@ -1,5 +1,5 @@
 ﻿//
-// EventHandlingCollection.cs
+// BeforeReplaceCollectionEventArgs.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,30 +24,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CSF.Collections.EventHandling.Impl;
-using CSF.Collections.EventHandling;
-using System.Collections.Generic;
+using System.Collections;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventHandling
 {
-  public class EventHandlingCollection<TItem> : EventHandlingCollectionBase<TItem>
+  public class BeforeReplaceEventArgs<TCollection> : AfterReplaceEventArgs<TCollection>, ICancelable
   {
-    protected ICollection<TItem> GetSourceCollection()
+    #region properties
+
+    public bool IsCancelled
     {
-      return (ICollection<TItem>) SourceCollection;
+      get;
+      private set;
     }
 
-    protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
+    #endregion
+
+    #region methods
+
+    public void Cancel()
     {
-      return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
+      IsCancelled = true;
     }
 
-    protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
+    #endregion
+
+    #region constructor
+
+    public BeforeReplaceEventArgs(TCollection original, TCollection replacement) : base(original, replacement)
     {
-      return new AfterModifyEventArgs<TItem>(SourceCollection, item);
+      IsCancelled = false;
     }
 
-    public EventHandlingCollection(ICollection<TItem> source) : base(source) {}
+    #endregion
   }
 }
 

@@ -29,44 +29,7 @@ using System.Collections;
 
 namespace CSF.Collections.EventHandling
 {
-  public interface IEventHandlingCollectionWrapper
-  {
-    #region events
-
-    /// <summary>
-    /// Occurs before an item is added to the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler BeforeAdd;
-
-    /// <summary>
-    /// Occurs after an item is added to the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler AfterAdd;
-
-    /// <summary>
-    /// Occurs before an item is removed from the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler BeforeRemove;
-
-    /// <summary>
-    /// Occurs after an item is removed from the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler AfterRemove;
-
-    /// <summary>
-    /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
-    /// </summary>
-    event EventHandler BeforeReplace;
-
-    /// <summary>
-    /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
-    /// </summary>
-    event EventHandler AfterReplace;
-
-    #endregion
-  }
-
-  public interface IEventHandlingCollectionWrapper<TItem> : IEventHandlingCollectionWrapper
+  public interface IEventHandlingCollectionWrapper<TItem>
     where TItem : class
   {
     #region properties
@@ -82,6 +45,30 @@ namespace CSF.Collections.EventHandling
     /// </summary>
     /// <value>The source collection.</value>
     ICollection<TItem> SourceCollection { get; set; }
+
+    #endregion
+
+    #region events
+
+    /// <summary>
+    /// Occurs before an item is added to the <see cref="Collection"/>.
+    /// </summary>
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
+
+    /// <summary>
+    /// Occurs after an item is added to the <see cref="Collection"/>.
+    /// </summary>
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
+
+    /// <summary>
+    /// Occurs before an item is removed from the <see cref="Collection"/>.
+    /// </summary>
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
+
+    /// <summary>
+    /// Occurs after an item is removed from the <see cref="Collection"/>.
+    /// </summary>
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
 
     #endregion
   }
@@ -106,6 +93,20 @@ namespace CSF.Collections.EventHandling
     /// </summary>
     /// <value>The source collection.</value>
     new TCollection SourceCollection { get; set; }
+
+    #endregion
+
+    #region events
+
+    /// <summary>
+    /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
+    /// </summary>
+    event EventHandler<BeforeReplaceEventArgs<TCollection>> BeforeReplace;
+
+    /// <summary>
+    /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
+    /// </summary>
+    event EventHandler<AfterReplaceEventArgs<TCollection>> AfterReplace;
 
     #endregion
   }

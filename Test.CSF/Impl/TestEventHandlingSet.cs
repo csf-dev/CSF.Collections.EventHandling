@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using Test.CSF.Collections.EventHandling.Mocks;
 using CSF.Collections.EventHandling.Impl;
 using NUnit.Framework;
+using CSF.Collections.EventHandling;
+using System.Linq;
 
 namespace Test.CSF.Collections.EventHandling.Impl
 {
@@ -61,7 +63,52 @@ namespace Test.CSF.Collections.EventHandling.Impl
       Assert.NotNull(sut);
     }
 
-    // TODO: Add tests for Add, AddAll, RemoveAll, SymmetricExceptWith and UnionWith
+    [Test]
+    public void Add_triggers_both_add_events()
+    {
+      // Arrange
+      var sut = new EventHandlingCollection<Person>(_source);
+
+      sut.BeforeAdd += RecordingCallbackOne;
+      sut.AfterAdd += RecordingCallbackTwo;
+
+      // Act
+      sut.Add(new Person());
+
+      sut.BeforeRemove -= RecordingCallbackOne;
+      sut.AfterRemove -= RecordingCallbackTwo;
+
+      // Assert
+      Assert.IsTrue(CallbackOneCalled, "Callback one");
+      Assert.IsTrue(CallbackTwoCalled, "Callback two");
+    }
+
+    [Test]
+    public void AddAll_triggers_both_add_events_for_each_item()
+    {
+      // Arrange
+      int beforeAddCalls = 0, afterAddCalls = 0;
+      var sut = new EventHandlingSet<Person>(_source);
+
+      EventHandler<BeforeModifyEventArgs<Person>> incrementBefore = (sender, e) => beforeAddCalls++;
+      EventHandler<AfterModifyEventArgs<Person>> incrementAfter = (sender, e) => afterAddCalls++;
+
+      int itemCount = 3;
+      var items = Enumerable.Range(0, 3).Select(x => new Person());
+
+      sut.BeforeAdd += incrementBefore;
+      sut.AfterAdd += incrementAfter;
+
+      // Act
+      sut.AddAll(items);
+
+      sut.BeforeAdd -= incrementBefore;
+      sut.AfterAdd -= incrementAfter;
+
+      // Assert
+      Assert.AreEqual(itemCount, beforeAddCalls, "Before add");
+      Assert.AreEqual(itemCount, afterAddCalls, "After add");
+    }
 
     #endregion
   }
