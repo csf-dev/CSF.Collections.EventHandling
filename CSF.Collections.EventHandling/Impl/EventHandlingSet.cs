@@ -30,6 +30,7 @@ using System.Linq;
 namespace CSF.Collections.EventHandling.Impl
 {
   public class EventHandlingSet<TItem> :  EventHandlingCollectionBase<TItem>, ISet<TItem>
+    where TItem : class
   {
     #region ISet implementation
 

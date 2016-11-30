@@ -51,6 +51,8 @@
     <Compile Include="BeforeModifyEventArgs.cs" />
     <Compile Include="AfterModifyEventArgs.cs" />
     <Compile Include="EventHandlingCollectionWrapperExtensions.cs" />
+    <Compile Include="IBeforeModify.cs" />
+    <Compile Include="IAfterModify.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

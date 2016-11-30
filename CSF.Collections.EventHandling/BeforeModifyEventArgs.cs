@@ -28,7 +28,8 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventHandling
 {
-  public class BeforeModifyEventArgs<TItem> : AfterModifyEventArgs<TItem>, ICancelable
+  public class BeforeModifyEventArgs<TItem> : AfterModifyEventArgs<TItem>, IBeforeModify<TItem>, ICancelable
+    where TItem : class
   {
     #region properties
 

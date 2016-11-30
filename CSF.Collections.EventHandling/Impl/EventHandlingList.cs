@@ -32,6 +32,7 @@ namespace CSF.Collections.EventHandling.Impl
   /// Implementation of a generic <c>IList&lt;T&gt;</c> with added before/after add/remove events.
   /// </summary>
   public class EventHandlingList<TItem> :  EventHandlingCollectionBase<TItem>, IList<TItem>
+    where TItem : class
   {
     #region IList implementation
 

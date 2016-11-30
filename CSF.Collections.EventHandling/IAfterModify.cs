@@ -1,5 +1,5 @@
 ﻿//
-// IEventHandlingCollection.cs
+// IAfterModify.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -25,32 +25,14 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventHandling
 {
-  public interface IEventHandlingCollection<TItem> : ICollection<TItem>, ICollection
-    where TItem : class
+  public interface IAfterModify<TItem> where TItem : class
   {
-    /// <summary>
-    /// Occurs before an item is added to the collection.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
+    TItem Item { get; }
 
-    /// <summary>
-    /// Occurs after an item is added to the collection.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
-
-    /// <summary>
-    /// Occurs before an item is removed the collection.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
-
-    /// <summary>
-    /// Occurs after an item is removed from the collection.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
+    ICollection<TItem> Collection { get; }
   }
 }
 

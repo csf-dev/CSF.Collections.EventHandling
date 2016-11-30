@@ -53,7 +53,7 @@ namespace Test.CSF.Collections.EventHandling.Mocks
     public Parent()
     {
       _children = new EventHandlingSetWrapper<Child>(new HashSet<Child>());
-      _children.SetupAfterEvents(x => x.Parent = this, x => x.Parent = null);
+      _children.SetupAfterEvents(x => x.Item.Parent = this, x => x.Item.Parent = null);
     }
 
     #endregion

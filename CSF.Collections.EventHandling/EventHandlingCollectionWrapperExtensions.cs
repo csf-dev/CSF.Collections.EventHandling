@@ -30,10 +30,10 @@ namespace CSF.Collections.EventHandling
   public static class EventHandlingCollectionWrapperExtensions
   {
     public static void SetupEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                          Func<TItem,bool> beforeAdd = null,
-                                          Func<TItem,bool> beforeRemove = null,
-                                          Action<TItem> afterAdd = null,
-                                          Action<TItem> afterRemove = null)
+                                          Action<IBeforeModify<TItem>> beforeAdd = null,
+                                          Action<IBeforeModify<TItem>> beforeRemove = null,
+                                          Action<IAfterModify<TItem>> afterAdd = null,
+                                          Action<IAfterModify<TItem>> afterRemove = null)
       where TItem : class
     {
       if(wrapper == null)
@@ -43,48 +43,36 @@ namespace CSF.Collections.EventHandling
 
       if(beforeAdd != null)
       {
-        wrapper.BeforeAdd += (sender, e) => {
-          var ok = beforeAdd(e.Item);
-          if(!ok)
-          {
-            e.Cancel();
-          }
-        };
+        wrapper.BeforeAdd += (sender, e) => beforeAdd(e);
       }
 
       if(beforeRemove != null)
       {
-        wrapper.BeforeRemove += (sender, e) => {
-          var ok = beforeRemove(e.Item);
-          if(!ok)
-          {
-            e.Cancel();
-          }
-        };
+        wrapper.BeforeRemove += (sender, e) => beforeRemove(e);
       }
 
       if(afterAdd != null)
       {
-        wrapper.AfterAdd += (sender, e) => afterAdd(e.Item);
+        wrapper.AfterAdd += (sender, e) => afterAdd(e);
       }
 
       if(afterRemove != null)
       {
-        wrapper.AfterRemove += (sender, e) => afterRemove(e.Item);
+        wrapper.AfterRemove += (sender, e) => afterRemove(e);
       }
     }
 
     public static void SetupAfterEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                               Action<TItem> add = null,
-                                               Action<TItem> remove = null)
+                                               Action<IAfterModify<TItem>> add = null,
+                                               Action<IAfterModify<TItem>> remove = null)
       where TItem : class
     {
       SetupEvents(wrapper, afterAdd: add, afterRemove: remove);
     }
 
     public static void SetupBeforeEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
-                                                Func<TItem,bool> add = null,
-                                                Func<TItem,bool> remove = null)
+                                                Action<IBeforeModify<TItem>> add = null,
+                                                Action<IBeforeModify<TItem>> remove = null)
       where TItem : class
     {
       SetupEvents(wrapper, beforeAdd: add, beforeRemove: remove);

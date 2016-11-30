@@ -31,7 +31,8 @@ namespace CSF.Collections.EventHandling
   /// <summary>
   /// Event arguments for the modification of an event-handling collection,
   /// </summary>
-  public class AfterModifyEventArgs<TItem> : EventArgs
+  public class AfterModifyEventArgs<TItem> : EventArgs, IAfterModify<TItem>
+    where TItem : class
   {
     #region properties
 

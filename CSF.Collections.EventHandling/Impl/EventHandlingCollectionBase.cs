@@ -35,6 +35,7 @@ namespace CSF.Collections.EventHandling.Impl
   /// </summary>
   [Serializable]
   public abstract class EventHandlingCollectionBase<TItem> : IEventHandlingCollection<TItem>
+    where TItem : class
   {
     #region fields
 

@@ -31,6 +31,7 @@ using System.Collections.Generic;
 namespace CSF.Collections.EventHandling.Impl
 {
   public class EventHandlingCollection<TItem> : EventHandlingCollectionBase<TItem>
+    where TItem : class
   {
     protected ICollection<TItem> GetSourceCollection()
     {
