@@ -1,10 +1,10 @@
-//
-// CommonAssemblyInfo.cs
+﻿//
+// AssemblyInfo.cs
 //
 // Author:
-//       Craig Fowler <craig@csf-dev.com>
+//       Craig Fowler <craig@craigfowler.me.uk>
 //
-// Copyright (c) 2015 CSF Software Limited
+// Copyright (c) 2016 Craig Fowler
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyTitle("CSF.Collections.EventRaising")]
+[assembly: AssemblyDescription("Collection types (and wrappers) which provide callbacks for events")]
 [assembly: AssemblyCompany("CSF Software Limited")]
 [assembly: AssemblyProduct("CSF Software Utilities")]
 [assembly: AssemblyCopyright("CSF Software Limited")]
@@ -37,9 +40,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
-// The form "{Major}.{Minor}.*" will automatically update the build and revision,
-// and "{Major}.{Minor}.{Build}.*" will update just the revision.
-
-[assembly: AssemblyVersion("5.0.0")]
+[assembly: AssemblyVersion("6.0.0")]
 
