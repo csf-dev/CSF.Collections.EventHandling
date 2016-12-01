@@ -1,21 +1,33 @@
 # Event-raising collections
 This library introduces a wrapper for `ICollection<T>` (and implementations for `IList<T>` & `ISet<T>`) which raises events when its state is modified.
 
-## Quick demonstration
-Here is a quick demonstration of some sample code which makes use of this:
+This was first created for helping with entity-based projects which use [NHibernate].
+In the NHibernate landscape, when using the `inverse` collection mapping, it is important to back-fill child items' references to their parents, upon adding them to collections.
+Thus, as well as performing `parent.Children.Add(child)`, you must also set `child.Parent = parent`.
+This library accomplishes that by allowing the parent (which exposes that collection of its children) to define that after adding an item, that item is manipulated automatically, doing the back-filling of data.
+
+[NHibernate](http://nhibernate.info/)
+
+## Entity-based demonstration
+Here is a quick demonstration of some sample code which accomplishes the above use-case:
 
 ```csharp
 public class Parent
 {
   private EventRaisingSetWrapper<Child> _children;
 
+  // This is the property exposed to the rest of your API, which is a wrapped collection instance
+  // NHibernate mappings would not be bound to this property.
   public virtual ISet<Child> Children { get { return _children.Collection; } }
 
+  // This property is bound to with NHibernate (it can bind to protected members), and it exposes the original,
+  // unwrapped collection instance (with no events)/
   protected virtual ISet<Child> ChildrenSource {
     get { return _children.SourceCollection; }
     set { _children.SourceCollection = value; }
   }
 
+  // In the constructor, instantiate a wrapper instance and then set up its after add/remove event handlers
   public Parent()
   {
     _children = new EventRaisingSetWrapper<Child>(new HashSet<Child>());
@@ -34,21 +46,14 @@ public class Child
 }
 ```
 
-In this example above, we have a type `Parent` which contains a collection of its associated `Child` instances; also, each child holds a reference to its parent.
-Without this, to add a new child to a parent (and back-fill its associated parent), developers would need to do something like the following:
+## Cancelling modification
+The **before** events all have a `Cancel()` method.  This method, if called in a handler, will cancel the modification (addition to/removal from) the collection.
+Use this with care, as it can cause some very confusing scenarios if other client code expects the addition/removal to have been a success.
 
-```csharp
-myParent.Children.Add(myChild);
-myChild.Parent = myParent;
-```
-
-Using the event-raising collection wrapper, the back-filling happens automatically via the 'after add' event handler.
-Adding the child to the parent's publicly-visible collection is enough to do both.
-
-=== Open source license ===
+## Open source license
 All source files within this project are released as open source software, under the terms of [the MIT license].
 
-[the MIT license]: (http://opensource.org/licenses/MIT)
+[the MIT license](http://opensource.org/licenses/MIT)
 
 This software is distributed in the hope that it will be useful, but please remember that:
 
