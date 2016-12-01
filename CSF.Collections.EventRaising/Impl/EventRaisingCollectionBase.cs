@@ -45,6 +45,10 @@ namespace CSF.Collections.EventRaising.Impl
 
     #region properties
 
+    /// <summary>
+    /// Gets the wrapped source collection instance.
+    /// </summary>
+    /// <value>The source collection.</value>
     protected ICollection<TItem> SourceCollection
     {
       get {
@@ -225,6 +229,11 @@ namespace CSF.Collections.EventRaising.Impl
 
     #region protected methods
 
+    /// <summary>
+    /// Raises the <see cref="BeforeAdd"/> event.
+    /// </summary>
+    /// <returns><c>true</c>, if it is OK for the add-item to continue, <c>false</c> if it is has been cancelled.</returns>
+    /// <param name="item">The item to be added.</param>
     protected bool HandleBeforeAdd(TItem item)
     {
       var args = CreateBeforeActionEventArgs(item);
@@ -234,12 +243,21 @@ namespace CSF.Collections.EventRaising.Impl
       return (cancelable != null)? !cancelable.IsCancelled : true;
     }
 
+    /// <summary>
+    /// Raises the <see cref="AfterAdd"/> event.
+    /// </summary>
+    /// <param name="item">The item to be added.</param>
     protected void HandleAfterAdd(TItem item)
     {
       var args = CreateAfterActionEventArgs(item);
       AfterAdd?.Invoke(this, args);
     }
 
+    /// <summary>
+    /// Raises the <see cref="BeforeRemove"/> event.
+    /// </summary>
+    /// <returns><c>true</c>, if it is OK for the remove-item to continue, <c>false</c> if it is has been cancelled.</returns>
+    /// <param name="item">The item to be removed.</param>
     protected bool HandleBeforeRemove(TItem item)
     {
       var args = CreateBeforeActionEventArgs(item);
@@ -249,14 +267,28 @@ namespace CSF.Collections.EventRaising.Impl
       return (cancelable != null)? !cancelable.IsCancelled : true;
     }
 
+    /// <summary>
+    /// Raises the <see cref="AfterRemove"/> event.
+    /// </summary>
+    /// <param name="item">The associated item.</param>
     protected void HandleAfterRemove(TItem item)
     {
       var args = CreateAfterActionEventArgs(item);
       AfterRemove?.Invoke(this, args);
     }
 
+    /// <summary>
+    /// Creates a set of appropriately-populated before-action event arguments.
+    /// </summary>
+    /// <returns>The before-action event arguments.</returns>
+    /// <param name="item">Item.</param>
     protected abstract BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item);
 
+    /// <summary>
+    /// Creates a set of appropriately-populated after-action event arguments.
+    /// </summary>
+    /// <returns>The after-action event arguments.</returns>
+    /// <param name="item">The associated item.</param>
     protected abstract AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item);
 
     #endregion

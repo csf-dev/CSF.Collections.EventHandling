@@ -27,8 +27,31 @@ using System;
 
 namespace CSF.Collections.EventRaising
 {
+  /// <summary>
+  /// Extension methods for implementors of <see cref="T:IEventRaisingCollectionWrapper{TItem}"/>.
+  /// </summary>
   public static class EventRaisingCollectionWrapperExtensions
   {
+    /// <summary>
+    /// Sets up all of the possible collection-modification events using short delegates.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Whilst this method (and related extension methods defined here) may be convenient, it comes with the drawback
+    /// that it is impossible to use this mechanism to unsubscribe these event handler delegates, should you wish to.
+    /// In order to do that you must use the full event mechanism and subscribe to the wrapper's events explicitly.
+    /// </para>
+    /// <para>
+    /// This mechanism provides a convenient shortcut to the events themselves, but please only use it when it is
+    /// applicable.
+    /// </para>
+    /// </remarks>
+    /// <param name="wrapper">The event-raising collection wrapper.</param>
+    /// <param name="beforeAdd">The before-add handler.</param>
+    /// <param name="beforeRemove">The before-remove handler.</param>
+    /// <param name="afterAdd">The after-add handler.</param>
+    /// <param name="afterRemove">The after-remove handler.</param>
+    /// <typeparam name="TItem">The type of object contained within the collection.</typeparam>
     public static void SetupEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
                                           Action<IBeforeModify<TItem>> beforeAdd = null,
                                           Action<IBeforeModify<TItem>> beforeRemove = null,
@@ -62,6 +85,24 @@ namespace CSF.Collections.EventRaising
       }
     }
 
+    /// <summary>
+    /// Sets up the possible before-modify collection events using short delegates.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Whilst this method (and related extension methods defined here) may be convenient, it comes with the drawback
+    /// that it is impossible to use this mechanism to unsubscribe these event handler delegates, should you wish to.
+    /// In order to do that you must use the full event mechanism and subscribe to the wrapper's events explicitly.
+    /// </para>
+    /// <para>
+    /// This mechanism provides a convenient shortcut to the events themselves, but please only use it when it is
+    /// applicable.
+    /// </para>
+    /// </remarks>
+    /// <param name="wrapper">The event-raising collection wrapper.</param>
+    /// <param name="add">The before-add handler.</param>
+    /// <param name="remove">The before-remove handler.</param>
+    /// <typeparam name="TItem">The type of object contained within the collection.</typeparam>
     public static void SetupAfterEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
                                                Action<IAfterModify<TItem>> add = null,
                                                Action<IAfterModify<TItem>> remove = null)
@@ -70,6 +111,24 @@ namespace CSF.Collections.EventRaising
       SetupEvents(wrapper, afterAdd: add, afterRemove: remove);
     }
 
+    /// <summary>
+    /// Sets up the possible after-modify collection events using short delegates.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Whilst this method (and related extension methods defined here) may be convenient, it comes with the drawback
+    /// that it is impossible to use this mechanism to unsubscribe these event handler delegates, should you wish to.
+    /// In order to do that you must use the full event mechanism and subscribe to the wrapper's events explicitly.
+    /// </para>
+    /// <para>
+    /// This mechanism provides a convenient shortcut to the events themselves, but please only use it when it is
+    /// applicable.
+    /// </para>
+    /// </remarks>
+    /// <param name="wrapper">The event-raising collection wrapper.</param>
+    /// <param name="add">The after-add handler.</param>
+    /// <param name="remove">The after-remove handler.</param>
+    /// <typeparam name="TItem">The type of object contained within the collection.</typeparam>
     public static void SetupBeforeEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
                                                 Action<IBeforeModify<TItem>> add = null,
                                                 Action<IBeforeModify<TItem>> remove = null)

@@ -29,6 +29,9 @@ using System.Collections;
 
 namespace CSF.Collections.EventRaising.Impl
 {
+  /// <summary>
+  /// Interface for an event-raising collection.
+  /// </summary>
   public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection
     where TItem : class
   {

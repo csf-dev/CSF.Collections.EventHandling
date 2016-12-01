@@ -29,6 +29,9 @@ using System.Linq;
 
 namespace CSF.Collections.EventRaising.Impl
 {
+  /// <summary>
+  /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for the generic <c>ISet</c>.
+  /// </summary>
   public class EventRaisingSet<TItem> :  EventRaisingCollectionBase<TItem>, ISet<TItem>
     where TItem : class
   {
@@ -244,16 +247,30 @@ namespace CSF.Collections.EventRaising.Impl
 
     #region methods
 
+    /// <summary>
+    /// Gets a strongly-typed representation of the <see cref="P:SourceCollection"/>.
+    /// </summary>
+    /// <returns>The source collection.</returns>
     protected ISet<TItem> GetSourceCollection()
     {
       return (ISet<TItem>) SourceCollection;
     }
 
+    /// <summary>
+    /// Creates a set of appropriately-populated before-action event arguments.
+    /// </summary>
+    /// <returns>The before-action event arguments.</returns>
+    /// <param name="item">Item.</param>
     protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
     {
       return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
     }
 
+    /// <summary>
+    /// Creates a set of appropriately-populated after-action event arguments.
+    /// </summary>
+    /// <returns>The after-action event arguments.</returns>
+    /// <param name="item">The associated item.</param>
     protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
     {
       return new AfterModifyEventArgs<TItem>(SourceCollection, item);
@@ -263,6 +280,10 @@ namespace CSF.Collections.EventRaising.Impl
 
     #region constructor
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:EventRaisingSet{TItem}"/> class.
+    /// </summary>
+    /// <param name='source'>The source collection that this instance wraps.</param>
     public EventRaisingSet(ISet<TItem> source) : base(source) {}
 
     #endregion

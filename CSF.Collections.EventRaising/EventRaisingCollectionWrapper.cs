@@ -37,6 +37,11 @@ namespace CSF.Collections.EventRaising
   {
     #region methods
 
+    /// <summary>
+    /// Creates the event handling collection implementation instance.
+    /// </summary>
+    /// <returns>The event handling collection.</returns>
+    /// <param name="newSourceCollection">New source collection.</param>
     protected override Impl.IEventRaisingCollection<TItem> CreateEventHandlingCollection(ICollection<TItem> newSourceCollection)
     {
       return new Impl.EventRaisingCollection<TItem>(newSourceCollection);
@@ -46,8 +51,15 @@ namespace CSF.Collections.EventRaising
 
     #region constructor
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapper{TItem}"/> class.
+    /// </summary>
+    /// <param name="source">A source collection with which to initialise this instance.</param>
     public EventRaisingCollectionWrapper(ICollection<TItem> source) : base(source) {}
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapper{TItem}"/> class.
+    /// </summary>
     public EventRaisingCollectionWrapper() : base() {}
 
     #endregion

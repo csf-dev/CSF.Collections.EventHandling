@@ -208,6 +208,7 @@ namespace CSF.Collections.EventRaising
     /// Raises the after replace event.
     /// </summary>
     /// <returns><c>true</c>, if the replacement is permitted, <c>false</c> otherwise.</returns>
+    /// <param name="source">The original collection (to be replaced).</param>
     /// <param name="replacement">The replacement collection.</param>
     protected virtual void HandleAfterReplace(TCollection source, TCollection replacement)
     {
@@ -262,7 +263,7 @@ namespace CSF.Collections.EventRaising
 
     #endregion
 
-    #region constructor
+    #region constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> class.
@@ -272,7 +273,7 @@ namespace CSF.Collections.EventRaising
     /// <summary>
     /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> class.
     /// </summary>
-    /// <param name="sourceCollection">Source collection.</param>
+    /// <param name="sourceCollection">A source collection with which to initialise this instance.</param>
     public EventRaisingCollectionWrapperBase(TCollection sourceCollection)
     {
       SetWrappedCollection(sourceCollection);

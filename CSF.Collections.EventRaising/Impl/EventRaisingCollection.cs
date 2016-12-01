@@ -30,24 +30,36 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising.Impl
 {
+  /// <summary>
+  /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for <c>ICollection</c>.
+  /// </summary>
   public class EventRaisingCollection<TItem> : EventRaisingCollectionBase<TItem>
     where TItem : class
   {
-    protected ICollection<TItem> GetSourceCollection()
-    {
-      return (ICollection<TItem>) SourceCollection;
-    }
-
+    /// <summary>
+    /// Creates a set of appropriately-populated before-action event arguments.
+    /// </summary>
+    /// <returns>The before-action event arguments.</returns>
+    /// <param name="item">Item.</param>
     protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
     {
       return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
     }
 
+    /// <summary>
+    /// Creates a set of appropriately-populated after-action event arguments.
+    /// </summary>
+    /// <returns>The after-action event arguments.</returns>
+    /// <param name="item">The associated item.</param>
     protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
     {
       return new AfterModifyEventArgs<TItem>(SourceCollection, item);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:EventRaisingCollection{TItem}"/> class.
+    /// </summary>
+    /// <param name="source">The source collection, to be wrapped.</param>
     public EventRaisingCollection(ICollection<TItem> source) : base(source) {}
   }
 }
