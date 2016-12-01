@@ -1,5 +1,5 @@
 ﻿//
-// EventHandlingListWrapper.cs
+// EventHandlingCollectionWrapper.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -28,21 +28,21 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
-  public class EventHandlingListWrapper<TItem> : EventHandlingCollectionWrapperBase<IList<TItem>,TItem>
+  public class EventRaisingCollectionWrapper<TItem> : EventRaisingCollectionWrapperBase<ICollection<TItem>,TItem>
     where TItem : class
   {
     #region methods
 
-    protected override Impl.IEventHandlingCollection<TItem> CreateEventHandlingCollection(IList<TItem> newSourceCollection)
+    protected override Impl.IEventRaisingCollection<TItem> CreateEventHandlingCollection(ICollection<TItem> newSourceCollection)
     {
-      return new Impl.EventHandlingList<TItem>(newSourceCollection);
+      return new Impl.EventRaisingCollection<TItem>(newSourceCollection);
     }
 
     #endregion
 
     #region constructor
 
-    public EventHandlingListWrapper(IList<TItem> source) : base(source) {}
+    public EventRaisingCollectionWrapper(ICollection<TItem> source) : base(source) {}
 
     #endregion
   }

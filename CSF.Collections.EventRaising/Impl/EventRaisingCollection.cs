@@ -1,5 +1,5 @@
 ﻿//
-// EventHandlingSetWrapper.cs
+// EventHandlingCollection.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,27 +24,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using CSF.Collections.EventRaising.Impl;
+using CSF.Collections.EventRaising;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventRaising
+namespace CSF.Collections.EventRaising.Impl
 {
-  public class EventHandlingSetWrapper<TItem> : EventHandlingCollectionWrapperBase<ISet<TItem>,TItem>
+  public class EventRaisingCollection<TItem> : EventRaisingCollectionBase<TItem>
     where TItem : class
   {
-    #region methods
-
-    protected override Impl.IEventHandlingCollection<TItem> CreateEventHandlingCollection(ISet<TItem> newSourceCollection)
+    protected ICollection<TItem> GetSourceCollection()
     {
-      return new Impl.EventHandlingSet<TItem>(newSourceCollection);
+      return (ICollection<TItem>) SourceCollection;
     }
 
-    #endregion
+    protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
+    {
+      return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
+    }
 
-    #region constructor
+    protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
+    {
+      return new AfterModifyEventArgs<TItem>(SourceCollection, item);
+    }
 
-    public EventHandlingSetWrapper(ISet<TItem> source) : base(source) {}
-
-    #endregion
+    public EventRaisingCollection(ICollection<TItem> source) : base(source) {}
   }
 }
 

@@ -27,12 +27,30 @@ using System;
 using NUnit.Framework;
 using CSF.Collections.EventRaising;
 using Test.CSF.Collections.EventRaising.Mocks;
+using System.Collections.Generic;
 
 namespace Test.CSF.Collections.EventRaising
 {
   [TestFixture]
-  public class EventHandlingCollectionWrapperIntegrationTests
+  public class EventRaisingCollectionWrapperIntegrationTests
   {
+    #region fields
+
+    private bool _beforeReplaceCalled, _afterReplaceCalled;
+
+    #endregion
+
+    #region setup
+
+    [SetUp]
+    public void Setup()
+    {
+      _beforeReplaceCalled = false;
+      _afterReplaceCalled = false;
+    }
+
+    #endregion
+
     #region tests
 
     [Test]
@@ -62,6 +80,43 @@ namespace Test.CSF.Collections.EventRaising
 
       // Assert
       Assert.IsNull(child.Parent);
+    }
+
+    [Test]
+    public void Replacing_the_collection_triggers_both_replace_events()
+    {
+      // Arrange
+      var wrapper = new EventRaisingSetWrapper<Child>(new HashSet<Child>());
+
+      var beforeReplaceHandler = GetBeforeReplaceHandler();
+      var afterReplaceHandler = GetAfterReplaceHandler();
+
+      wrapper.BeforeReplace += beforeReplaceHandler;
+      wrapper.AfterReplace += afterReplaceHandler;
+
+      // Act
+      wrapper.SourceCollection = new HashSet<Child>();
+
+      wrapper.BeforeReplace -= beforeReplaceHandler;
+      wrapper.AfterReplace -= afterReplaceHandler;
+
+      // Assert
+      Assert.IsTrue(_beforeReplaceCalled, "Before replace");
+      Assert.IsTrue(_afterReplaceCalled, "After replace");
+    }
+
+    #endregion
+
+    #region methods
+
+    private EventHandler<BeforeReplaceEventArgs<ISet<Child>>> GetBeforeReplaceHandler()
+    {
+      return (sender, e) => _beforeReplaceCalled = true;
+    }
+
+    private EventHandler<AfterReplaceEventArgs<ISet<Child>>> GetAfterReplaceHandler()
+    {
+      return (sender, e) => _afterReplaceCalled = true;
     }
 
     #endregion

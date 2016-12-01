@@ -53,13 +53,13 @@
     <Folder Include="Mocks\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Impl\TestEventHandlingList.cs" />
     <Compile Include="Mocks\Person.cs" />
-    <Compile Include="Impl\EventHandlingCollectionTestBase.cs" />
-    <Compile Include="Impl\TestEventHandlingCollection.cs" />
-    <Compile Include="Impl\TestEventHandlingSet.cs" />
-    <Compile Include="EventHandlingCollectionWrapperIntegrationTests.cs" />
     <Compile Include="Mocks\Child.cs" />
     <Compile Include="Mocks\Parent.cs" />
+    <Compile Include="Impl\EventRaisingCollectionTestBase.cs" />
+    <Compile Include="Impl\TestEventRaisingCollection.cs" />
+    <Compile Include="Impl\TestEventRaisingList.cs" />
+    <Compile Include="Impl\TestEventRaisingSet.cs" />
+    <Compile Include="EventRaisingCollectionWrapperIntegrationTests.cs" />
   </ItemGroup>
 </Project>

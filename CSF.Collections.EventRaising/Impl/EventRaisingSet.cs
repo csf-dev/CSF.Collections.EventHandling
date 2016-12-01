@@ -29,7 +29,7 @@ using System.Linq;
 
 namespace CSF.Collections.EventRaising.Impl
 {
-  public class EventHandlingSet<TItem> :  EventHandlingCollectionBase<TItem>, ISet<TItem>
+  public class EventRaisingSet<TItem> :  EventRaisingCollectionBase<TItem>, ISet<TItem>
     where TItem : class
   {
     #region ISet implementation
@@ -263,7 +263,7 @@ namespace CSF.Collections.EventRaising.Impl
 
     #region constructor
 
-    public EventHandlingSet(ISet<TItem> source) : base(source) {}
+    public EventRaisingSet(ISet<TItem> source) : base(source) {}
 
     #endregion
   }

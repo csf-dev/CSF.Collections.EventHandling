@@ -33,7 +33,7 @@ using CSF.Collections.EventRaising;
 namespace Test.CSF.Collections.EventRaising.Impl
 {
   [TestFixture]
-  public class TestEventHandlingList : EventHandlingCollectionTestBase
+  public class TestEventRaisingList : EventRaisingCollectionTestBase
   {
     #region fields
 
@@ -56,7 +56,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Constructor_does_not_raise_an_exception()
     {
       // Act
-      var sut = new EventHandlingList<Person>(_source);
+      var sut = new EventRaisingList<Person>(_source);
 
       // Assert
       Assert.NotNull(sut);
@@ -66,7 +66,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Get_Item_returns_correct_item()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source); 
+      var sut = new EventRaisingList<Person>(_source); 
 
       // Act
       var result = sut[1];
@@ -79,7 +79,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Set_Item_modifies_source_list()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source); 
+      var sut = new EventRaisingList<Person>(_source); 
 
       // Act
       sut[1] = Replacement;
@@ -92,7 +92,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Set_Item_invokes_before_add_callback()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source); 
+      var sut = new EventRaisingList<Person>(_source); 
 
       sut.BeforeAdd += RecordingCallbackOne;
 
@@ -109,7 +109,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Set_Item_invokes_after_add_callback()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source); 
+      var sut = new EventRaisingList<Person>(_source); 
 
       sut.AfterAdd += RecordingCallbackOne;
 
@@ -126,7 +126,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Set_Item_does_not_replace_item_if_before_add_cancels()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source); 
+      var sut = new EventRaisingList<Person>(_source); 
 
       sut.BeforeAdd += CancellingCallback;
 
@@ -143,7 +143,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Set_Item_does_not_trigger_after_add_if_before_add_cancels()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source); 
+      var sut = new EventRaisingList<Person>(_source); 
 
       sut.BeforeAdd += CancellingCallback;
       sut.AfterAdd += RecordingCallbackOne;
@@ -162,7 +162,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void RemoveAt_triggers_both_remove_events()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source);
+      var sut = new EventRaisingList<Person>(_source);
 
       sut.BeforeRemove += RecordingCallbackOne;
       sut.AfterRemove += RecordingCallbackTwo;
@@ -182,7 +182,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Insert_triggers_both_add_events()
     {
       // Arrange
-      var sut = new EventHandlingList<Person>(_source);
+      var sut = new EventRaisingList<Person>(_source);
 
       sut.BeforeAdd += RecordingCallbackOne;
       sut.AfterAdd += RecordingCallbackTwo;

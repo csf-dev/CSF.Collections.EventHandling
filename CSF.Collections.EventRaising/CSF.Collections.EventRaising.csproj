@@ -35,24 +35,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IEventHandlingCollectionWrapper.cs" />
-    <Compile Include="Impl\EventHandlingList.cs" />
-    <Compile Include="Impl\EventHandlingCollectionBase.cs" />
     <Compile Include="ICancelable.cs" />
-    <Compile Include="Impl\EventHandlingSet.cs" />
-    <Compile Include="EventHandlingListWrapper.cs" />
-    <Compile Include="EventHandlingSetWrapper.cs" />
-    <Compile Include="Impl\EventHandlingCollection.cs" />
-    <Compile Include="EventHandlingCollectionWrapperBase.cs" />
-    <Compile Include="EventHandlingCollectionWrapper.cs" />
-    <Compile Include="Impl\IEventHandlingCollection.cs" />
     <Compile Include="BeforeReplaceEventArgs.cs" />
     <Compile Include="AfterReplaceEventArgs.cs" />
     <Compile Include="BeforeModifyEventArgs.cs" />
     <Compile Include="AfterModifyEventArgs.cs" />
-    <Compile Include="EventHandlingCollectionWrapperExtensions.cs" />
     <Compile Include="IBeforeModify.cs" />
     <Compile Include="IAfterModify.cs" />
+    <Compile Include="EventRaisingCollectionWrapper.cs" />
+    <Compile Include="EventRaisingCollectionWrapperBase.cs" />
+    <Compile Include="EventRaisingListWrapper.cs" />
+    <Compile Include="EventRaisingCollectionWrapperExtensions.cs" />
+    <Compile Include="EventRaisingSetWrapper.cs" />
+    <Compile Include="IEventRaisingCollectionWrapper.cs" />
+    <Compile Include="Impl\EventRaisingCollection.cs" />
+    <Compile Include="Impl\EventRaisingList.cs" />
+    <Compile Include="Impl\EventRaisingCollectionBase.cs" />
+    <Compile Include="Impl\EventRaisingSet.cs" />
+    <Compile Include="Impl\IEventRaisingCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

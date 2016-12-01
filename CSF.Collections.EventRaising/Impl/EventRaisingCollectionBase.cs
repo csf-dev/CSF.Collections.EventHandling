@@ -34,7 +34,7 @@ namespace CSF.Collections.EventRaising.Impl
   /// Base type for event-handling collections.
   /// </summary>
   [Serializable]
-  public abstract class EventHandlingCollectionBase<TItem> : IEventHandlingCollection<TItem>
+  public abstract class EventRaisingCollectionBase<TItem> : IEventRaisingCollection<TItem>
     where TItem : class
   {
     #region fields
@@ -267,7 +267,7 @@ namespace CSF.Collections.EventRaising.Impl
     /// Initializes a new instance of the <see cref="T:EventHandlingCollectionBase{TItem}"/> class.
     /// </summary>
     /// <param name='source'>The source collection that this instance wraps.</param>
-    public EventHandlingCollectionBase(ICollection<TItem> source)
+    public EventRaisingCollectionBase(ICollection<TItem> source)
     {
       if(source == null)
       {

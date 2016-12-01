@@ -33,7 +33,7 @@ namespace Test.CSF.Collections.EventRaising.Mocks
   {
     #region fields
 
-    private EventHandlingSetWrapper<Child> _children;
+    private EventRaisingSetWrapper<Child> _children;
 
     #endregion
 
@@ -52,7 +52,7 @@ namespace Test.CSF.Collections.EventRaising.Mocks
 
     public Parent()
     {
-      _children = new EventHandlingSetWrapper<Child>(new HashSet<Child>());
+      _children = new EventRaisingSetWrapper<Child>(new HashSet<Child>());
       _children.AfterAdd += (sender, e) => e.Item.Parent = this;
       _children.AfterRemove += (sender, e) => e.Item.Parent = null;
     }

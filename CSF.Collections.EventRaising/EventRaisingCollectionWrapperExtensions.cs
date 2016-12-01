@@ -27,9 +27,9 @@ using System;
 
 namespace CSF.Collections.EventRaising
 {
-  public static class EventHandlingCollectionWrapperExtensions
+  public static class EventRaisingCollectionWrapperExtensions
   {
-    public static void SetupEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
+    public static void SetupEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
                                           Action<IBeforeModify<TItem>> beforeAdd = null,
                                           Action<IBeforeModify<TItem>> beforeRemove = null,
                                           Action<IAfterModify<TItem>> afterAdd = null,
@@ -62,7 +62,7 @@ namespace CSF.Collections.EventRaising
       }
     }
 
-    public static void SetupAfterEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
+    public static void SetupAfterEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
                                                Action<IAfterModify<TItem>> add = null,
                                                Action<IAfterModify<TItem>> remove = null)
       where TItem : class
@@ -70,7 +70,7 @@ namespace CSF.Collections.EventRaising
       SetupEvents(wrapper, afterAdd: add, afterRemove: remove);
     }
 
-    public static void SetupBeforeEvents<TItem>(this IEventHandlingCollectionWrapper<TItem> wrapper,
+    public static void SetupBeforeEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
                                                 Action<IBeforeModify<TItem>> add = null,
                                                 Action<IBeforeModify<TItem>> remove = null)
       where TItem : class

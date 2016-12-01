@@ -31,7 +31,7 @@ namespace CSF.Collections.EventRaising.Impl
   /// <summary>
   /// Implementation of a generic <c>IList&lt;T&gt;</c> with added before/after add/remove events.
   /// </summary>
-  public class EventHandlingList<TItem> :  EventHandlingCollectionBase<TItem>, IList<TItem>
+  public class EventRaisingList<TItem> :  EventRaisingCollectionBase<TItem>, IList<TItem>
     where TItem : class
   {
     #region IList implementation
@@ -145,7 +145,7 @@ namespace CSF.Collections.EventRaising.Impl
 
     #region constructor
 
-    public EventHandlingList(IList<TItem> source) : base(source) {}
+    public EventRaisingList(IList<TItem> source) : base(source) {}
 
     #endregion
   }

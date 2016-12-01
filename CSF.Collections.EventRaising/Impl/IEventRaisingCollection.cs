@@ -1,5 +1,5 @@
 ﻿//
-// EventHandlingCollection.cs
+// IEventHandlingCollection.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,31 +24,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CSF.Collections.EventRaising.Impl;
-using CSF.Collections.EventRaising;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace CSF.Collections.EventRaising.Impl
 {
-  public class EventHandlingCollection<TItem> : EventHandlingCollectionBase<TItem>
+  public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection
     where TItem : class
   {
-    protected ICollection<TItem> GetSourceCollection()
-    {
-      return (ICollection<TItem>) SourceCollection;
-    }
+    /// <summary>
+    /// Occurs before an item is added to the collection.
+    /// </summary>
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
 
-    protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
-    {
-      return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
-    }
+    /// <summary>
+    /// Occurs after an item is added to the collection.
+    /// </summary>
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
 
-    protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
-    {
-      return new AfterModifyEventArgs<TItem>(SourceCollection, item);
-    }
+    /// <summary>
+    /// Occurs before an item is removed the collection.
+    /// </summary>
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
 
-    public EventHandlingCollection(ICollection<TItem> source) : base(source) {}
+    /// <summary>
+    /// Occurs after an item is removed from the collection.
+    /// </summary>
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
   }
 }
 

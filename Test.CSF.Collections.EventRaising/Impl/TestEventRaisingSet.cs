@@ -1,5 +1,5 @@
 ﻿//
-// TestEventHandlingCollectionBase.cs
+// TestEventHandlingSet.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,8 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using Test.CSF.Collections.EventRaising.Mocks;
 using System.Collections.Generic;
+using Test.CSF.Collections.EventRaising.Mocks;
 using CSF.Collections.EventRaising.Impl;
 using NUnit.Framework;
 using CSF.Collections.EventRaising;
@@ -34,11 +34,11 @@ using System.Linq;
 namespace Test.CSF.Collections.EventRaising.Impl
 {
   [TestFixture]
-  public class TestEventHandlingCollection : EventHandlingCollectionTestBase
+  public class TestEventRaisingSet : EventRaisingCollectionTestBase
   {
     #region fields
 
-    private ICollection<Person> _source;
+    private ISet<Person> _source;
 
     #endregion
 
@@ -46,7 +46,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
 
     protected override void AdditionalSetup()
     {
-      _source = new List<Person>(SourceCollection);
+      _source = new HashSet<Person>(SourceCollection);
     }
 
     #endregion
@@ -57,7 +57,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Constructor_does_not_raise_an_exception()
     {
       // Act
-      var sut = new EventHandlingCollection<Person>(_source);
+      var sut = new EventRaisingSet<Person>(_source);
 
       // Assert
       Assert.NotNull(sut);
@@ -67,7 +67,7 @@ namespace Test.CSF.Collections.EventRaising.Impl
     public void Add_triggers_both_add_events()
     {
       // Arrange
-      var sut = new EventHandlingCollection<Person>(_source);
+      var sut = new EventRaisingCollection<Person>(_source);
 
       sut.BeforeAdd += RecordingCallbackOne;
       sut.AfterAdd += RecordingCallbackTwo;
@@ -84,47 +84,30 @@ namespace Test.CSF.Collections.EventRaising.Impl
     }
 
     [Test]
-    public void Remove_triggers_both_remove_events()
+    public void AddAll_triggers_both_add_events_for_each_item()
     {
       // Arrange
-      var sut = new EventHandlingCollection<Person>(_source);
+      int beforeAddCalls = 0, afterAddCalls = 0;
+      var sut = new EventRaisingSet<Person>(_source);
 
-      sut.BeforeRemove += RecordingCallbackOne;
-      sut.AfterRemove += RecordingCallbackTwo;
+      EventHandler<BeforeModifyEventArgs<Person>> incrementBefore = (sender, e) => beforeAddCalls++;
+      EventHandler<AfterModifyEventArgs<Person>> incrementAfter = (sender, e) => afterAddCalls++;
 
-      // Act
-      sut.Remove(SourceCollection.First());
+      int itemCount = 3;
+      var items = Enumerable.Range(0, 3).Select(x => new Person());
 
-      sut.BeforeRemove -= RecordingCallbackOne;
-      sut.AfterRemove -= RecordingCallbackTwo;
-
-      // Assert
-      Assert.IsTrue(CallbackOneCalled, "Callback one");
-      Assert.IsTrue(CallbackTwoCalled, "Callback two");
-    }
-
-    [Test]
-    public void Clear_triggers_both_remove_events_for_every_item()
-    {
-      // Arrange
-      int beforeRemoveCalls = 0, afterRemoveCalls = 0;
-      var sut = new EventHandlingCollection<Person>(_source);
-
-      EventHandler<BeforeModifyEventArgs<Person>> incrementBefore = (sender, e) => beforeRemoveCalls++;
-      EventHandler<AfterModifyEventArgs<Person>> incrementAfter = (sender, e) => afterRemoveCalls++;
-
-      sut.BeforeRemove += incrementBefore;
-      sut.AfterRemove += incrementAfter;
+      sut.BeforeAdd += incrementBefore;
+      sut.AfterAdd += incrementAfter;
 
       // Act
-      sut.Clear();
+      sut.AddAll(items);
 
-      sut.BeforeRemove -= incrementBefore;
-      sut.AfterRemove -= incrementAfter;
+      sut.BeforeAdd -= incrementBefore;
+      sut.AfterAdd -= incrementAfter;
 
       // Assert
-      Assert.AreEqual(SourceCollection.Count, beforeRemoveCalls, "Before remove");
-      Assert.AreEqual(SourceCollection.Count, afterRemoveCalls, "After remove");
+      Assert.AreEqual(itemCount, beforeAddCalls, "Before add");
+      Assert.AreEqual(itemCount, afterAddCalls, "After add");
     }
 
     #endregion

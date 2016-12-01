@@ -31,7 +31,7 @@ using System.Collections.Generic;
 
 namespace Test.CSF.Collections.EventRaising.Impl
 {
-  public abstract class EventHandlingCollectionTestBase
+  public abstract class EventRaisingCollectionTestBase
   {
     #region properties
 

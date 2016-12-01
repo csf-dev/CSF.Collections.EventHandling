@@ -1,5 +1,5 @@
 ﻿//
-// IEventHandlingCollection.cs
+// EventHandlingListWrapper.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -25,32 +25,26 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
-namespace CSF.Collections.EventRaising.Impl
+namespace CSF.Collections.EventRaising
 {
-  public interface IEventHandlingCollection<TItem> : ICollection<TItem>, ICollection
+  public class EventRaisingListWrapper<TItem> : EventRaisingCollectionWrapperBase<IList<TItem>,TItem>
     where TItem : class
   {
-    /// <summary>
-    /// Occurs before an item is added to the collection.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
+    #region methods
 
-    /// <summary>
-    /// Occurs after an item is added to the collection.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
+    protected override Impl.IEventRaisingCollection<TItem> CreateEventHandlingCollection(IList<TItem> newSourceCollection)
+    {
+      return new Impl.EventRaisingList<TItem>(newSourceCollection);
+    }
 
-    /// <summary>
-    /// Occurs before an item is removed the collection.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
+    #endregion
 
-    /// <summary>
-    /// Occurs after an item is removed from the collection.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
+    #region constructor
+
+    public EventRaisingListWrapper(IList<TItem> source) : base(source) {}
+
+    #endregion
   }
 }
 

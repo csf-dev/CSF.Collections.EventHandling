@@ -29,7 +29,7 @@ using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
-  public interface IEventHandlingCollectionWrapper<TItem>
+  public interface IEventRaisingCollectionWrapper<TItem>
     where TItem : class
   {
     #region properties
@@ -76,7 +76,7 @@ namespace CSF.Collections.EventRaising
   /// <summary>
   /// Interface for a type which wraps a normal collection and triggers events when the collection is modified.
   /// </summary>
-  public interface IEventHandlingCollectionWrapper<TCollection,TItem> : IEventHandlingCollectionWrapper<TItem>
+  public interface IEventRaisingCollectionWrapper<TCollection,TItem> : IEventRaisingCollectionWrapper<TItem>
     where TCollection : ICollection<TItem>
     where TItem : class
   {

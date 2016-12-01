@@ -34,8 +34,8 @@ namespace CSF.Collections.EventRaising
   /// Concrete implementation of <see cref="T:IEventHandlingCollectionWrapper{TCollection,TItem}"/>, which can deal
   /// with any collection implementation.
   /// </summary>
-  public abstract class EventHandlingCollectionWrapperBase<TCollection,TItem>
-    : IEventHandlingCollectionWrapper<TCollection,TItem>, IEventHandlingCollectionWrapper<TItem>
+  public abstract class EventRaisingCollectionWrapperBase<TCollection,TItem>
+    : IEventRaisingCollectionWrapper<TCollection,TItem>, IEventRaisingCollectionWrapper<TItem>
     where TCollection : class,ICollection<TItem>
     where TItem : class
   {
@@ -85,10 +85,10 @@ namespace CSF.Collections.EventRaising
     /// Gets the <see cref="Collection"/> as an event-handling collection instance.
     /// </summary>
     /// <value>The event handling collection.</value>
-    protected Impl.IEventHandlingCollection<TItem> EventHandlingCollection
+    protected Impl.IEventRaisingCollection<TItem> EventHandlingCollection
     {
       get {
-        return (Impl.IEventHandlingCollection<TItem>) Collection;
+        return (Impl.IEventRaisingCollection<TItem>) Collection;
       }
     }
 
@@ -130,14 +130,14 @@ namespace CSF.Collections.EventRaising
 
     #region explicit interface implementations
 
-    ICollection<TItem> IEventHandlingCollectionWrapper<TItem>.Collection
+    ICollection<TItem> IEventRaisingCollectionWrapper<TItem>.Collection
     {
       get {
         return Collection;
       }
     }
 
-    ICollection<TItem> IEventHandlingCollectionWrapper<TItem>.SourceCollection
+    ICollection<TItem> IEventRaisingCollectionWrapper<TItem>.SourceCollection
     {
       get {
         return SourceCollection;
@@ -219,13 +219,13 @@ namespace CSF.Collections.EventRaising
       }
     }
 
-    protected abstract IEventHandlingCollection<TItem> CreateEventHandlingCollection(TCollection newSourceCollection);
+    protected abstract IEventRaisingCollection<TItem> CreateEventHandlingCollection(TCollection newSourceCollection);
 
     #endregion
 
     #region constructor
 
-    public EventHandlingCollectionWrapperBase(TCollection sourceCollection)
+    public EventRaisingCollectionWrapperBase(TCollection sourceCollection)
     {
       SetWrappedCollection(sourceCollection);
       _unwrappedCollection = sourceCollection;
