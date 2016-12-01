@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventRaising.Impl
 {
   /// <summary>
   /// Implementation of a generic <c>IList&lt;T&gt;</c> with added before/after add/remove events.

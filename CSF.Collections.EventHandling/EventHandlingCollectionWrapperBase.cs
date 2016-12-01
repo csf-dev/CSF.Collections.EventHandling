@@ -26,9 +26,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
-using CSF.Collections.EventHandling.Impl;
+using CSF.Collections.EventRaising.Impl;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Concrete implementation of <see cref="T:IEventHandlingCollectionWrapper{TCollection,TItem}"/>, which can deal

@@ -25,7 +25,7 @@
 // THE SOFTWARE.
 using System;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   public interface IBeforeModify<TItem> : IAfterModify<TItem> where TItem : class
   {

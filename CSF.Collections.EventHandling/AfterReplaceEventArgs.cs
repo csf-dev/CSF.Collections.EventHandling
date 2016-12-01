@@ -26,7 +26,7 @@
 using System;
 using System.Collections;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   public class AfterReplaceEventArgs<TCollection> : EventArgs
   {
@@ -58,7 +58,7 @@ namespace CSF.Collections.EventHandling
 
     /// <summary>
     /// Initializes a new instance of the
-    /// <see cref="T:CSF.Collections.EventHandling.ReplaceCollectionEventArgs{TCollection}"/> class.
+    /// <see cref="T:CSF.Collections.EventRaising.ReplaceCollectionEventArgs{TCollection}"/> class.
     /// </summary>
     /// <param name="original">Original collection.</param>
     /// <param name="replacement">The replacement collection.</param>

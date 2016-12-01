@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A89D3196-8E70-496D-9999-AA5B7AF1183D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>CSF.Collections.EventHandling</RootNamespace>
-    <AssemblyName>CSF.Collections.EventHandling</AssemblyName>
+    <RootNamespace>CSF.Collections.EventRaising</RootNamespace>
+    <AssemblyName>CSF.Collections.EventRaising</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ReleaseVersion>4.1.1</ReleaseVersion>
   </PropertyGroup>

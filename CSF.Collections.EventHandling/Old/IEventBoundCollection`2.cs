@@ -28,7 +28,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Interface for a type provides an event-bound collection.

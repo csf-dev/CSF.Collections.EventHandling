@@ -29,7 +29,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Base type for all implementations of the generic <c>IEventBoundCollection&lt;TCollection,TItem&gt;</c> interface.

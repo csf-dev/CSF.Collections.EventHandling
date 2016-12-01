@@ -25,11 +25,11 @@
 // THE SOFTWARE.
 using System;
 using NUnit.Framework;
-using CSF.Collections.EventHandling;
-using Test.CSF.Collections.EventHandling.Mocks;
+using CSF.Collections.EventRaising;
+using Test.CSF.Collections.EventRaising.Mocks;
 using System.Collections.Generic;
 
-namespace Test.CSF.Collections.EventHandling.Impl
+namespace Test.CSF.Collections.EventRaising.Impl
 {
   public abstract class EventHandlingCollectionTestBase
   {

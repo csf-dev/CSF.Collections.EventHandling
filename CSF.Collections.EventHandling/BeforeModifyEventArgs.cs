@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   public class BeforeModifyEventArgs<TItem> : AfterModifyEventArgs<TItem>, IBeforeModify<TItem>, ICancelable
     where TItem : class

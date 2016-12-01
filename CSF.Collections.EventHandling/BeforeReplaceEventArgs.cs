@@ -26,7 +26,7 @@
 using System;
 using System.Collections;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   public class BeforeReplaceEventArgs<TCollection> : AfterReplaceEventArgs<TCollection>, ICancelable
   {

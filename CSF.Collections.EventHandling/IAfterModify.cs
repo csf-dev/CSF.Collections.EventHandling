@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   public interface IAfterModify<TItem> where TItem : class
   {

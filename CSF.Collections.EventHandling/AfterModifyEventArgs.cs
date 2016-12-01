@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Event arguments for the modification of an event-handling collection,
@@ -61,7 +61,7 @@ namespace CSF.Collections.EventHandling
     #region constructor
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CSF.Collections.EventHandling.AfterModifyEventArgs`1"/> class.
+    /// Initializes a new instance of the <see cref="CSF.Collections.EventRaising.AfterModifyEventArgs`1"/> class.
     /// </summary>
     /// <param name="collection">Collection.</param>
     /// <param name="item">Item.</param>

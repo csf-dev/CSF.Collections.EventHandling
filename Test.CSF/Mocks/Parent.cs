@@ -24,10 +24,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CSF.Collections.EventHandling;
+using CSF.Collections.EventRaising;
 using System.Collections.Generic;
 
-namespace Test.CSF.Collections.EventHandling.Mocks
+namespace Test.CSF.Collections.EventRaising.Mocks
 {
   public class Parent
   {
@@ -53,7 +53,8 @@ namespace Test.CSF.Collections.EventHandling.Mocks
     public Parent()
     {
       _children = new EventHandlingSetWrapper<Child>(new HashSet<Child>());
-      _children.SetupAfterEvents(x => x.Item.Parent = this, x => x.Item.Parent = null);
+      _children.AfterAdd += (sender, e) => e.Item.Parent = this;
+      _children.AfterRemove += (sender, e) => e.Item.Parent = null;
     }
 
     #endregion

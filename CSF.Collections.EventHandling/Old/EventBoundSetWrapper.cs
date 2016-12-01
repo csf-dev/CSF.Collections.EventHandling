@@ -31,7 +31,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Implementation of a generic <c>EventBoundCollectionWrapper</c> that wraps a generic <c>ISet</c> instance.

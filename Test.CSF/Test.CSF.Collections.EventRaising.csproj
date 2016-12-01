@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{11DCF35A-6E2A-4C62-B536-14B83FF5AE07}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Test.CSF.Collections.EventHandling</RootNamespace>
+    <RootNamespace>Test.CSF.Collections.EventRaising</RootNamespace>
     <AssemblyName>Test.CSF</AssemblyName>
     <ReleaseVersion>4.1.1</ReleaseVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -40,9 +40,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\CSF.Collections.EventHandling\CSF.Collections.EventHandling.csproj">
+    <ProjectReference Include="..\CSF.Collections.EventRaising\CSF.Collections.EventRaising.csproj">
       <Project>{A89D3196-8E70-496D-9999-AA5B7AF1183D}</Project>
-      <Name>CSF.Collections.EventHandling</Name>
+      <Name>CSF.Collections.EventRaising</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventRaising.Impl
 {
   public class EventHandlingSet<TItem> :  EventHandlingCollectionBase<TItem>, ISet<TItem>
     where TItem : class

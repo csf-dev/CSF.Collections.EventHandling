@@ -30,7 +30,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using CSF.Reflection;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Helper type dedicated to providing 'reference collection' functionality, such as for entities.

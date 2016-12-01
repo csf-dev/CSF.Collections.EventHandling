@@ -24,11 +24,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CSF.Collections.EventHandling.Impl;
-using CSF.Collections.EventHandling;
+using CSF.Collections.EventRaising.Impl;
+using CSF.Collections.EventRaising;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventRaising.Impl
 {
   public class EventHandlingCollection<TItem> : EventHandlingCollectionBase<TItem>
     where TItem : class

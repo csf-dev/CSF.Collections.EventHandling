@@ -25,13 +25,13 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
-using Test.CSF.Collections.EventHandling.Mocks;
-using CSF.Collections.EventHandling.Impl;
+using Test.CSF.Collections.EventRaising.Mocks;
+using CSF.Collections.EventRaising.Impl;
 using NUnit.Framework;
-using CSF.Collections.EventHandling;
+using CSF.Collections.EventRaising;
 using System.Linq;
 
-namespace Test.CSF.Collections.EventHandling.Impl
+namespace Test.CSF.Collections.EventRaising.Impl
 {
   [TestFixture]
   public class TestEventHandlingSet : EventHandlingCollectionTestBase

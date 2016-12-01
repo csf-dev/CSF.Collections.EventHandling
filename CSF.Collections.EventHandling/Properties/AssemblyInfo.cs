@@ -28,7 +28,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyTitle("CSF.Collections.EventHandling")]
+[assembly: AssemblyTitle("CSF.Collections.EventRaising")]
 [assembly: AssemblyDescription("Collection types (and wrappers) which provide callbacks for events")]
 [assembly: AssemblyCompany("CSF Software Limited")]
 [assembly: AssemblyProduct("CSF Software Utilities")]

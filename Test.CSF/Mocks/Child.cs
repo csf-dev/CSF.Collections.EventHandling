@@ -25,7 +25,7 @@
 // THE SOFTWARE.
 using System;
 
-namespace Test.CSF.Collections.EventHandling.Mocks
+namespace Test.CSF.Collections.EventRaising.Mocks
 {
   public class Child
   {

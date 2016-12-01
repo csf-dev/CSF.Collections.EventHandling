@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   public class EventHandlingSetWrapper<TItem> : EventHandlingCollectionWrapperBase<ISet<TItem>,TItem>
     where TItem : class

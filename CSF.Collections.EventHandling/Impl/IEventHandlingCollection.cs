@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace CSF.Collections.EventHandling.Impl
+namespace CSF.Collections.EventRaising.Impl
 {
   public interface IEventHandlingCollection<TItem> : ICollection<TItem>, ICollection
     where TItem : class

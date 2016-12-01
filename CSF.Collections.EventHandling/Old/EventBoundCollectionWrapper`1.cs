@@ -28,7 +28,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventHandling
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Convenience implementation of a generic <c>EventBoundCollectionWrapper&lt;TCollection,TItem&gt;</c> that works for

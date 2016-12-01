@@ -25,10 +25,10 @@
 // THE SOFTWARE.
 using System;
 using NUnit.Framework;
-using CSF.Collections.EventHandling;
-using Test.CSF.Collections.EventHandling.Mocks;
+using CSF.Collections.EventRaising;
+using Test.CSF.Collections.EventRaising.Mocks;
 
-namespace Test.CSF.Collections.EventHandling
+namespace Test.CSF.Collections.EventRaising
 {
   [TestFixture]
   public class EventHandlingCollectionWrapperIntegrationTests

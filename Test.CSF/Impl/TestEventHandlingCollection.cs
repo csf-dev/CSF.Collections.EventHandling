@@ -24,14 +24,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using Test.CSF.Collections.EventHandling.Mocks;
+using Test.CSF.Collections.EventRaising.Mocks;
 using System.Collections.Generic;
-using CSF.Collections.EventHandling.Impl;
+using CSF.Collections.EventRaising.Impl;
 using NUnit.Framework;
-using CSF.Collections.EventHandling;
+using CSF.Collections.EventRaising;
 using System.Linq;
 
-namespace Test.CSF.Collections.EventHandling.Impl
+namespace Test.CSF.Collections.EventRaising.Impl
 {
   [TestFixture]
   public class TestEventHandlingCollection : EventHandlingCollectionTestBase
