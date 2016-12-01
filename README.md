@@ -6,7 +6,7 @@ In the NHibernate landscape, when using the `inverse` collection mapping, it is 
 Thus, as well as performing `parent.Children.Add(child)`, you must also set `child.Parent = parent`.
 This library accomplishes that by allowing the parent (which exposes that collection of its children) to define that after adding an item, that item is manipulated automatically, doing the back-filling of data.
 
-[NHibernate](http://nhibernate.info/)
+[NHibernate]: http://nhibernate.info/
 
 ## Entity-based demonstration
 Here is a quick demonstration of some sample code which accomplishes the above use-case:
@@ -53,7 +53,7 @@ Use this with care, as it can cause some very confusing scenarios if other clien
 ## Open source license
 All source files within this project are released as open source software, under the terms of [the MIT license].
 
-[the MIT license](http://opensource.org/licenses/MIT)
+[the MIT license]: http://opensource.org/licenses/MIT
 
 This software is distributed in the hope that it will be useful, but please remember that:
 
