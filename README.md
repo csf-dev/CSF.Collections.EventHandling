@@ -16,18 +16,21 @@ public class Parent
 {
   private EventRaisingSetWrapper<Child> _children;
 
-  // This is the property exposed to the rest of your API, which is a wrapped collection instance
+  // This is the property exposed to the rest of your API,
+  // which is a wrapped collection instance.
   // NHibernate mappings would not be bound to this property.
   public virtual ISet<Child> Children { get { return _children.Collection; } }
 
-  // This property is bound to with NHibernate (it can bind to protected members), and it exposes the original,
-  // unwrapped collection instance (with no events)/
+  // This property is bound to with NHibernate (it can bind
+  // to protected members), and it exposes the original
+  // unwrapped collection instance (with no events)
   protected virtual ISet<Child> ChildrenSource {
     get { return _children.SourceCollection; }
     set { _children.SourceCollection = value; }
   }
 
-  // In the constructor, instantiate a wrapper instance and then set up its after add/remove event handlers
+  // In the constructor, instantiate a wrapper instance and
+  // then set up its after add/remove event handlers
   public Parent()
   {
     _children = new EventRaisingSetWrapper<Child>(new HashSet<Child>());
