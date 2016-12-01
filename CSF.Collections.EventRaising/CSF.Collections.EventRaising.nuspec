@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CSF.Collections.EventRaising</id>
+    <version>0.1.0</version>
+    <title>CSF.Collections.EventRaising</title>
+    <authors>CSF Software Ltd</authors>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/csf-dev/CSF.Collections.EventRaising</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Wrappers for a number of ICollection types which expose events which are raised when the collection is modified or replaced.</description>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+</package>
