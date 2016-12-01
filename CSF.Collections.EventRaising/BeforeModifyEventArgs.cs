@@ -28,11 +28,19 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
+  /// <summary>
+  /// Implementation of <c>EventArgs</c> for events which are raised before the modification of a collection.
+  /// </summary>
   public class BeforeModifyEventArgs<TItem> : AfterModifyEventArgs<TItem>, IBeforeModify<TItem>, ICancelable
     where TItem : class
   {
     #region properties
 
+    /// <summary>
+    /// Gets a value indicating whether this instance is cancelled.
+    /// </summary>
+    /// <value>true</value>
+    /// <c>false</c>
     public bool IsCancelled
     {
       get;
@@ -43,6 +51,9 @@ namespace CSF.Collections.EventRaising
 
     #region methods
 
+    /// <summary>
+    /// Cancels the current action.
+    /// </summary>
     public void Cancel()
     {
       IsCancelled = true;
@@ -52,6 +63,12 @@ namespace CSF.Collections.EventRaising
 
     #region constructor
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.BeforeModifyEventArgs{TItem}"/>
+    /// class.
+    /// </summary>
+    /// <param name="collection">The collection which is to be modified.</param>
+    /// <param name="item">The item to be added or removed to/from the collection.</param>
     public BeforeModifyEventArgs(ICollection<TItem> collection, TItem item) : base(collection, item)
     {
       IsCancelled = false;

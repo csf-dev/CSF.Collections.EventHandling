@@ -44,6 +44,8 @@ namespace CSF.Collections.EventRaising
 
     public EventRaisingListWrapper(IList<TItem> source) : base(source) {}
 
+    public EventRaisingListWrapper() : base() {}
+
     #endregion
   }
 }

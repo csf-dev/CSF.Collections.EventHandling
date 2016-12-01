@@ -152,26 +152,51 @@ namespace CSF.Collections.EventRaising
 
     #region methods
 
+    /// <summary>
+    /// Raises the before add event.  This occurs by listening to an event from the wrapper implementation type.
+    /// </summary>
+    /// <param name="sender">The sender of the original event.</param>
+    /// <param name="ev">Event arguments.</param>
     protected virtual void OnBeforeAdd(object sender, BeforeModifyEventArgs<TItem> ev)
     {
       BeforeAdd?.Invoke(this, ev);
     }
 
+    /// <summary>
+    /// Raises the after add event.  This occurs by listening to an event from the wrapper implementation type.
+    /// </summary>
+    /// <param name="sender">The sender of the original event.</param>
+    /// <param name="ev">Event arguments.</param>
     protected virtual void OnAfterAdd(object sender, AfterModifyEventArgs<TItem> ev)
     {
       AfterAdd?.Invoke(this, ev);
     }
 
+    /// <summary>
+    /// Raises the before remove event.  This occurs by listening to an event from the wrapper implementation type.
+    /// </summary>
+    /// <param name="sender">The sender of the original event.</param>
+    /// <param name="ev">Event arguments.</param>
     protected virtual void OnBeforeRemove(object sender, BeforeModifyEventArgs<TItem> ev)
     {
       BeforeRemove?.Invoke(this, ev);
     }
 
+    /// <summary>
+    /// Raises the after remove event.  This occurs by listening to an event from the wrapper implementation type.
+    /// </summary>
+    /// <param name="sender">The sender of the original event.</param>
+    /// <param name="ev">Event arguments.</param>
     protected virtual void OnAfterRemove(object sender, AfterModifyEventArgs<TItem> ev)
     {
       AfterRemove?.Invoke(this, ev);
     }
 
+    /// <summary>
+    /// Raises the before replace event.
+    /// </summary>
+    /// <returns><c>true</c>, if the replacement is permitted, <c>false</c> otherwise.</returns>
+    /// <param name="replacement">The replacement collection.</param>
     protected virtual bool HandleBeforeReplace(TCollection replacement)
     {
       var args = new BeforeReplaceEventArgs<TCollection>(SourceCollection, replacement);
@@ -179,12 +204,21 @@ namespace CSF.Collections.EventRaising
       return !args.IsCancelled;
     }
 
+    /// <summary>
+    /// Raises the after replace event.
+    /// </summary>
+    /// <returns><c>true</c>, if the replacement is permitted, <c>false</c> otherwise.</returns>
+    /// <param name="replacement">The replacement collection.</param>
     protected virtual void HandleAfterReplace(TCollection source, TCollection replacement)
     {
       var args = new AfterReplaceEventArgs<TCollection>(source, replacement);
       AfterReplace?.Invoke(this, args);
     }
 
+    /// <summary>
+    /// Replaces the wrapped collection using a new source collection.
+    /// </summary>
+    /// <param name="newSourceCollection">New source collection.</param>
     protected virtual void ReplaceWrappedCollection(TCollection newSourceCollection)
     {
       SetWrappedCollection(newSourceCollection);
@@ -219,12 +253,26 @@ namespace CSF.Collections.EventRaising
       }
     }
 
+    /// <summary>
+    /// Creates the event handling collection implementation instance.
+    /// </summary>
+    /// <returns>The event handling collection.</returns>
+    /// <param name="newSourceCollection">New source collection.</param>
     protected abstract IEventRaisingCollection<TItem> CreateEventHandlingCollection(TCollection newSourceCollection);
 
     #endregion
 
     #region constructor
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> class.
+    /// </summary>
+    public EventRaisingCollectionWrapperBase() : this(null) {}
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> class.
+    /// </summary>
+    /// <param name="sourceCollection">Source collection.</param>
     public EventRaisingCollectionWrapperBase(TCollection sourceCollection)
     {
       SetWrappedCollection(sourceCollection);

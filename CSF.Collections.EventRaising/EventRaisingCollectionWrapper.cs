@@ -28,6 +28,10 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
+  /// <summary>
+  /// Implementation of <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> for generic instances
+  /// of <c>ICollection</c>.
+  /// </summary>
   public class EventRaisingCollectionWrapper<TItem> : EventRaisingCollectionWrapperBase<ICollection<TItem>,TItem>
     where TItem : class
   {
@@ -43,6 +47,8 @@ namespace CSF.Collections.EventRaising
     #region constructor
 
     public EventRaisingCollectionWrapper(ICollection<TItem> source) : base(source) {}
+
+    public EventRaisingCollectionWrapper() : base() {}
 
     #endregion
   }

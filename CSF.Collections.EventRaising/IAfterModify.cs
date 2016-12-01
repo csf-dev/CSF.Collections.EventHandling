@@ -28,10 +28,21 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
+  /// <summary>
+  /// Interface for an action which occurs before the modification of a collection.
+  /// </summary>
   public interface IAfterModify<TItem> where TItem : class
   {
+    /// <summary>
+    /// Gets the item added or removed to/from the collection.
+    /// </summary>
+    /// <value>The item.</value>
     TItem Item { get; }
 
+    /// <summary>
+    /// Gets the collection which is to be modified.
+    /// </summary>
+    /// <value>The collection.</value>
     ICollection<TItem> Collection { get; }
   }
 }

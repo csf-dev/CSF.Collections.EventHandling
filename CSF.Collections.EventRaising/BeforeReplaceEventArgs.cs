@@ -28,10 +28,18 @@ using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
+  /// <summary>
+  /// Implementation of <c>EventArgs</c> for events which are raised before the replacement of a collection.
+  /// </summary>
   public class BeforeReplaceEventArgs<TCollection> : AfterReplaceEventArgs<TCollection>, ICancelable
   {
     #region properties
 
+    /// <summary>
+    /// Gets a value indicating whether this instance is cancelled.
+    /// </summary>
+    /// <value>true</value>
+    /// <c>false</c>
     public bool IsCancelled
     {
       get;
@@ -42,6 +50,9 @@ namespace CSF.Collections.EventRaising
 
     #region methods
 
+    /// <summary>
+    /// Cancels the current action.
+    /// </summary>
     public void Cancel()
     {
       IsCancelled = true;
@@ -51,6 +62,11 @@ namespace CSF.Collections.EventRaising
 
     #region constructor
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.BeforeReplaceEventArgs{TCollection}"/> class.
+    /// </summary>
+    /// <param name="original">The original collection.</param>
+    /// <param name="replacement">The replacement collection.</param>
     public BeforeReplaceEventArgs(TCollection original, TCollection replacement) : base(original, replacement)
     {
       IsCancelled = false;

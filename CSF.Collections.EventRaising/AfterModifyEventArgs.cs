@@ -29,7 +29,7 @@ using System.Collections.Generic;
 namespace CSF.Collections.EventRaising
 {
   /// <summary>
-  /// Event arguments for the modification of an event-handling collection,
+  /// Implementation of <c>EventArgs</c> for events which are raised after the successful modification of a collection.
   /// </summary>
   public class AfterModifyEventArgs<TItem> : EventArgs, IAfterModify<TItem>
     where TItem : class
@@ -37,7 +37,7 @@ namespace CSF.Collections.EventRaising
     #region properties
 
     /// <summary>
-    /// Gets the item.
+    /// Gets the item added or removed to/from the collection.
     /// </summary>
     /// <value>The item.</value>
     public TItem Item
@@ -47,7 +47,7 @@ namespace CSF.Collections.EventRaising
     }
 
     /// <summary>
-    /// Gets the collection.
+    /// Gets the collection which is to be modified.
     /// </summary>
     /// <value>The collection.</value>
     public ICollection<TItem> Collection
@@ -61,10 +61,11 @@ namespace CSF.Collections.EventRaising
     #region constructor
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CSF.Collections.EventRaising.AfterModifyEventArgs`1"/> class.
+    /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterModifyEventArgs{TItem}"/>
+    /// class.
     /// </summary>
-    /// <param name="collection">Collection.</param>
-    /// <param name="item">Item.</param>
+    /// <param name="collection">The collection which is to be modified.</param>
+    /// <param name="item">The item to be added or removed to/from the collection.</param>
     public AfterModifyEventArgs(ICollection<TItem> collection, TItem item)
     {
       if(collection == null)
