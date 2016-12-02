@@ -26,11 +26,10 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using CSF.Collections.EventRaising.Impl;
 using Test.CSF.Collections.EventRaising.Mocks;
 using CSF.Collections.EventRaising;
 
-namespace Test.CSF.Collections.EventRaising.Impl
+namespace Test.CSF.Collections.EventRaising
 {
   [TestFixture]
   public class TestEventRaisingList : EventRaisingCollectionTestBase

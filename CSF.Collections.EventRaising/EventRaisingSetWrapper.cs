@@ -42,9 +42,9 @@ namespace CSF.Collections.EventRaising
     /// </summary>
     /// <returns>The event handling collection.</returns>
     /// <param name="newSourceCollection">New source collection.</param>
-    protected override Impl.IEventRaisingCollection<TItem> CreateEventHandlingCollection(ISet<TItem> newSourceCollection)
+    protected override IEventRaisingCollection<TItem> CreateEventHandlingCollection(ISet<TItem> newSourceCollection)
     {
-      return new Impl.EventRaisingSet<TItem>(newSourceCollection);
+      return new EventRaisingSet<TItem>(newSourceCollection);
     }
 
     #endregion

@@ -29,7 +29,7 @@ using CSF.Collections.EventRaising;
 using Test.CSF.Collections.EventRaising.Mocks;
 using System.Collections.Generic;
 
-namespace Test.CSF.Collections.EventRaising.Impl
+namespace Test.CSF.Collections.EventRaising
 {
   public abstract class EventRaisingCollectionTestBase
   {

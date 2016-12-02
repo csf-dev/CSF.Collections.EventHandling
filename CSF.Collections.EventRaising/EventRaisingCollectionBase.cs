@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 
-namespace CSF.Collections.EventRaising.Impl
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Base type for event-handling collections.

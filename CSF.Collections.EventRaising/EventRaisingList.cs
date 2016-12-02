@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventRaising.Impl
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for the generic <c>IList</c>.

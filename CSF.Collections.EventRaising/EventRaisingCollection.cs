@@ -24,11 +24,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CSF.Collections.EventRaising.Impl;
 using CSF.Collections.EventRaising;
 using System.Collections.Generic;
 
-namespace CSF.Collections.EventRaising.Impl
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for <c>ICollection</c>.

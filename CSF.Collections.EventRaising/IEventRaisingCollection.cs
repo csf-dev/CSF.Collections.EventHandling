@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace CSF.Collections.EventRaising.Impl
+namespace CSF.Collections.EventRaising
 {
   /// <summary>
   /// Interface for an event-raising collection.

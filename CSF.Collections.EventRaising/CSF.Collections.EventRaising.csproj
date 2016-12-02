@@ -51,14 +51,11 @@
     <Compile Include="EventRaisingCollectionWrapperExtensions.cs" />
     <Compile Include="EventRaisingSetWrapper.cs" />
     <Compile Include="IEventRaisingCollectionWrapper.cs" />
-    <Compile Include="Impl\EventRaisingCollection.cs" />
-    <Compile Include="Impl\EventRaisingList.cs" />
-    <Compile Include="Impl\EventRaisingCollectionBase.cs" />
-    <Compile Include="Impl\EventRaisingSet.cs" />
-    <Compile Include="Impl\IEventRaisingCollection.cs" />
+    <Compile Include="EventRaisingCollection.cs" />
+    <Compile Include="EventRaisingCollectionBase.cs" />
+    <Compile Include="EventRaisingList.cs" />
+    <Compile Include="EventRaisingSet.cs" />
+    <Compile Include="IEventRaisingCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Impl\" />
-  </ItemGroup>
 </Project>

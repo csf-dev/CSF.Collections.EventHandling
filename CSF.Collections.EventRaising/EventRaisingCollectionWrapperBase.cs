@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
-using CSF.Collections.EventRaising.Impl;
+using CSF.Collections.EventRaising;
 
 namespace CSF.Collections.EventRaising
 {
@@ -85,10 +85,10 @@ namespace CSF.Collections.EventRaising
     /// Gets the <see cref="Collection"/> as an event-handling collection instance.
     /// </summary>
     /// <value>The event handling collection.</value>
-    protected Impl.IEventRaisingCollection<TItem> EventHandlingCollection
+    protected IEventRaisingCollection<TItem> EventHandlingCollection
     {
       get {
-        return (Impl.IEventRaisingCollection<TItem>) Collection;
+        return (IEventRaisingCollection<TItem>) Collection;
       }
     }
 
