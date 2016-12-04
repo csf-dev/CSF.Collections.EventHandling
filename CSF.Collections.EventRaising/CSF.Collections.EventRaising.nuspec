@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CSF.Collections.EventRaising</id>
+    <version>1.0.0</version>
+    <title>Event-raising collections</title>
+    <authors>CSF Software Ltd</authors>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/csf-dev/CSF.Collections.EventRaising</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Implementations for commonly-used ICollection interfaces which expose events which are raised when the collection is modified or replaced.</description>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+  <files>
+    <file src="bin/Release/CSF.Collections.EventRaising.dll" target="lib/net45" />
+  </files>
+</package>
