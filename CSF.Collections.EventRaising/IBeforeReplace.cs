@@ -1,5 +1,5 @@
 ﻿//
-// IEventHandlingCollection.cs
+// IBeforeReplace.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,16 +24,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
   /// <summary>
-  /// Interface for an event-raising collection.
+  /// Interface for an action which occurs before the replacement of a collection.
   /// </summary>
-  public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection, IHasModificationEvents<TItem>
-    where TItem : class
+  public interface IBeforeReplace<TCollection> : IAfterReplace<TCollection>, ICancelable
   {
   }
 }

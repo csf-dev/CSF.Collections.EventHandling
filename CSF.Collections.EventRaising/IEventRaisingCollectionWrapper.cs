@@ -32,7 +32,7 @@ namespace CSF.Collections.EventRaising
   /// <summary>
   /// Interface for an event-raising collection wrapper.
   /// </summary>
-  public interface IEventRaisingCollectionWrapper<TItem>
+  public interface IEventRaisingCollectionWrapper<TItem> : IHasModificationEvents<TItem>
     where TItem : class
   {
     #region properties
@@ -48,30 +48,6 @@ namespace CSF.Collections.EventRaising
     /// </summary>
     /// <value>The source collection.</value>
     ICollection<TItem> SourceCollection { get; set; }
-
-    #endregion
-
-    #region events
-
-    /// <summary>
-    /// Occurs before an item is added to the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
-
-    /// <summary>
-    /// Occurs after an item is added to the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
-
-    /// <summary>
-    /// Occurs before an item is removed from the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
-
-    /// <summary>
-    /// Occurs after an item is removed from the <see cref="Collection"/>.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
 
     #endregion
   }

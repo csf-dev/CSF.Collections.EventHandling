@@ -1,5 +1,5 @@
 ﻿//
-// IEventHandlingCollection.cs
+// IHasModificationEvents.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,17 +24,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
   /// <summary>
-  /// Interface for an event-raising collection.
+  /// Interface for a type which exposes events for modifying the items in a collection.
   /// </summary>
-  public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection, IHasModificationEvents<TItem>
-    where TItem : class
+  public interface IHasModificationEvents<TItem> where TItem : class
   {
+    /// <summary>
+    /// Occurs before an item is added to the collection.
+    /// </summary>
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
+
+    /// <summary>
+    /// Occurs after an item is added to the collection.
+    /// </summary>
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
+
+    /// <summary>
+    /// Occurs before an item is removed the collection.
+    /// </summary>
+    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
+
+    /// <summary>
+    /// Occurs after an item is removed from the collection.
+    /// </summary>
+    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
   }
 }
 

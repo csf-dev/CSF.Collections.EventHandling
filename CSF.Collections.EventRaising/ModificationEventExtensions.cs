@@ -28,9 +28,9 @@ using System;
 namespace CSF.Collections.EventRaising
 {
   /// <summary>
-  /// Extension methods for implementors of <see cref="T:IEventRaisingCollectionWrapper{TItem}"/>.
+  /// Extension methods for implementors of <see cref="T:IHasModificationEvents{TItem}"/>.
   /// </summary>
-  public static class EventRaisingCollectionWrapperExtensions
+  public static class ModificationEventExtensions
   {
     /// <summary>
     /// Sets up all of the possible collection-modification events using short delegates.
@@ -52,11 +52,11 @@ namespace CSF.Collections.EventRaising
     /// <param name="afterAdd">The after-add handler.</param>
     /// <param name="afterRemove">The after-remove handler.</param>
     /// <typeparam name="TItem">The type of object contained within the collection.</typeparam>
-    public static void SetupEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
-                                          Action<IBeforeModify<TItem>> beforeAdd = null,
-                                          Action<IBeforeModify<TItem>> beforeRemove = null,
-                                          Action<IAfterModify<TItem>> afterAdd = null,
-                                          Action<IAfterModify<TItem>> afterRemove = null)
+    public static void SetupActions<TItem>(this IHasModificationEvents<TItem> wrapper,
+                                           Action<IBeforeModify<TItem>> beforeAdd = null,
+                                           Action<IBeforeModify<TItem>> beforeRemove = null,
+                                           Action<IAfterModify<TItem>> afterAdd = null,
+                                           Action<IAfterModify<TItem>> afterRemove = null)
       where TItem : class
     {
       if(wrapper == null)
@@ -103,12 +103,12 @@ namespace CSF.Collections.EventRaising
     /// <param name="add">The before-add handler.</param>
     /// <param name="remove">The before-remove handler.</param>
     /// <typeparam name="TItem">The type of object contained within the collection.</typeparam>
-    public static void SetupAfterEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
-                                               Action<IAfterModify<TItem>> add = null,
-                                               Action<IAfterModify<TItem>> remove = null)
+    public static void SetupAfterActions<TItem>(this IHasModificationEvents<TItem> wrapper,
+                                                Action<IAfterModify<TItem>> add = null,
+                                                Action<IAfterModify<TItem>> remove = null)
       where TItem : class
     {
-      SetupEvents(wrapper, afterAdd: add, afterRemove: remove);
+      SetupActions(wrapper, afterAdd: add, afterRemove: remove);
     }
 
     /// <summary>
@@ -129,12 +129,12 @@ namespace CSF.Collections.EventRaising
     /// <param name="add">The after-add handler.</param>
     /// <param name="remove">The after-remove handler.</param>
     /// <typeparam name="TItem">The type of object contained within the collection.</typeparam>
-    public static void SetupBeforeEvents<TItem>(this IEventRaisingCollectionWrapper<TItem> wrapper,
-                                                Action<IBeforeModify<TItem>> add = null,
-                                                Action<IBeforeModify<TItem>> remove = null)
+    public static void SetupBeforeActions<TItem>(this IHasModificationEvents<TItem> wrapper,
+                                                 Action<IBeforeModify<TItem>> add = null,
+                                                 Action<IBeforeModify<TItem>> remove = null)
       where TItem : class
     {
-      SetupEvents(wrapper, beforeAdd: add, beforeRemove: remove);
+      SetupActions(wrapper, beforeAdd: add, beforeRemove: remove);
     }
   }
 }

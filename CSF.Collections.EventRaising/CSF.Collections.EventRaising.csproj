@@ -48,7 +48,6 @@
     <Compile Include="EventRaisingCollectionWrapper.cs" />
     <Compile Include="EventRaisingCollectionWrapperBase.cs" />
     <Compile Include="EventRaisingListWrapper.cs" />
-    <Compile Include="EventRaisingCollectionWrapperExtensions.cs" />
     <Compile Include="EventRaisingSetWrapper.cs" />
     <Compile Include="IEventRaisingCollectionWrapper.cs" />
     <Compile Include="EventRaisingCollection.cs" />
@@ -56,6 +55,10 @@
     <Compile Include="EventRaisingList.cs" />
     <Compile Include="EventRaisingSet.cs" />
     <Compile Include="IEventRaisingCollection.cs" />
+    <Compile Include="IAfterReplace.cs" />
+    <Compile Include="IBeforeReplace.cs" />
+    <Compile Include="IHasModificationEvents.cs" />
+    <Compile Include="ModificationEventExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

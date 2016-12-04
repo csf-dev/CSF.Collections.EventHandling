@@ -1,5 +1,5 @@
 ﻿//
-// IEventHandlingCollection.cs
+// IAfterReplace<TCollection>.cs
 //
 // Author:
 //       Craig Fowler <craig@craigfowler.me.uk>
@@ -24,17 +24,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
   /// <summary>
-  /// Interface for an event-raising collection.
+  /// Interface for an action which occurs after the replacement of a collection.
   /// </summary>
-  public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection, IHasModificationEvents<TItem>
-    where TItem : class
+  public interface IAfterReplace<TCollection>
   {
+    /// <summary>
+    /// Gets the original collection to be replaced.
+    /// </summary>
+    /// <value>The original collection.</value>
+    TCollection Original { get; }
+
+    /// <summary>
+    /// Gets the replacement collection.
+    /// </summary>
+    /// <value>The replacement collection.</value>
+    TCollection Replacement { get; }
   }
 }
 
