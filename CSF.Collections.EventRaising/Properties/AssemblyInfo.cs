@@ -29,9 +29,8 @@ using System.Runtime.CompilerServices;
 
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("CSF.Collections.EventRaising")]
-[assembly: AssemblyDescription("Collection types (and wrappers) which provide callbacks for events")]
+[assembly: AssemblyDescription("Collection types (and wrappers) which expose events for modification/replacement")]
 [assembly: AssemblyCompany("CSF Software Limited")]
-[assembly: AssemblyProduct("CSF Software Utilities")]
 [assembly: AssemblyCopyright("CSF Software Limited")]
 
 #if DEBUG
@@ -40,5 +39,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-[assembly: AssemblyVersion("6.0.0")]
+[assembly: AssemblyVersion("1.0.0")]
 
