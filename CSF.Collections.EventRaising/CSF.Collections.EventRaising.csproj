@@ -61,4 +61,7 @@
     <Compile Include="ModificationEventExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="CSF.Collections.EventRaising.nuspec" />
+  </ItemGroup>
 </Project>
