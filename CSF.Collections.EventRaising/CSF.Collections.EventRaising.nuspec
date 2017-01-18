@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>CSF.Collections.EventRaising</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Event-raising collections</title>
     <authors>CSF Software Ltd</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -13,5 +13,6 @@
   </metadata>
   <files>
     <file src="bin/Release/CSF.Collections.EventRaising.dll" target="lib/net45" />
+    <file src="bin/Release/CSF.Collections.EventRaising.xml" target="lib/net45" />
   </files>
 </package>

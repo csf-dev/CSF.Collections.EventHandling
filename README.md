@@ -8,7 +8,7 @@ handling of the replacement of the collections themselves.
 ## Documentation
 Documentation and examples of usage are available on [the project wiki].
 
-[the project wiki]: https://github.com/csf-dev/CSF.Collections.EventRaising/wiki.
+[the project wiki]: https://github.com/csf-dev/CSF.Collections.EventRaising/wiki
 
 ## Open source license
 All source files within this project are released as open source software,

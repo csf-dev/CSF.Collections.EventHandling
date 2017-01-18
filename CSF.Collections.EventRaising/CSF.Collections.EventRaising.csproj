@@ -10,7 +10,7 @@
     <RootNamespace>CSF.Collections.EventRaising</RootNamespace>
     <AssemblyName>CSF.Collections.EventRaising</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <ReleaseVersion>1.0.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,4 +61,7 @@
     <Compile Include="ModificationEventExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="CSF.Collections.EventRaising.nuspec" />
+  </ItemGroup>
 </Project>
