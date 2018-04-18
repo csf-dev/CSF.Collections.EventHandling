@@ -23,16 +23,13 @@ Global
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.TextStylePolicy = $1
-		$1.FileWidth = 120
 		$1.TabWidth = 2
 		$1.IndentWidth = 2
 		$1.NoTabsAfterNonTabs = True
-		$1.inheritsSet = VisualStudio
-		$1.inheritsScope = text/plain
 		$1.scope = text/plain
+		$1.TabsToSpaces = True
 		$0.StandardHeader = $2
 		$2.Text = @\n${FileName}\n \nAuthor:\n      ${AuthorName} <${AuthorEmail}>\n\nCopyright (c) ${Year} ${CopyrightHolder}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.
-		$2.IncludeInNewFiles = True
 		$0.DotNetNamingPolicy = $3
 		$3.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$3.ResourceNamePolicy = FileName
@@ -199,9 +196,24 @@ Global
 		$28.NewLineAferIndexerOpenBracket = SameLine
 		$28.IndexerClosingBracketOnNewLine = SameLine
 		$28.AlignToFirstIndexerArgument = True
-		$28.inheritsSet = Mono
-		$28.inheritsScope = text/x-csharp
 		$28.scope = text/x-csharp
-		version = 1.0.1
+		$28.IndentSwitchSection = False
+		$28.NewLinesForBracesInProperties = False
+		$28.NewLinesForBracesInAccessors = False
+		$28.NewLinesForBracesInAnonymousMethods = False
+		$28.NewLinesForBracesInControlBlocks = False
+		$28.NewLinesForBracesInAnonymousTypes = False
+		$28.NewLinesForBracesInObjectCollectionArrayInitializers = False
+		$28.NewLinesForBracesInLambdaExpressionBody = False
+		$28.NewLineForElse = False
+		$28.NewLineForCatch = False
+		$28.NewLineForFinally = False
+		$28.NewLineForMembersInObjectInit = False
+		$28.NewLineForMembersInAnonymousTypes = False
+		$28.NewLineForClausesInQuery = False
+		$28.SpacingAfterMethodDeclarationName = True
+		$28.SpaceAfterMethodCallName = True
+		$28.SpaceBeforeOpenSquareBracket = True
+		version = 1.0.2
 	EndGlobalSection
 EndGlobal
