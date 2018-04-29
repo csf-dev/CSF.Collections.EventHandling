@@ -214,6 +214,6 @@ Global
 		$28.SpacingAfterMethodDeclarationName = True
 		$28.SpaceAfterMethodCallName = True
 		$28.SpaceBeforeOpenSquareBracket = True
-		version = 1.0.2
+		version = 1.0.3
 	EndGlobalSection
 EndGlobal
