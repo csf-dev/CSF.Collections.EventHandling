@@ -27,21 +27,21 @@ using System;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Represents an action, which may be cancelled.
-  /// </summary>
-  public interface ICancelable
-  {
     /// <summary>
-    /// Gets a value indicating whether this instance is cancelled.
+    /// Represents an action, which may be cancelled.
     /// </summary>
-    /// <value><c>true</c> if this instance is cancelled; otherwise, <c>false</c>.</value>
-    bool IsCancelled { get; }
+    public interface ICancelable
+    {
+        /// <summary>
+        /// Gets a value indicating whether this instance is cancelled.
+        /// </summary>
+        /// <value><c>true</c> if this instance is cancelled; otherwise, <c>false</c>.</value>
+        bool IsCancelled { get; }
 
-    /// <summary>
-    /// Cancels the current action.
-    /// </summary>
-    void Cancel();
-  }
+        /// <summary>
+        /// Cancels the current action.
+        /// </summary>
+        void Cancel ();
+    }
 }
 

@@ -31,84 +31,79 @@ using System.Collections.Generic;
 
 namespace Test.CSF.Collections.EventRaising
 {
-  public abstract class EventRaisingCollectionTestBase
-  {
-    #region properties
-
-    protected bool CallbackOneCalled
+    public abstract class EventRaisingCollectionTestBase
     {
-      get;
-      private set;
-    }
+        #region properties
 
-    protected bool CallbackTwoCalled
-    {
-      get;
-      private set;
-    }
+        protected bool CallbackOneCalled {
+            get;
+            private set;
+        }
 
-    protected Person Replacement
-    {
-      get;
-      private set;
-    }
+        protected bool CallbackTwoCalled {
+            get;
+            private set;
+        }
 
-    protected IList<Person> SourceCollection
-    {
-      get;
-      private set;
-    }
+        protected Person Replacement {
+            get;
+            private set;
+        }
 
-    #endregion
+        protected IList<Person> SourceCollection {
+            get;
+            private set;
+        }
 
-    #region setup
+        #endregion
 
-    [SetUp]
-    public void Setup()
-    {
-      CallbackOneCalled = false;
-      CallbackTwoCalled = false;
+        #region setup
 
-      SourceCollection = new [] {
+        [SetUp]
+        public void Setup ()
+        {
+            CallbackOneCalled = false;
+            CallbackTwoCalled = false;
+
+            SourceCollection = new [] {
         new Person() { Name = "Joe",    Age = 20 },
         new Person() { Name = "Susan",  Age = 30 },
         new Person() { Name = "Deepak", Age = 40 },
       };
 
-      Replacement = new Person() { Name = "Claire", Age = 35 };
+            Replacement = new Person () { Name = "Claire", Age = 35 };
 
-      AdditionalSetup();
+            AdditionalSetup ();
+        }
+
+        protected virtual void AdditionalSetup ()
+        {
+            return;
+        }
+
+        #endregion
+
+        #region methods
+
+        protected void RecordingCallbackOne (object sender, EventArgs ev)
+        {
+            CallbackOneCalled = true;
+        }
+
+        protected void RecordingCallbackTwo (object sender, EventArgs ev)
+        {
+            CallbackTwoCalled = true;
+        }
+
+        protected void CancellingCallback (object sender, EventArgs ev)
+        {
+            var cancelable = ev as ICancelable;
+            if (cancelable != null) {
+                cancelable.Cancel ();
+            }
+        }
+
+        #endregion
     }
-
-    protected virtual void AdditionalSetup()
-    {
-      return;
-    }
-
-    #endregion
-
-    #region methods
-
-    protected void RecordingCallbackOne(object sender, EventArgs ev)
-    {
-      CallbackOneCalled = true;
-    }
-
-    protected void RecordingCallbackTwo(object sender, EventArgs ev)
-    {
-      CallbackTwoCalled = true;
-    }
-
-    protected void CancellingCallback(object sender, EventArgs ev)
-    {
-      var cancelable = ev as ICancelable;
-      if(cancelable != null)
-      {
-        cancelable.Cancel();
-      }
-    }
-
-    #endregion
-  }
 }
 

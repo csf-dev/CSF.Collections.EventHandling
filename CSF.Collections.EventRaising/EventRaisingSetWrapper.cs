@@ -28,41 +28,41 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Implementation of <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> for generic instances
-  /// of <c>ISet</c>.
-  /// </summary>
-  public class EventRaisingSetWrapper<TItem> : EventRaisingCollectionWrapperBase<ISet<TItem>,TItem>
-    where TItem : class
-  {
-    #region methods
-
     /// <summary>
-    /// Creates the event handling collection implementation instance.
+    /// Implementation of <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> for generic instances
+    /// of <c>ISet</c>.
     /// </summary>
-    /// <returns>The event handling collection.</returns>
-    /// <param name="newSourceCollection">New source collection.</param>
-    protected override IEventRaisingCollection<TItem> CreateEventHandlingCollection(ISet<TItem> newSourceCollection)
+    public class EventRaisingSetWrapper<TItem> : EventRaisingCollectionWrapperBase<ISet<TItem>, TItem>
+      where TItem : class
     {
-      return new EventRaisingSet<TItem>(newSourceCollection);
+        #region methods
+
+        /// <summary>
+        /// Creates the event handling collection implementation instance.
+        /// </summary>
+        /// <returns>The event handling collection.</returns>
+        /// <param name="newSourceCollection">New source collection.</param>
+        protected override IEventRaisingCollection<TItem> CreateEventHandlingCollection (ISet<TItem> newSourceCollection)
+        {
+            return new EventRaisingSet<TItem> (newSourceCollection);
+        }
+
+        #endregion
+
+        #region constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:EventRaisingSetWrapper{TItem}"/> class.
+        /// </summary>
+        /// <param name="source">A source collection with which to initialise this instance.</param>
+        public EventRaisingSetWrapper (ISet<TItem> source) : base (source) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:EventRaisingSetWrapper{TItem}"/> class.
+        /// </summary>
+        public EventRaisingSetWrapper () : base () { }
+
+        #endregion
     }
-
-    #endregion
-
-    #region constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="T:EventRaisingSetWrapper{TItem}"/> class.
-    /// </summary>
-    /// <param name="source">A source collection with which to initialise this instance.</param>
-    public EventRaisingSetWrapper(ISet<TItem> source) : base(source) {}
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="T:EventRaisingSetWrapper{TItem}"/> class.
-    /// </summary>
-    public EventRaisingSetWrapper() : base() {}
-
-    #endregion
-  }
 }
 

@@ -1,69 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A89D3196-8E70-496D-9999-AA5B7AF1183D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>CSF.Collections.EventRaising</RootNamespace>
-    <AssemblyName>CSF.Collections.EventRaising</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworks>netstandard2.0;netstandard1.0;net45</TargetFrameworks>
+    <Authors>craigfowler</Authors>
+        
+    <PackageId>CSF.Collections.EventRaising</PackageId>
+    <Title>Event-raising collections</Title>
+    <Description>Implementations for commonly-used ICollection interfaces which expose events which are raised when the collection is modified or replaced.</Description>
     <ReleaseVersion>1.0.3</ReleaseVersion>
+    <Version>$(ReleaseVersion)</Version>
+    <PackageVersion>$(ReleaseVersion)</PackageVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright 2020 - CSF Software Limited</Copyright>
+    <PackageProjectUrl>https://github.com/csf-dev/CSF.Collections.EventRaising</PackageProjectUrl>
+    <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\CSF.Collections.EventRaising.xml</DocumentationFile>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <DocumentationFile>bin\Debug\CSF.Collections.EventRaising.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\CSF.Collections.EventRaising.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\CSF.Collections.EventRaising.xml</DocumentationFile>
+    <DebugType></DebugType>
   </PropertyGroup>
+    
   <ItemGroup>
-    <Reference Include="System" />
+    <None Remove="CSF.Collections.EventRaising.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ICancelable.cs" />
-    <Compile Include="BeforeReplaceEventArgs.cs" />
-    <Compile Include="AfterReplaceEventArgs.cs" />
-    <Compile Include="BeforeModifyEventArgs.cs" />
-    <Compile Include="AfterModifyEventArgs.cs" />
-    <Compile Include="IBeforeModify.cs" />
-    <Compile Include="IAfterModify.cs" />
-    <Compile Include="EventRaisingCollectionWrapper.cs" />
-    <Compile Include="EventRaisingCollectionWrapperBase.cs" />
-    <Compile Include="EventRaisingListWrapper.cs" />
-    <Compile Include="EventRaisingSetWrapper.cs" />
-    <Compile Include="IEventRaisingCollectionWrapper.cs" />
-    <Compile Include="EventRaisingCollection.cs" />
-    <Compile Include="EventRaisingCollectionBase.cs" />
-    <Compile Include="EventRaisingList.cs" />
-    <Compile Include="EventRaisingSet.cs" />
-    <Compile Include="IEventRaisingCollection.cs" />
-    <Compile Include="IAfterReplace.cs" />
-    <Compile Include="IBeforeReplace.cs" />
-    <Compile Include="IHasModificationEvents.cs" />
-    <Compile Include="ModificationEventExtensions.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="CSF.Collections.EventRaising.nuspec" />
-  </ItemGroup>
+  <Import Project="..\Tools\EnableMultiTargetingWithMono.targets" />
+    
 </Project>
