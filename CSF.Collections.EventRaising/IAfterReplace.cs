@@ -27,22 +27,22 @@ using System;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Interface for an action which occurs after the replacement of a collection.
-  /// </summary>
-  public interface IAfterReplace<TCollection>
-  {
     /// <summary>
-    /// Gets the original collection to be replaced.
+    /// Interface for an action which occurs after the replacement of a collection.
     /// </summary>
-    /// <value>The original collection.</value>
-    TCollection Original { get; }
+    public interface IAfterReplace<TCollection>
+    {
+        /// <summary>
+        /// Gets the original collection to be replaced.
+        /// </summary>
+        /// <value>The original collection.</value>
+        TCollection Original { get; }
 
-    /// <summary>
-    /// Gets the replacement collection.
-    /// </summary>
-    /// <value>The replacement collection.</value>
-    TCollection Replacement { get; }
-  }
+        /// <summary>
+        /// Gets the replacement collection.
+        /// </summary>
+        /// <value>The replacement collection.</value>
+        TCollection Replacement { get; }
+    }
 }
 

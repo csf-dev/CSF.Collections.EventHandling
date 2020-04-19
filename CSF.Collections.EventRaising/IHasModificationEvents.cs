@@ -27,30 +27,30 @@ using System;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Interface for a type which exposes events for modifying the items in a collection.
-  /// </summary>
-  public interface IHasModificationEvents<TItem> where TItem : class
-  {
     /// <summary>
-    /// Occurs before an item is added to the collection.
+    /// Interface for a type which exposes events for modifying the items in a collection.
     /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
+    public interface IHasModificationEvents<TItem> where TItem : class
+    {
+        /// <summary>
+        /// Occurs before an item is added to the collection.
+        /// </summary>
+        event EventHandler<BeforeModifyEventArgs<TItem>> BeforeAdd;
 
-    /// <summary>
-    /// Occurs after an item is added to the collection.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
+        /// <summary>
+        /// Occurs after an item is added to the collection.
+        /// </summary>
+        event EventHandler<AfterModifyEventArgs<TItem>> AfterAdd;
 
-    /// <summary>
-    /// Occurs before an item is removed the collection.
-    /// </summary>
-    event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
+        /// <summary>
+        /// Occurs before an item is removed the collection.
+        /// </summary>
+        event EventHandler<BeforeModifyEventArgs<TItem>> BeforeRemove;
 
-    /// <summary>
-    /// Occurs after an item is removed from the collection.
-    /// </summary>
-    event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
-  }
+        /// <summary>
+        /// Occurs after an item is removed from the collection.
+        /// </summary>
+        event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
+    }
 }
 

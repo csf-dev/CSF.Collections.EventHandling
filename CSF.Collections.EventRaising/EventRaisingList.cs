@@ -28,144 +28,136 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for the generic <c>IList</c>.
-  /// </summary>
-  public class EventRaisingList<TItem> :  EventRaisingCollectionBase<TItem>, IList<TItem>
-    where TItem : class
-  {
-    #region IList implementation
-
     /// <summary>
-    /// Gets or sets the item at the specified index.
+    /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for the generic <c>IList</c>.
     /// </summary>
-    /// <param name='index'>
-    /// The numeric index to get/set to/from.
-    /// </param>
-    public virtual TItem this[int index]
+    public class EventRaisingList<TItem> : EventRaisingCollectionBase<TItem>, IList<TItem>
+      where TItem : class
     {
-      get {
-        return GetSourceCollection()[index];
-      }
-      set {
-        bool removeDidNotCancelReplacement = true;
+        #region IList implementation
 
-        if(Count > index)
-        {
-          var item = GetSourceCollection()[index];
-          removeDidNotCancelReplacement = HandleBeforeRemove(item);
-
-          if(removeDidNotCancelReplacement)
-          {
-            if(SourceCollection.Remove(item))
-            {
-              HandleAfterRemove(item);
+        /// <summary>
+        /// Gets or sets the item at the specified index.
+        /// </summary>
+        /// <param name='index'>
+        /// The numeric index to get/set to/from.
+        /// </param>
+        public virtual TItem this [int index] {
+            get {
+                return GetSourceCollection () [index];
             }
-          }
+            set {
+                bool removeDidNotCancelReplacement = true;
+
+                if (Count > index) {
+                    var item = GetSourceCollection () [index];
+                    removeDidNotCancelReplacement = HandleBeforeRemove (item);
+
+                    if (removeDidNotCancelReplacement) {
+                        if (SourceCollection.Remove (item)) {
+                            HandleAfterRemove (item);
+                        }
+                    }
+                }
+
+                if (removeDidNotCancelReplacement) {
+                    this.Insert (index, value);
+                }
+            }
         }
 
-        if(removeDidNotCancelReplacement)
+        /// <summary>
+        /// Removes the item at the given <paramref name="index"/> from this collection.
+        /// </summary>
+        /// <param name='index'>
+        /// The index at which to remove the item.
+        /// </param>
+        public virtual void RemoveAt (int index)
         {
-          this.Insert(index, value);
+            var item = GetSourceCollection () [index];
+
+            if (HandleBeforeRemove (item)) {
+                if (SourceCollection.Remove (item)) {
+                    HandleAfterRemove (item);
+                }
+            }
         }
-      }
-    }
 
-    /// <summary>
-    /// Removes the item at the given <paramref name="index"/> from this collection.
-    /// </summary>
-    /// <param name='index'>
-    /// The index at which to remove the item.
-    /// </param>
-    public virtual void RemoveAt(int index)
-    {
-      var item = GetSourceCollection()[index];
-
-      if(HandleBeforeRemove(item))
-      {
-        if(SourceCollection.Remove(item))
+        /// <summary>
+        /// Determines the index of a specific item in the current instance.
+        /// </summary>
+        /// <returns>
+        /// The numeric index of the item.
+        /// </returns>
+        /// <param name='item'>
+        /// The item to search for.
+        /// </param>
+        public virtual int IndexOf (TItem item)
         {
-          HandleAfterRemove(item);
+            return GetSourceCollection ().IndexOf (item);
         }
-      }
+
+        /// <summary>
+        /// Inserts an item into the current collection at the specified index.
+        /// </summary>
+        /// <param name='index'>
+        /// The index at which to insert the item.
+        /// </param>
+        /// <param name='item'>
+        /// The item to insert.
+        /// </param>
+        public virtual void Insert (int index, TItem item)
+        {
+            if (HandleBeforeAdd (item)) {
+                GetSourceCollection ().Insert (index, item);
+                HandleAfterAdd (item);
+            }
+        }
+
+        #endregion
+
+        #region methods
+
+        /// <summary>
+        /// Gets a strongly-typed representation of the <see cref="P:SourceCollection"/>.
+        /// </summary>
+        /// <returns>The source collection.</returns>
+        protected IList<TItem> GetSourceCollection ()
+        {
+            return (IList<TItem>)SourceCollection;
+        }
+
+        /// <summary>
+        /// Creates a set of appropriately-populated before-action event arguments.
+        /// </summary>
+        /// <returns>The before-action event arguments.</returns>
+        /// <param name="item">Item.</param>
+        protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs (TItem item)
+        {
+            return new BeforeModifyEventArgs<TItem> (SourceCollection, item);
+        }
+
+        /// <summary>
+        /// Creates a set of appropriately-populated after-action event arguments.
+        /// </summary>
+        /// <returns>The after-action event arguments.</returns>
+        /// <param name="item">The associated item.</param>
+        protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs (TItem item)
+        {
+            return new AfterModifyEventArgs<TItem> (SourceCollection, item);
+        }
+
+        #endregion
+
+        #region constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:EventRaisingList{TItem}"/> class.
+        /// </summary>
+        /// <param name='source'>The source collection that this instance wraps.</param>
+        public EventRaisingList (IList<TItem> source) : base (source) { }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Determines the index of a specific item in the current instance.
-    /// </summary>
-    /// <returns>
-    /// The numeric index of the item.
-    /// </returns>
-    /// <param name='item'>
-    /// The item to search for.
-    /// </param>
-    public virtual int IndexOf(TItem item)
-    {
-      return GetSourceCollection().IndexOf(item);
-    }
-
-    /// <summary>
-    /// Inserts an item into the current collection at the specified index.
-    /// </summary>
-    /// <param name='index'>
-    /// The index at which to insert the item.
-    /// </param>
-    /// <param name='item'>
-    /// The item to insert.
-    /// </param>
-    public virtual void Insert(int index, TItem item)
-    {
-      if(HandleBeforeAdd(item))
-      {
-        GetSourceCollection().Insert(index, item);
-        HandleAfterAdd(item);
-      }
-    }
-
-    #endregion
-
-    #region methods
-
-    /// <summary>
-    /// Gets a strongly-typed representation of the <see cref="P:SourceCollection"/>.
-    /// </summary>
-    /// <returns>The source collection.</returns>
-    protected IList<TItem> GetSourceCollection()
-    {
-      return (IList<TItem>) SourceCollection;
-    }
-
-    /// <summary>
-    /// Creates a set of appropriately-populated before-action event arguments.
-    /// </summary>
-    /// <returns>The before-action event arguments.</returns>
-    /// <param name="item">Item.</param>
-    protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs(TItem item)
-    {
-      return new BeforeModifyEventArgs<TItem>(SourceCollection, item);
-    }
-
-    /// <summary>
-    /// Creates a set of appropriately-populated after-action event arguments.
-    /// </summary>
-    /// <returns>The after-action event arguments.</returns>
-    /// <param name="item">The associated item.</param>
-    protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs(TItem item)
-    {
-      return new AfterModifyEventArgs<TItem>(SourceCollection, item);
-    }
-
-    #endregion
-
-    #region constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="T:EventRaisingList{TItem}"/> class.
-    /// </summary>
-    /// <param name='source'>The source collection that this instance wraps.</param>
-    public EventRaisingList(IList<TItem> source) : base(source) {}
-
-    #endregion
-  }
 }
 
