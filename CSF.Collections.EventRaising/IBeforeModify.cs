@@ -27,11 +27,11 @@ using System;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Interface for an action which occurs before the modification of a collection.
-  /// </summary>
-  public interface IBeforeModify<TItem> : IAfterModify<TItem>, ICancelable where TItem : class
-  {
-  }
+    /// <summary>
+    /// Interface for an action which occurs before the modification of a collection.
+    /// </summary>
+    public interface IBeforeModify<TItem> : IAfterModify<TItem>, ICancelable where TItem : class
+    {
+    }
 }
 

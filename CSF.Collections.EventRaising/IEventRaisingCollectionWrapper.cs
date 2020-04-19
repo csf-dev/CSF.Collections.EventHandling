@@ -29,65 +29,65 @@ using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Interface for an event-raising collection wrapper.
-  /// </summary>
-  public interface IEventRaisingCollectionWrapper<TItem> : IHasModificationEvents<TItem>
-    where TItem : class
-  {
-    #region properties
+    /// <summary>
+    /// Interface for an event-raising collection wrapper.
+    /// </summary>
+    public interface IEventRaisingCollectionWrapper<TItem> : IHasModificationEvents<TItem>
+      where TItem : class
+    {
+        #region properties
+
+        /// <summary>
+        /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
+        /// </summary>
+        /// <value>The event handling collection.</value>
+        ICollection<TItem> Collection { get; }
+
+        /// <summary>
+        /// Gets or set the source collection, which is not wrapped with modification events.
+        /// </summary>
+        /// <value>The source collection.</value>
+        ICollection<TItem> SourceCollection { get; set; }
+
+        #endregion
+    }
 
     /// <summary>
-    /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
+    /// Interface for a type which wraps a normal collection and triggers events when the collection is modified.
     /// </summary>
-    /// <value>The event handling collection.</value>
-    ICollection<TItem> Collection { get; }
+    public interface IEventRaisingCollectionWrapper<TCollection, TItem> : IEventRaisingCollectionWrapper<TItem>
+      where TCollection : ICollection<TItem>
+      where TItem : class
+    {
+        #region properties
 
-    /// <summary>
-    /// Gets or set the source collection, which is not wrapped with modification events.
-    /// </summary>
-    /// <value>The source collection.</value>
-    ICollection<TItem> SourceCollection { get; set; }
+        /// <summary>
+        /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
+        /// </summary>
+        /// <value>The event handling collection.</value>
+        new TCollection Collection { get; }
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets or set the source collection, which is not wrapped with modification events.
+        /// </summary>
+        /// <value>The source collection.</value>
+        new TCollection SourceCollection { get; set; }
 
-  /// <summary>
-  /// Interface for a type which wraps a normal collection and triggers events when the collection is modified.
-  /// </summary>
-  public interface IEventRaisingCollectionWrapper<TCollection,TItem> : IEventRaisingCollectionWrapper<TItem>
-    where TCollection : ICollection<TItem>
-    where TItem : class
-  {
-    #region properties
+        #endregion
 
-    /// <summary>
-    /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
-    /// </summary>
-    /// <value>The event handling collection.</value>
-    new TCollection Collection { get; }
+        #region events
 
-    /// <summary>
-    /// Gets or set the source collection, which is not wrapped with modification events.
-    /// </summary>
-    /// <value>The source collection.</value>
-    new TCollection SourceCollection { get; set; }
+        /// <summary>
+        /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
+        /// </summary>
+        event EventHandler<BeforeReplaceEventArgs<TCollection>> BeforeReplace;
 
-    #endregion
+        /// <summary>
+        /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
+        /// </summary>
+        event EventHandler<AfterReplaceEventArgs<TCollection>> AfterReplace;
 
-    #region events
-
-    /// <summary>
-    /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
-    /// </summary>
-    event EventHandler<BeforeReplaceEventArgs<TCollection>> BeforeReplace;
-
-    /// <summary>
-    /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
-    /// </summary>
-    event EventHandler<AfterReplaceEventArgs<TCollection>> AfterReplace;
-
-    #endregion
-  }
+        #endregion
+    }
 }
 

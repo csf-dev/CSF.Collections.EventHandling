@@ -28,49 +28,47 @@ using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Implementation of <c>EventArgs</c> for events which are raised after the replacement of a collection.
-  /// </summary>
-  public class AfterReplaceEventArgs<TCollection> : EventArgs
-  {
-    #region properties
-
     /// <summary>
-    /// Gets the original collection to be replaced.
+    /// Implementation of <c>EventArgs</c> for events which are raised after the replacement of a collection.
     /// </summary>
-    /// <value>The original collection.</value>
-    public TCollection Original
+    public class AfterReplaceEventArgs<TCollection> : EventArgs
     {
-      get;
-      private set;
+        #region properties
+
+        /// <summary>
+        /// Gets the original collection to be replaced.
+        /// </summary>
+        /// <value>The original collection.</value>
+        public TCollection Original {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the replacement collection.
+        /// </summary>
+        /// <value>The replacement collection.</value>
+        public TCollection Replacement {
+            get;
+            private set;
+        }
+
+        #endregion
+
+        #region constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterReplaceEventArgs{TCollection}"/> class.
+        /// </summary>
+        /// <param name="original">The original collection.</param>
+        /// <param name="replacement">The replacement collection.</param>
+        public AfterReplaceEventArgs (TCollection original, TCollection replacement)
+        {
+            Original = original;
+            Replacement = replacement;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Gets the replacement collection.
-    /// </summary>
-    /// <value>The replacement collection.</value>
-    public TCollection Replacement
-    {
-      get;
-      private set;
-    }
-
-    #endregion
-
-    #region constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterReplaceEventArgs{TCollection}"/> class.
-    /// </summary>
-    /// <param name="original">The original collection.</param>
-    /// <param name="replacement">The replacement collection.</param>
-    public AfterReplaceEventArgs(TCollection original, TCollection replacement)
-    {
-      Original = original;
-      Replacement = replacement;
-    }
-
-    #endregion
-  }
 }
 

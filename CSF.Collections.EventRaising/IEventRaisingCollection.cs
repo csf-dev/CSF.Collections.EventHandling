@@ -29,12 +29,12 @@ using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Interface for an event-raising collection.
-  /// </summary>
-  public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection, IHasModificationEvents<TItem>
-    where TItem : class
-  {
-  }
+    /// <summary>
+    /// Interface for an event-raising collection.
+    /// </summary>
+    public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection, IHasModificationEvents<TItem>
+      where TItem : class
+    {
+    }
 }
 

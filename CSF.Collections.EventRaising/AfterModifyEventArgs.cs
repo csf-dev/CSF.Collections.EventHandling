@@ -28,56 +28,53 @@ using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
 {
-  /// <summary>
-  /// Implementation of <c>EventArgs</c> for events which are raised after the successful modification of a collection.
-  /// </summary>
-  public class AfterModifyEventArgs<TItem> : EventArgs, IAfterModify<TItem>
-    where TItem : class
-  {
-    #region properties
-
     /// <summary>
-    /// Gets the item added or removed to/from the collection.
+    /// Implementation of <c>EventArgs</c> for events which are raised after the successful modification of a collection.
     /// </summary>
-    /// <value>The item.</value>
-    public TItem Item
+    public class AfterModifyEventArgs<TItem> : EventArgs, IAfterModify<TItem>
+      where TItem : class
     {
-      get;
-      protected set;
+        #region properties
+
+        /// <summary>
+        /// Gets the item added or removed to/from the collection.
+        /// </summary>
+        /// <value>The item.</value>
+        public TItem Item {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Gets the collection which is to be modified.
+        /// </summary>
+        /// <value>The collection.</value>
+        public ICollection<TItem> Collection {
+            get;
+            private set;
+        }
+
+        #endregion
+
+        #region constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterModifyEventArgs{TItem}"/>
+        /// class.
+        /// </summary>
+        /// <param name="collection">The collection which is to be modified.</param>
+        /// <param name="item">The item to be added or removed to/from the collection.</param>
+        public AfterModifyEventArgs (ICollection<TItem> collection, TItem item)
+        {
+            if (collection == null) {
+                throw new ArgumentNullException (nameof (collection));
+            }
+
+            Item = item;
+            Collection = collection;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Gets the collection which is to be modified.
-    /// </summary>
-    /// <value>The collection.</value>
-    public ICollection<TItem> Collection
-    {
-      get;
-      private set;
-    }
-
-    #endregion
-
-    #region constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterModifyEventArgs{TItem}"/>
-    /// class.
-    /// </summary>
-    /// <param name="collection">The collection which is to be modified.</param>
-    /// <param name="item">The item to be added or removed to/from the collection.</param>
-    public AfterModifyEventArgs(ICollection<TItem> collection, TItem item)
-    {
-      if(collection == null)
-      {
-        throw new ArgumentNullException(nameof(collection));
-      }
-
-      Item = item;
-      Collection = collection;
-    }
-
-    #endregion
-  }
 }
 
