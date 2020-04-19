@@ -7,7 +7,7 @@
     <PackageId>CSF.Collections.EventRaising</PackageId>
     <Title>Event-raising collections</Title>
     <Description>Implementations for commonly-used ICollection interfaces which expose events which are raised when the collection is modified or replaced.</Description>
-    <ReleaseVersion>1.0.3</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
     <Version>$(ReleaseVersion)</Version>
     <PackageVersion>$(ReleaseVersion)</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
