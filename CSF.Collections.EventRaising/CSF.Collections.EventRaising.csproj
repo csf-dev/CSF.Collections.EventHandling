@@ -28,8 +28,7 @@
   </PropertyGroup>
     
   <ItemGroup>
-    <None Remove="CSF.Collections.EventRaising.nuspec" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" Condition="'$(TargetFramework)' == 'net45'" />
   </ItemGroup>
-  <Import Project="..\Tools\EnableMultiTargetingWithMono.targets" />
     
 </Project>
