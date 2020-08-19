@@ -34,29 +34,17 @@ namespace CSF.Collections.EventRaising
     public class AfterModifyEventArgs<TItem> : EventArgs, IAfterModify<TItem>
       where TItem : class
     {
-        #region properties
-
         /// <summary>
         /// Gets the item added or removed to/from the collection.
         /// </summary>
         /// <value>The item.</value>
-        public TItem Item {
-            get;
-            protected set;
-        }
+        public TItem Item { get; protected set; }
 
         /// <summary>
         /// Gets the collection which is to be modified.
         /// </summary>
         /// <value>The collection.</value>
-        public ICollection<TItem> Collection {
-            get;
-            private set;
-        }
-
-        #endregion
-
-        #region constructor
+        public ICollection<TItem> Collection { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterModifyEventArgs{TItem}"/>
@@ -66,15 +54,9 @@ namespace CSF.Collections.EventRaising
         /// <param name="item">The item to be added or removed to/from the collection.</param>
         public AfterModifyEventArgs (ICollection<TItem> collection, TItem item)
         {
-            if (collection == null) {
-                throw new ArgumentNullException (nameof (collection));
-            }
-
             Item = item;
-            Collection = collection;
+            Collection = collection ?? throw new ArgumentNullException (nameof (collection));
         }
-
-        #endregion
     }
 }
 

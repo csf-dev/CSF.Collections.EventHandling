@@ -23,8 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using CSF.Collections.EventRaising;
 using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
@@ -41,9 +39,7 @@ namespace CSF.Collections.EventRaising
         /// <returns>The before-action event arguments.</returns>
         /// <param name="item">Item.</param>
         protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs (TItem item)
-        {
-            return new BeforeModifyEventArgs<TItem> (SourceCollection, item);
-        }
+            => new BeforeModifyEventArgs<TItem> (SourceCollection, item);
 
         /// <summary>
         /// Creates a set of appropriately-populated after-action event arguments.
@@ -51,9 +47,7 @@ namespace CSF.Collections.EventRaising
         /// <returns>The after-action event arguments.</returns>
         /// <param name="item">The associated item.</param>
         protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs (TItem item)
-        {
-            return new AfterModifyEventArgs<TItem> (SourceCollection, item);
-        }
+            => new AfterModifyEventArgs<TItem> (SourceCollection, item);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingCollection{TItem}"/> class.

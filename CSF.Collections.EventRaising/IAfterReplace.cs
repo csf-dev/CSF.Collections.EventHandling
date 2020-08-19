@@ -23,14 +23,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
 
 namespace CSF.Collections.EventRaising
 {
     /// <summary>
     /// Interface for an action which occurs after the replacement of a collection.
     /// </summary>
-    public interface IAfterReplace<TCollection>
+    public interface IAfterReplace<out TCollection>
     {
         /// <summary>
         /// Gets the original collection to be replaced.

@@ -25,7 +25,6 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
@@ -35,8 +34,6 @@ namespace CSF.Collections.EventRaising
     public interface IEventRaisingCollectionWrapper<TItem> : IHasModificationEvents<TItem>
       where TItem : class
     {
-        #region properties
-
         /// <summary>
         /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
         /// </summary>
@@ -48,8 +45,6 @@ namespace CSF.Collections.EventRaising
         /// </summary>
         /// <value>The source collection.</value>
         ICollection<TItem> SourceCollection { get; set; }
-
-        #endregion
     }
 
     /// <summary>
@@ -59,8 +54,6 @@ namespace CSF.Collections.EventRaising
       where TCollection : ICollection<TItem>
       where TItem : class
     {
-        #region properties
-
         /// <summary>
         /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
         /// </summary>
@@ -73,10 +66,6 @@ namespace CSF.Collections.EventRaising
         /// <value>The source collection.</value>
         new TCollection SourceCollection { get; set; }
 
-        #endregion
-
-        #region events
-
         /// <summary>
         /// Occurs before the <see cref="SourceCollection"/> is replaced with a new collection instance.
         /// </summary>
@@ -86,8 +75,6 @@ namespace CSF.Collections.EventRaising
         /// Occurs after the <see cref="SourceCollection"/> is replaced with a new collection instance.
         /// </summary>
         event EventHandler<AfterReplaceEventArgs<TCollection>> AfterReplace;
-
-        #endregion
     }
 }
 

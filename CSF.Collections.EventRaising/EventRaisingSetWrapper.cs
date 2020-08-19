@@ -23,7 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
 using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
@@ -35,21 +34,12 @@ namespace CSF.Collections.EventRaising
     public class EventRaisingSetWrapper<TItem> : EventRaisingCollectionWrapperBase<ISet<TItem>, TItem>
       where TItem : class
     {
-        #region methods
-
         /// <summary>
         /// Creates the event handling collection implementation instance.
         /// </summary>
         /// <returns>The event handling collection.</returns>
         /// <param name="newSourceCollection">New source collection.</param>
-        protected override IEventRaisingCollection<TItem> CreateEventHandlingCollection (ISet<TItem> newSourceCollection)
-        {
-            return new EventRaisingSet<TItem> (newSourceCollection);
-        }
-
-        #endregion
-
-        #region constructors
+        protected override IEventRaisingCollection<TItem> CreateEventHandlingCollection (ISet<TItem> newSourceCollection) => new EventRaisingSet<TItem> (newSourceCollection);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingSetWrapper{TItem}"/> class.
@@ -60,9 +50,7 @@ namespace CSF.Collections.EventRaising
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingSetWrapper{TItem}"/> class.
         /// </summary>
-        public EventRaisingSetWrapper () : base () { }
-
-        #endregion
+        public EventRaisingSetWrapper () { }
     }
 }
 

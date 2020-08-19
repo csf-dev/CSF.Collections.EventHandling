@@ -23,7 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
 using System.Collections.Generic;
 
 namespace CSF.Collections.EventRaising
@@ -32,10 +31,8 @@ namespace CSF.Collections.EventRaising
     /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for the generic <c>IList</c>.
     /// </summary>
     public class EventRaisingList<TItem> : EventRaisingCollectionBase<TItem>, IList<TItem>
-      where TItem : class
+        where TItem : class
     {
-        #region IList implementation
-
         /// <summary>
         /// Gets or sets the item at the specified index.
         /// </summary>
@@ -53,11 +50,8 @@ namespace CSF.Collections.EventRaising
                     var item = GetSourceCollection () [index];
                     removeDidNotCancelReplacement = HandleBeforeRemove (item);
 
-                    if (removeDidNotCancelReplacement) {
-                        if (SourceCollection.Remove (item)) {
+                    if (removeDidNotCancelReplacement && SourceCollection.Remove(item))
                             HandleAfterRemove (item);
-                        }
-                    }
                 }
 
                 if (removeDidNotCancelReplacement) {
@@ -74,13 +68,10 @@ namespace CSF.Collections.EventRaising
         /// </param>
         public virtual void RemoveAt (int index)
         {
-            var item = GetSourceCollection () [index];
+            var item = GetSourceCollection() [index];
 
-            if (HandleBeforeRemove (item)) {
-                if (SourceCollection.Remove (item)) {
+            if (HandleBeforeRemove (item) && SourceCollection.Remove(item))
                     HandleAfterRemove (item);
-                }
-            }
         }
 
         /// <summary>
@@ -114,18 +105,11 @@ namespace CSF.Collections.EventRaising
             }
         }
 
-        #endregion
-
-        #region methods
-
         /// <summary>
         /// Gets a strongly-typed representation of the <see cref="P:SourceCollection"/>.
         /// </summary>
         /// <returns>The source collection.</returns>
-        protected IList<TItem> GetSourceCollection ()
-        {
-            return (IList<TItem>)SourceCollection;
-        }
+        protected IList<TItem> GetSourceCollection () => (IList<TItem>)SourceCollection;
 
         /// <summary>
         /// Creates a set of appropriately-populated before-action event arguments.
@@ -133,9 +117,7 @@ namespace CSF.Collections.EventRaising
         /// <returns>The before-action event arguments.</returns>
         /// <param name="item">Item.</param>
         protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs (TItem item)
-        {
-            return new BeforeModifyEventArgs<TItem> (SourceCollection, item);
-        }
+            => new BeforeModifyEventArgs<TItem> (SourceCollection, item);
 
         /// <summary>
         /// Creates a set of appropriately-populated after-action event arguments.
@@ -143,21 +125,13 @@ namespace CSF.Collections.EventRaising
         /// <returns>The after-action event arguments.</returns>
         /// <param name="item">The associated item.</param>
         protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs (TItem item)
-        {
-            return new AfterModifyEventArgs<TItem> (SourceCollection, item);
-        }
-
-        #endregion
-
-        #region constructor
+            => new AfterModifyEventArgs<TItem> (SourceCollection, item);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingList{TItem}"/> class.
         /// </summary>
         /// <param name='source'>The source collection that this instance wraps.</param>
         public EventRaisingList (IList<TItem> source) : base (source) { }
-
-        #endregion
     }
 }
 

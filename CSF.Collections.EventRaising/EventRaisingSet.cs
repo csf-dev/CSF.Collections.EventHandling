@@ -33,26 +33,24 @@ namespace CSF.Collections.EventRaising
     /// Implementation of <see cref="T:EventRaisingCollectionBase{TItem}"/> for the generic <c>ISet</c>.
     /// </summary>
     public class EventRaisingSet<TItem> : EventRaisingCollectionBase<TItem>, ISet<TItem>
-      where TItem : class
+        where TItem : class
     {
-        #region ISet implementation
-
         /// <summary>
         /// Adds an item to the current instance.
         /// </summary>
         /// <returns>
         /// <c>true</c> if the instance was added (IE: it was not already contained); <c>false</c> otherwise.
         /// </returns>
-        /// <param name='o'>
+        /// <param name='item'>
         /// The item to add.
         /// </param>
-        public new bool Add (TItem o)
+        public new bool Add (TItem item)
         {
-            if (HandleBeforeAdd (o)) {
-                var output = GetSourceCollection ().Add (o);
+            if (HandleBeforeAdd (item)) {
+                var output = GetSourceCollection ().Add(item);
 
                 if (output) {
-                    HandleAfterAdd (o);
+                    HandleAfterAdd (item);
                 }
 
                 return output;
@@ -117,11 +115,9 @@ namespace CSF.Collections.EventRaising
         /// <param name='other'>The items to remove.</param>
         public void ExceptWith (IEnumerable<TItem> other)
         {
-            if (other == null) {
-                throw new ArgumentNullException (nameof (other));
-            }
+            if (other == null) throw new ArgumentNullException (nameof (other));
 
-            this.RemoveAll (other.ToArray ());
+            RemoveAll (other.ToArray ());
         }
 
         /// <summary>
@@ -130,67 +126,46 @@ namespace CSF.Collections.EventRaising
         /// <param name='other'>The items to keep.</param>
         public void IntersectWith (IEnumerable<TItem> other)
         {
-            if (other == null) {
-                throw new ArgumentNullException (nameof (other));
-            }
+            if (other == null) throw new ArgumentNullException (nameof (other));
 
-            this.ExceptWith (GetSourceCollection ().Except (other));
+            ExceptWith (GetSourceCollection ().Except (other));
         }
 
         /// <summary>
         /// Determines whether the current set is a proper (strict) subset of a specified collection.
         /// </summary>
         /// <param name='other'>The other collection.</param>
-        public bool IsProperSubsetOf (IEnumerable<TItem> other)
-        {
-            return GetSourceCollection ().IsProperSubsetOf (other);
-        }
+        public bool IsProperSubsetOf (IEnumerable<TItem> other) => GetSourceCollection ().IsProperSubsetOf (other);
 
         /// <summary>
         /// Determines whether the current set is a proper (strict) superset of a specified collection.
         /// </summary>
         /// <param name='other'>The other collection.</param>
-        public bool IsProperSupersetOf (IEnumerable<TItem> other)
-        {
-            return GetSourceCollection ().IsProperSupersetOf (other);
-
-        }
+        public bool IsProperSupersetOf (IEnumerable<TItem> other) => GetSourceCollection ().IsProperSupersetOf (other);
 
         /// <summary>
         /// Determines whether a set is a subset of a specified collection.
         /// </summary>
         /// <param name='other'>The other collection.</param>
-        public bool IsSubsetOf (IEnumerable<TItem> other)
-        {
-            return GetSourceCollection ().IsSubsetOf (other);
-        }
+        public bool IsSubsetOf (IEnumerable<TItem> other) => GetSourceCollection ().IsSubsetOf (other);
 
         /// <summary>
         /// Determines whether the current set is a superset of a specified collection.
         /// </summary>
         /// <param name='other'>The other collection.</param>
-        public bool IsSupersetOf (IEnumerable<TItem> other)
-        {
-            return GetSourceCollection ().IsSupersetOf (other);
-        }
+        public bool IsSupersetOf (IEnumerable<TItem> other) => GetSourceCollection ().IsSupersetOf (other);
 
         /// <summary>
         /// Determines whether the current set overlaps with the specified collection.
         /// </summary>
         /// <param name='other'>The other collection.</param>
-        public bool Overlaps (IEnumerable<TItem> other)
-        {
-            return GetSourceCollection ().Overlaps (other);
-        }
+        public bool Overlaps (IEnumerable<TItem> other) => GetSourceCollection ().Overlaps (other);
 
         /// <summary>
         /// Determines whether the current set and the specified collection contain the same elements.
         /// </summary>
         /// <param name='other'>The other collection.</param>
-        public bool SetEquals (IEnumerable<TItem> other)
-        {
-            return GetSourceCollection ().SetEquals (other);
-        }
+        public bool SetEquals (IEnumerable<TItem> other) => GetSourceCollection ().SetEquals (other);
 
         /// <summary>
         /// Modifies the current set so that it contains only elements that are present either in the current set or in 
@@ -199,17 +174,15 @@ namespace CSF.Collections.EventRaising
         /// <param name='other'>The other collection.</param>
         public void SymmetricExceptWith (IEnumerable<TItem> other)
         {
-            if (other == null) {
-                throw new ArgumentNullException (nameof (other));
-            }
+            if (other == null) throw new ArgumentNullException (nameof (other));
 
             var source = GetSourceCollection ();
 
             var toRemove = source.Intersect (other);
             var toAdd = other.Except (source);
 
-            this.ExceptWith (toRemove);
-            this.AddAll (toAdd);
+            ExceptWith (toRemove);
+            AddAll (toAdd);
         }
 
         /// <summary>
@@ -219,9 +192,7 @@ namespace CSF.Collections.EventRaising
         /// <param name='other'>The other collection.</param>
         public void UnionWith (IEnumerable<TItem> other)
         {
-            if (other == null) {
-                throw new ArgumentNullException (nameof (other));
-            }
+            if (other == null) throw new ArgumentNullException (nameof (other));
 
             var source = GetSourceCollection ();
 
@@ -230,21 +201,14 @@ namespace CSF.Collections.EventRaising
               .Distinct ()
               .Except (source);
 
-            this.AddAll (elementsToAdd);
+            AddAll (elementsToAdd);
         }
-
-        #endregion
-
-        #region methods
 
         /// <summary>
         /// Gets a strongly-typed representation of the <see cref="P:SourceCollection"/>.
         /// </summary>
         /// <returns>The source collection.</returns>
-        protected ISet<TItem> GetSourceCollection ()
-        {
-            return (ISet<TItem>)SourceCollection;
-        }
+        protected ISet<TItem> GetSourceCollection () => (ISet<TItem>)SourceCollection;
 
         /// <summary>
         /// Creates a set of appropriately-populated before-action event arguments.
@@ -252,9 +216,7 @@ namespace CSF.Collections.EventRaising
         /// <returns>The before-action event arguments.</returns>
         /// <param name="item">Item.</param>
         protected override BeforeModifyEventArgs<TItem> CreateBeforeActionEventArgs (TItem item)
-        {
-            return new BeforeModifyEventArgs<TItem> (SourceCollection, item);
-        }
+            => new BeforeModifyEventArgs<TItem> (SourceCollection, item);
 
         /// <summary>
         /// Creates a set of appropriately-populated after-action event arguments.
@@ -262,21 +224,13 @@ namespace CSF.Collections.EventRaising
         /// <returns>The after-action event arguments.</returns>
         /// <param name="item">The associated item.</param>
         protected override AfterModifyEventArgs<TItem> CreateAfterActionEventArgs (TItem item)
-        {
-            return new AfterModifyEventArgs<TItem> (SourceCollection, item);
-        }
-
-        #endregion
-
-        #region constructor
+            => new AfterModifyEventArgs<TItem> (SourceCollection, item);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingSet{TItem}"/> class.
         /// </summary>
         /// <param name='source'>The source collection that this instance wraps.</param>
         public EventRaisingSet (ISet<TItem> source) : base (source) { }
-
-        #endregion
     }
 }
 
