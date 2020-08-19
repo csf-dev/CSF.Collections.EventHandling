@@ -34,6 +34,16 @@ namespace CSF.Collections.EventRaising
     public interface IEventRaisingCollection<TItem> : ICollection<TItem>, ICollection, IHasModificationEvents<TItem>
       where TItem : class
     {
+        /// <summary>
+        /// Gets the count of items in this collection.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Implemented to avoid ambiguity between <see cref="ICollection{T}.Count"/> and <see cref="ICollection.Count"/>.
+        /// </para>
+        /// </remarks>
+        /// <value>The count of items.</value>
+        new int Count { get; }
     }
 }
 

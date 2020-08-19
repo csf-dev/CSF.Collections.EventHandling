@@ -32,8 +32,7 @@ namespace CSF.Collections.EventRaising
     /// Concrete implementation of <see cref="T:IEventHandlingCollectionWrapper{TCollection,TItem}"/>, which can deal
     /// with any collection implementation.
     /// </summary>
-    public abstract class EventRaisingCollectionWrapperBase<TCollection, TItem>
-        : IEventRaisingCollectionWrapper<TCollection, TItem>, IEventRaisingCollectionWrapper<TItem>
+    public abstract class EventRaisingCollectionWrapperBase<TCollection, TItem> : IEventRaisingCollectionWrapper<TCollection, TItem>
         where TCollection : class, ICollection<TItem>
         where TItem : class
     {

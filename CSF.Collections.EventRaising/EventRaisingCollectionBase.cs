@@ -37,7 +37,10 @@ namespace CSF.Collections.EventRaising
     [Serializable]
 #endif
     public abstract class EventRaisingCollectionBase<TItem> : IEventRaisingCollection<TItem>
-      where TItem : class
+#if !NETSTANDARD1_0
+        , System.Runtime.Serialization.IDeserializationCallback
+#endif
+        where TItem : class
     {
         /// <summary>
         /// Gets the wrapped source collection instance.
@@ -229,6 +232,14 @@ namespace CSF.Collections.EventRaising
         /// <returns>The after-action event arguments.</returns>
         /// <param name="item">The associated item.</param>
         protected abstract AfterModifyEventArgs<TItem> CreateAfterActionEventArgs (TItem item);
+
+#if !NETSTANDARD1_0
+        void System.Runtime.Serialization.IDeserializationCallback.OnDeserialization (object sender)
+        {
+            if (SourceCollection == null)
+                throw new System.Runtime.Serialization.SerializationException ($"The serialized object must have a non-null {nameof(SourceCollection)}");
+        }
+#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventHandlingCollectionBase{TItem}"/> class.
