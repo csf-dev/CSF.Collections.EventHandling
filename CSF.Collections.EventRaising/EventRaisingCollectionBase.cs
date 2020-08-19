@@ -39,27 +39,11 @@ namespace CSF.Collections.EventRaising
     public abstract class EventRaisingCollectionBase<TItem> : IEventRaisingCollection<TItem>
       where TItem : class
     {
-        #region fields
-
-        private readonly ICollection<TItem> _sourceCollection;
-
-        #endregion
-
-        #region properties
-
         /// <summary>
         /// Gets the wrapped source collection instance.
         /// </summary>
         /// <value>The source collection.</value>
-        protected ICollection<TItem> SourceCollection {
-            get {
-                return _sourceCollection;
-            }
-        }
-
-        #endregion
-
-        #region ICollection implementation
+        protected ICollection<TItem> SourceCollection { get; }
 
         /// <summary>
         /// Gets the count of elements in this collection.
@@ -67,11 +51,7 @@ namespace CSF.Collections.EventRaising
         /// <value>
         /// The count.
         /// </value>
-        public virtual int Count {
-            get {
-                return SourceCollection.Count;
-            }
-        }
+        public virtual int Count => SourceCollection.Count;
 
         /// <summary>
         /// Gets a value indicating whether this instance is read only.
@@ -79,11 +59,7 @@ namespace CSF.Collections.EventRaising
         /// <value>
         /// <c>true</c> if this instance is read only; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool IsReadOnly {
-            get {
-                return SourceCollection.IsReadOnly;
-            }
-        }
+        public virtual bool IsReadOnly => SourceCollection.IsReadOnly;
 
         /// <summary>
         /// Gets the enumerator for the current instance.
@@ -91,10 +67,7 @@ namespace CSF.Collections.EventRaising
         /// <returns>
         /// The enumerator.
         /// </returns>
-        public virtual IEnumerator<TItem> GetEnumerator ()
-        {
-            return SourceCollection.GetEnumerator ();
-        }
+        public virtual IEnumerator<TItem> GetEnumerator () => SourceCollection.GetEnumerator ();
 
         /// <summary>
         /// Adds an item to the current instance.
@@ -126,10 +99,7 @@ namespace CSF.Collections.EventRaising
         /// <param name='item'>
         /// The item to search for.
         /// </param>
-        public virtual bool Contains (TItem item)
-        {
-            return SourceCollection.Contains (item);
-        }
+        public virtual bool Contains (TItem item) => SourceCollection.Contains (item);
 
         /// <summary>
         /// Copies the contents of the current instance to an array.
@@ -140,10 +110,7 @@ namespace CSF.Collections.EventRaising
         /// <param name='arrayIndex'>
         /// Array index.
         /// </param>
-        public virtual void CopyTo (TItem [] array, int arrayIndex)
-        {
-            SourceCollection.CopyTo (array, arrayIndex);
-        }
+        public virtual void CopyTo (TItem [] array, int arrayIndex) => SourceCollection.CopyTo (array, arrayIndex);
 
         /// <summary>
         /// Removes the first occurrence of an item from the current collection.
@@ -166,14 +133,9 @@ namespace CSF.Collections.EventRaising
             return false;
         }
 
-        #endregion
-
         #region explicit interface implementations
 
-        IEnumerator IEnumerable.GetEnumerator ()
-        {
-            return this.GetEnumerator ();
-        }
+        IEnumerator IEnumerable.GetEnumerator () => this.GetEnumerator ();
 
         void ICollection.CopyTo (Array array, int index)
         {
@@ -182,21 +144,11 @@ namespace CSF.Collections.EventRaising
             Array.Copy (copy, 0, array, index, SourceCollection.Count);
         }
 
-        object ICollection.SyncRoot {
-            get {
-                return ((ICollection)SourceCollection).SyncRoot;
-            }
-        }
+        object ICollection.SyncRoot => ((ICollection)SourceCollection).SyncRoot;
 
-        bool ICollection.IsSynchronized {
-            get {
-                return ((ICollection)SourceCollection).IsSynchronized;
-            }
-        }
+        bool ICollection.IsSynchronized => ((ICollection)SourceCollection).IsSynchronized;
 
         #endregion
-
-        #region events
 
         /// <summary>
         /// Occurs before an item is added to the collection.
@@ -218,10 +170,6 @@ namespace CSF.Collections.EventRaising
         /// </summary>
         public event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
 
-        #endregion
-
-        #region protected methods
-
         /// <summary>
         /// Raises the <see cref="BeforeAdd"/> event.
         /// </summary>
@@ -232,8 +180,7 @@ namespace CSF.Collections.EventRaising
             var args = CreateBeforeActionEventArgs (item);
             BeforeAdd?.Invoke (this, args);
 
-            var cancelable = args as ICancelable;
-            return (cancelable != null) ? !cancelable.IsCancelled : true;
+            return (!(args is ICancelable cancelable)) || !cancelable.IsCancelled;
         }
 
         /// <summary>
@@ -256,8 +203,7 @@ namespace CSF.Collections.EventRaising
             var args = CreateBeforeActionEventArgs (item);
             BeforeRemove?.Invoke (this, args);
 
-            var cancelable = args as ICancelable;
-            return (cancelable != null) ? !cancelable.IsCancelled : true;
+            return (!(args is ICancelable cancelable)) || !cancelable.IsCancelled;
         }
 
         /// <summary>
@@ -284,24 +230,14 @@ namespace CSF.Collections.EventRaising
         /// <param name="item">The associated item.</param>
         protected abstract AfterModifyEventArgs<TItem> CreateAfterActionEventArgs (TItem item);
 
-        #endregion
-
-        #region constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventHandlingCollectionBase{TItem}"/> class.
         /// </summary>
         /// <param name='source'>The source collection that this instance wraps.</param>
-        public EventRaisingCollectionBase (ICollection<TItem> source)
+        protected EventRaisingCollectionBase (ICollection<TItem> source)
         {
-            if (source == null) {
-                throw new ArgumentNullException (nameof (source));
-            }
-
-            _sourceCollection = source;
+            SourceCollection = source ?? throw new ArgumentNullException (nameof (source));
         }
-
-        #endregion
     }
 }
 

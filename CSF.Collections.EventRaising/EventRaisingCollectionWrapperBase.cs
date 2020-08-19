@@ -25,8 +25,6 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using CSF.Collections.EventRaising;
 
 namespace CSF.Collections.EventRaising
 {
@@ -35,27 +33,17 @@ namespace CSF.Collections.EventRaising
     /// with any collection implementation.
     /// </summary>
     public abstract class EventRaisingCollectionWrapperBase<TCollection, TItem>
-      : IEventRaisingCollectionWrapper<TCollection, TItem>, IEventRaisingCollectionWrapper<TItem>
-      where TCollection : class, ICollection<TItem>
-      where TItem : class
+        : IEventRaisingCollectionWrapper<TCollection, TItem>, IEventRaisingCollectionWrapper<TItem>
+        where TCollection : class, ICollection<TItem>
+        where TItem : class
     {
-        #region fields
-
-        private TCollection _wrappedCollection, _unwrappedCollection;
-
-        #endregion
-
-        #region properties
+        private TCollection _unwrappedCollection;
 
         /// <summary>
         /// Gets the collection instance which exposes the events.  Modifications to this collection will raise the events.
         /// </summary>
         /// <value>The event handling collection.</value>
-        public TCollection Collection {
-            get {
-                return _wrappedCollection;
-            }
-        }
+        public TCollection Collection { get; private set; }
 
         /// <summary>
         /// Gets or set the source collection, which is not wrapped with modification events.
@@ -82,15 +70,8 @@ namespace CSF.Collections.EventRaising
         /// Gets the <see cref="Collection"/> as an event-handling collection instance.
         /// </summary>
         /// <value>The event handling collection.</value>
-        protected IEventRaisingCollection<TItem> EventHandlingCollection {
-            get {
-                return (IEventRaisingCollection<TItem>)Collection;
-            }
-        }
-
-        #endregion
-
-        #region events
+        protected IEventRaisingCollection<TItem> EventHandlingCollection
+            => (IEventRaisingCollection<TItem>)Collection;
 
         /// <summary>
         /// Occurs before an item is added to the <see cref="Collection"/>.
@@ -122,69 +103,44 @@ namespace CSF.Collections.EventRaising
         /// </summary>
         public event EventHandler<AfterReplaceEventArgs<TCollection>> AfterReplace;
 
-        #endregion
-
         #region explicit interface implementations
 
-        ICollection<TItem> IEventRaisingCollectionWrapper<TItem>.Collection {
-            get {
-                return Collection;
-            }
-        }
+        ICollection<TItem> IEventRaisingCollectionWrapper<TItem>.Collection => Collection;
 
         ICollection<TItem> IEventRaisingCollectionWrapper<TItem>.SourceCollection {
-            get {
-                return SourceCollection;
-            }
-            set {
-                SourceCollection = (TCollection)value;
-            }
+            get => SourceCollection;
+            set { SourceCollection = (TCollection) value; }
         }
 
-
         #endregion
-
-        #region methods
 
         /// <summary>
         /// Raises the before add event.  This occurs by listening to an event from the wrapper implementation type.
         /// </summary>
         /// <param name="sender">The sender of the original event.</param>
         /// <param name="ev">Event arguments.</param>
-        protected virtual void OnBeforeAdd (object sender, BeforeModifyEventArgs<TItem> ev)
-        {
-            BeforeAdd?.Invoke (this, ev);
-        }
+        protected virtual void OnBeforeAdd (object sender, BeforeModifyEventArgs<TItem> ev) => BeforeAdd?.Invoke (this, ev);
 
         /// <summary>
         /// Raises the after add event.  This occurs by listening to an event from the wrapper implementation type.
         /// </summary>
         /// <param name="sender">The sender of the original event.</param>
         /// <param name="ev">Event arguments.</param>
-        protected virtual void OnAfterAdd (object sender, AfterModifyEventArgs<TItem> ev)
-        {
-            AfterAdd?.Invoke (this, ev);
-        }
+        protected virtual void OnAfterAdd (object sender, AfterModifyEventArgs<TItem> ev) => AfterAdd?.Invoke (this, ev);
 
         /// <summary>
         /// Raises the before remove event.  This occurs by listening to an event from the wrapper implementation type.
         /// </summary>
         /// <param name="sender">The sender of the original event.</param>
         /// <param name="ev">Event arguments.</param>
-        protected virtual void OnBeforeRemove (object sender, BeforeModifyEventArgs<TItem> ev)
-        {
-            BeforeRemove?.Invoke (this, ev);
-        }
+        protected virtual void OnBeforeRemove (object sender, BeforeModifyEventArgs<TItem> ev) => BeforeRemove?.Invoke (this, ev);
 
         /// <summary>
         /// Raises the after remove event.  This occurs by listening to an event from the wrapper implementation type.
         /// </summary>
         /// <param name="sender">The sender of the original event.</param>
         /// <param name="ev">Event arguments.</param>
-        protected virtual void OnAfterRemove (object sender, AfterModifyEventArgs<TItem> ev)
-        {
-            AfterRemove?.Invoke (this, ev);
-        }
+        protected virtual void OnAfterRemove (object sender, AfterModifyEventArgs<TItem> ev) => AfterRemove?.Invoke (this, ev);
 
         /// <summary>
         /// Raises the before replace event.
@@ -219,7 +175,7 @@ namespace CSF.Collections.EventRaising
             SetWrappedCollection (newSourceCollection);
         }
 
-        private void SetWrappedCollection (TCollection sourceCollection)
+        void SetWrappedCollection (TCollection sourceCollection)
         {
             var originalWrappedCollection = EventHandlingCollection;
 
@@ -238,9 +194,9 @@ namespace CSF.Collections.EventRaising
                 replacement.BeforeRemove += OnBeforeRemove;
                 replacement.AfterRemove += OnAfterRemove;
 
-                _wrappedCollection = (TCollection)replacement;
+                Collection = (TCollection)replacement;
             } else {
-                _wrappedCollection = null;
+                Collection = null;
             }
         }
 
@@ -251,26 +207,20 @@ namespace CSF.Collections.EventRaising
         /// <param name="newSourceCollection">New source collection.</param>
         protected abstract IEventRaisingCollection<TItem> CreateEventHandlingCollection (TCollection newSourceCollection);
 
-        #endregion
-
-        #region constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> class.
         /// </summary>
-        public EventRaisingCollectionWrapperBase () : this (null) { }
+        protected EventRaisingCollectionWrapperBase () : this (null) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EventRaisingCollectionWrapperBase{TCollection,TItem}"/> class.
         /// </summary>
         /// <param name="sourceCollection">A source collection with which to initialise this instance.</param>
-        public EventRaisingCollectionWrapperBase (TCollection sourceCollection)
+        protected EventRaisingCollectionWrapperBase (TCollection sourceCollection)
         {
             SetWrappedCollection (sourceCollection);
             _unwrappedCollection = sourceCollection;
         }
-
-        #endregion
     }
 }
 

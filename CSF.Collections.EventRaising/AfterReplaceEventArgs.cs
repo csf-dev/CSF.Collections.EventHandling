@@ -24,7 +24,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
@@ -33,29 +32,17 @@ namespace CSF.Collections.EventRaising
     /// </summary>
     public class AfterReplaceEventArgs<TCollection> : EventArgs
     {
-        #region properties
-
         /// <summary>
         /// Gets the original collection to be replaced.
         /// </summary>
         /// <value>The original collection.</value>
-        public TCollection Original {
-            get;
-            private set;
-        }
+        public TCollection Original { get; }
 
         /// <summary>
         /// Gets the replacement collection.
         /// </summary>
         /// <value>The replacement collection.</value>
-        public TCollection Replacement {
-            get;
-            private set;
-        }
-
-        #endregion
-
-        #region constructor
+        public TCollection Replacement { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterReplaceEventArgs{TCollection}"/> class.
@@ -67,8 +54,6 @@ namespace CSF.Collections.EventRaising
             Original = original;
             Replacement = replacement;
         }
-
-        #endregion
     }
 }
 

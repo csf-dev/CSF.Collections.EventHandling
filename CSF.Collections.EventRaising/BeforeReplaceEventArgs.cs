@@ -23,8 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Collections;
 
 namespace CSF.Collections.EventRaising
 {
@@ -33,33 +31,17 @@ namespace CSF.Collections.EventRaising
     /// </summary>
     public class BeforeReplaceEventArgs<TCollection> : AfterReplaceEventArgs<TCollection>, ICancelable
     {
-        #region properties
-
         /// <summary>
         /// Gets a value indicating whether this instance is cancelled.
         /// </summary>
         /// <value>true</value>
         /// <c>false</c>
-        public bool IsCancelled {
-            get;
-            private set;
-        }
-
-        #endregion
-
-        #region methods
+        public bool IsCancelled { get; private set; }
 
         /// <summary>
         /// Cancels the current action.
         /// </summary>
-        public void Cancel ()
-        {
-            IsCancelled = true;
-        }
-
-        #endregion
-
-        #region constructor
+        public void Cancel() => IsCancelled = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.BeforeReplaceEventArgs{TCollection}"/> class.
@@ -70,8 +52,6 @@ namespace CSF.Collections.EventRaising
         {
             IsCancelled = false;
         }
-
-        #endregion
     }
 }
 
