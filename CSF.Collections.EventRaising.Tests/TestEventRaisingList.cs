@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Test.CSF.Collections.EventRaising.Mocks;
 using CSF.Collections.EventRaising;
+using System.Collections.Specialized;
 
 namespace Test.CSF.Collections.EventRaising
 {
@@ -195,6 +196,36 @@ namespace Test.CSF.Collections.EventRaising
             // Assert
             Assert.IsTrue (CallbackOneCalled, "Callback one");
             Assert.IsTrue (CallbackTwoCalled, "Callback two");
+        }
+
+        [Test]
+        public void Insert_triggers_CollectionChanged()
+        {
+            var sut = new EventRaisingList<Person> (_source);
+            NotifyCollectionChangedEventArgs capturedArgs = default;
+            void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args) => capturedArgs = args;
+            sut.CollectionChanged += OnCollectionChanged;
+
+            sut.Insert(1, new Person());
+
+            sut.CollectionChanged -= OnCollectionChanged;
+
+            Assert.That(capturedArgs, Is.Not.Null);
+        }
+
+        [Test]
+        public void RemoveAt_triggers_CollectionChanged()
+        {
+            var sut = new EventRaisingList<Person> (_source);
+            NotifyCollectionChangedEventArgs capturedArgs = default;
+            void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args) => capturedArgs = args;
+            sut.CollectionChanged += OnCollectionChanged;
+
+            sut.RemoveAt(1);
+
+            sut.CollectionChanged -= OnCollectionChanged;
+
+            Assert.That(capturedArgs, Is.Not.Null);
         }
 
         #endregion

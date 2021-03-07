@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using System.Collections.Specialized;
 
 namespace CSF.Collections.EventRaising
 {
@@ -36,7 +37,7 @@ namespace CSF.Collections.EventRaising
 #if !NETSTANDARD1_0
     [Serializable]
 #endif
-    public abstract class EventRaisingCollectionBase<TItem> : IEventRaisingCollection<TItem>
+    public abstract class EventRaisingCollectionBase<TItem> : IEventRaisingCollection<TItem>, INotifyCollectionChanged
 #if !NETSTANDARD1_0
         , System.Runtime.Serialization.IDeserializationCallback
 #endif
@@ -83,6 +84,7 @@ namespace CSF.Collections.EventRaising
             if (HandleBeforeAdd (item)) {
                 SourceCollection.Add (item);
                 HandleAfterAdd (item);
+                HandleAdditionChange(item);
             }
         }
 
@@ -128,6 +130,7 @@ namespace CSF.Collections.EventRaising
 
                 if (output) {
                     HandleAfterRemove (item);
+                    HandleRemovalChange(item);
                 }
 
                 return output;
@@ -174,6 +177,11 @@ namespace CSF.Collections.EventRaising
         public event EventHandler<AfterModifyEventArgs<TItem>> AfterRemove;
 
         /// <summary>
+        /// Notifies listeners of dynamic changes, such as when an item is added and removed or the whole list is cleared.
+        /// </summary>
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        /// <summary>
         /// Raises the <see cref="BeforeAdd"/> event.
         /// </summary>
         /// <returns><c>true</c>, if it is OK for the add-item to continue, <c>false</c> if it is has been cancelled.</returns>
@@ -217,6 +225,26 @@ namespace CSF.Collections.EventRaising
         {
             var args = CreateAfterActionEventArgs (item);
             AfterRemove?.Invoke (this, args);
+        }
+
+        /// <summary>
+        /// Handles the change event for the addition of an item.
+        /// </summary>
+        /// <param name="item">The item which was added.</param>
+        protected void HandleAdditionChange(TItem item)
+        {
+            var changeArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item);
+            CollectionChanged?.Invoke(this, changeArgs);
+        }
+
+        /// <summary>
+        /// Handles the change event for a removal of an item.
+        /// </summary>
+        /// <param name="item">The item which was removed.</param>
+        protected void HandleRemovalChange(TItem item)
+        {
+            var changeArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item);
+            CollectionChanged?.Invoke(this, changeArgs);
         }
 
         /// <summary>

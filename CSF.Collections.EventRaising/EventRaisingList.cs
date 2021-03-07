@@ -51,7 +51,10 @@ namespace CSF.Collections.EventRaising
                     removeDidNotCancelReplacement = HandleBeforeRemove (item);
 
                     if (removeDidNotCancelReplacement && SourceCollection.Remove(item))
-                            HandleAfterRemove (item);
+                    {
+                        HandleAfterRemove (item);
+                        HandleRemovalChange (item);
+                    }
                 }
 
                 if (removeDidNotCancelReplacement) {
@@ -71,7 +74,10 @@ namespace CSF.Collections.EventRaising
             var item = GetSourceCollection() [index];
 
             if (HandleBeforeRemove (item) && SourceCollection.Remove(item))
-                    HandleAfterRemove (item);
+            {
+                HandleAfterRemove (item);
+                HandleRemovalChange(item);
+            }
         }
 
         /// <summary>
@@ -102,6 +108,7 @@ namespace CSF.Collections.EventRaising
             if (HandleBeforeAdd (item)) {
                 GetSourceCollection ().Insert (index, item);
                 HandleAfterAdd (item);
+                HandleAdditionChange(item);
             }
         }
 

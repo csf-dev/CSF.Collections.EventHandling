@@ -51,6 +51,7 @@ namespace CSF.Collections.EventRaising
 
                 if (output) {
                     HandleAfterAdd (item);
+                    HandleAdditionChange(item);
                 }
 
                 return output;

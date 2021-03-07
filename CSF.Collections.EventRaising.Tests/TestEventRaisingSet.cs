@@ -29,6 +29,7 @@ using Test.CSF.Collections.EventRaising.Mocks;
 using NUnit.Framework;
 using CSF.Collections.EventRaising;
 using System.Linq;
+using System.Collections.Specialized;
 
 namespace Test.CSF.Collections.EventRaising
 {
@@ -107,6 +108,21 @@ namespace Test.CSF.Collections.EventRaising
             // Assert
             Assert.AreEqual (itemCount, beforeAddCalls, "Before add");
             Assert.AreEqual (itemCount, afterAddCalls, "After add");
+        }
+
+        [Test]
+        public void Add_triggers_CollectionChanged()
+        {
+            var sut = new EventRaisingSet<Person> (_source);
+            NotifyCollectionChangedEventArgs capturedArgs = default;
+            void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args) => capturedArgs = args;
+            sut.CollectionChanged += OnCollectionChanged;
+
+            sut.Add(new Person());
+
+            sut.CollectionChanged -= OnCollectionChanged;
+
+            Assert.That(capturedArgs, Is.Not.Null);
         }
 
         #endregion
