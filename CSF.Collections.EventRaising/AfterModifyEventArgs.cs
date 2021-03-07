@@ -47,7 +47,7 @@ namespace CSF.Collections.EventRaising
         public ICollection<TItem> Collection { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:CSF.Collections.EventRaising.AfterModifyEventArgs{TItem}"/>
+        /// Initializes a new instance of the <see cref="AfterModifyEventArgs{TItem}"/>
         /// class.
         /// </summary>
         /// <param name="collection">The collection which is to be modified.</param>

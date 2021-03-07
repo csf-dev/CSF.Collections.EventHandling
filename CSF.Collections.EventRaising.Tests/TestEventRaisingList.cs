@@ -228,6 +228,36 @@ namespace Test.CSF.Collections.EventRaising
             Assert.That(capturedArgs, Is.Not.Null);
         }
 
+        [Test]
+        public void Insert_includes_index_of_new_item()
+        {
+            var sut = new EventRaisingList<Person> (_source);
+            AfterModifyEventArgs<Person> capturedArgs = default;
+            void OnAfterAdd(object sender, AfterModifyEventArgs<Person> args) => capturedArgs = args;
+            sut.AfterAdd += OnAfterAdd;
+
+            sut.Insert(1, new Person());
+
+            sut.AfterAdd -= OnAfterAdd;
+
+            Assert.That(capturedArgs, Is.InstanceOf<AfterModifyListEventArgs<Person>>().And.Property(nameof(IHasListIndex.Index)).EqualTo(1));
+        }
+
+        [Test]
+        public void RemoveAt_includes_index_of_removed_item()
+        {
+            var sut = new EventRaisingList<Person> (_source);
+            AfterModifyEventArgs<Person> capturedArgs = default;
+            void OnAfterRemove(object sender, AfterModifyEventArgs<Person> args) => capturedArgs = args;
+            sut.AfterRemove += OnAfterRemove;
+
+            sut.RemoveAt(1);
+
+            sut.AfterRemove -= OnAfterRemove;
+
+            Assert.That(capturedArgs, Is.InstanceOf<AfterModifyListEventArgs<Person>>().And.Property(nameof(IHasListIndex.Index)).EqualTo(1));
+        }
+
         #endregion
     }
 }

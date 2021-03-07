@@ -189,9 +189,7 @@ namespace CSF.Collections.EventRaising
         protected bool HandleBeforeAdd (TItem item)
         {
             var args = CreateBeforeActionEventArgs (item);
-            BeforeAdd?.Invoke (this, args);
-
-            return (!(args is ICancelable cancelable)) || !cancelable.IsCancelled;
+            return HandleBeforeAdd(args);
         }
 
         /// <summary>
@@ -201,7 +199,7 @@ namespace CSF.Collections.EventRaising
         protected void HandleAfterAdd (TItem item)
         {
             var args = CreateAfterActionEventArgs (item);
-            AfterAdd?.Invoke (this, args);
+            HandleAfterAdd(args);
         }
 
         /// <summary>
@@ -212,9 +210,7 @@ namespace CSF.Collections.EventRaising
         protected bool HandleBeforeRemove (TItem item)
         {
             var args = CreateBeforeActionEventArgs (item);
-            BeforeRemove?.Invoke (this, args);
-
-            return (!(args is ICancelable cancelable)) || !cancelable.IsCancelled;
+            return HandleBeforeRemove(args);
         }
 
         /// <summary>
@@ -224,6 +220,48 @@ namespace CSF.Collections.EventRaising
         protected void HandleAfterRemove (TItem item)
         {
             var args = CreateAfterActionEventArgs (item);
+            HandleAfterRemove(args);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="BeforeAdd"/> event.
+        /// </summary>
+        /// <returns><c>true</c>, if it is OK for the add-item to continue, <c>false</c> if it is has been cancelled.</returns>
+        /// <param name="args">Event arguments.</param>
+        protected bool HandleBeforeAdd (BeforeModifyEventArgs<TItem> args)
+        {
+            BeforeAdd?.Invoke (this, args);
+
+            return (!(args is ICancelable cancelable)) || !cancelable.IsCancelled;
+        }
+
+        /// <summary>
+        /// Raises the <see cref="AfterAdd"/> event.
+        /// </summary>
+        /// <param name="args">Event arguments.</param>
+        protected void HandleAfterAdd (AfterModifyEventArgs<TItem> args)
+        {
+            AfterAdd?.Invoke (this, args);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="BeforeRemove"/> event.
+        /// </summary>
+        /// <returns><c>true</c>, if it is OK for the remove-item to continue, <c>false</c> if it is has been cancelled.</returns>
+        /// <param name="args">Event arguments.</param>
+        protected bool HandleBeforeRemove (BeforeModifyEventArgs<TItem> args)
+        {
+            BeforeRemove?.Invoke (this, args);
+
+            return (!(args is ICancelable cancelable)) || !cancelable.IsCancelled;
+        }
+
+        /// <summary>
+        /// Raises the <see cref="AfterRemove"/> event.
+        /// </summary>
+        /// <param name="args">Event arguments.</param>
+        protected void HandleAfterRemove (AfterModifyEventArgs<TItem> args)
+        {
             AfterRemove?.Invoke (this, args);
         }
 
